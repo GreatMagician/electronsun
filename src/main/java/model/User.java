@@ -37,9 +37,18 @@ public class User extends NamedEntity {
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Role> roles;
 
+    private String firstName;
+    private String LastName;
+    private String address;
+
     public User() {
     }
 
+    /**
+     *
+     * @param id
+     * @param name - Ник пользователя уникальный
+     */
     public User(Integer id, String name) {
         super(id, name);
     }
@@ -82,5 +91,29 @@ public class User extends NamedEntity {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

@@ -5,10 +5,18 @@ package model;
  * Светодиод
  */
 public class Led extends BaseEntity {
-    private byte R;
-    private byte G;
-    private byte B;
-    private boolean enabled;
+
+    private byte r;
+
+    private byte g;
+
+    private byte b;
+
+    private boolean enabled; // включён или выключен
+
+    private int number; // номер светодиода в приборе
+
+    private Effect effect;
 
     public Led() {
     }
@@ -19,39 +27,49 @@ public class Led extends BaseEntity {
 
     public Led(Integer id, byte r, byte g, byte b) {
         super(id);
-        R = r;
-        G = g;
-        B = b;
+        this.r = r;
+        this.g = g;
+        this.b = b;
     }
 
     public void setRGB(byte r, byte g, byte b){
-        R = r;
-        G = g;
-        B = b;
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
+
+    public Led(Integer id, byte r, byte g, byte b, boolean enabled, int number, Effect effect) {
+        super(id);
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.enabled = enabled;
+        this.number = number;
+        this.effect = effect;
     }
 
     public byte getR() {
-        return R;
+        return r;
     }
 
     public void setR(byte r) {
-        R = r;
+        this.r = r;
     }
 
     public byte getG() {
-        return G;
+        return g;
     }
 
     public void setG(byte g) {
-        G = g;
+        this.g = g;
     }
 
     public byte getB() {
-        return B;
+        return b;
     }
 
     public void setB(byte b) {
-        B = b;
+        this.b = b;
     }
 
     public boolean isEnabled() {
@@ -60,5 +78,21 @@ public class Led extends BaseEntity {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public Effect getEffect() {
+        return effect;
+    }
+
+    public void setEffect(Effect effect) {
+        this.effect = effect;
     }
 }
