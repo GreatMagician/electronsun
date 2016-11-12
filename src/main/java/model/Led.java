@@ -1,21 +1,32 @@
 package model;
 
+import javax.persistence.*;
+
 /**
  * Created by Александр on 05.11.2016.
  * Светодиод
  */
+@Entity
+@Table(name = "led")
 public class Led extends BaseEntity {
 
+    @Column(name="r")
     private byte r;
 
+    @Column(name="g")
     private byte g;
 
+    @Column(name="b")
     private byte b;
 
+    @Column(name="enabled")
     private boolean enabled; // включён или выключен
 
+    @Column(name="number")
     private int number; // номер светодиода в приборе
 
+    @ManyToOne()
+    @JoinColumn(name = "effect_id", nullable = false)
     private Effect effect;
 
     public Led() {

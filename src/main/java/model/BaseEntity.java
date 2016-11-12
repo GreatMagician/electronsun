@@ -2,11 +2,20 @@ package model;
 
 import org.springframework.data.domain.Persistable;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 /**
  * Created by Александр on 05.11.2016.
  */
+@MappedSuperclass
+@Access(AccessType.FIELD)
 public class BaseEntity implements Persistable<Integer> {
 
+    @Id
+    @Access(value = AccessType.PROPERTY)
     protected Integer id;
 
     public BaseEntity() {

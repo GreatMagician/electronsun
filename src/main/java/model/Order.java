@@ -1,26 +1,37 @@
 package model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by Александр on 07.11.2016.
  * Заказы
  */
+@Entity
+@Table(name = "order")
 public class Order extends BaseEntity {
-
+    @Column(name = "registered", columnDefinition = "timestamp default now()")
     private Date registered = new Date();
 
+    @Column(name = "price", nullable = false)
     private int price;
 
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToMany()
+    @JoinColumn(name="device_id")
     private Device device;
 
     /**
      * оплачено
      */
+    @Column(name = "paid")
     private boolean paid;
 
+    @Enumerated
+    @Column(name = "status")
     private Status status;
 
     public Order() {

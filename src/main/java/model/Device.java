@@ -1,21 +1,30 @@
 package model;
 
+import javax.persistence.*;
 import java.util.UUID;
 
 /**
  * Created by Александр on 08.11.2016.
  * прибор
  */
+@Entity
+@Table(name = "device")
 public class Device  extends BaseEntity {
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "description")
     private Description description;
 
+    @Column(name = "maxLed")
     private int maxLed; // кол-во светодиодов в приборе
 
+    @Column(name = "enabled")
     private boolean enabled; // подключен ли прибор
 
-    private String serialID; // серийный номер прибора (уникальный)
+    @Column(name = "serialId")
+    private String serialId; // серийный номер прибора (уникальный)
 
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public Device() {
@@ -53,13 +62,13 @@ public class Device  extends BaseEntity {
         this.enabled = enabled;
     }
 
-    public String getSerialID() {
-        return serialID;
+    public String getSerialId() {
+        return serialId;
     }
 
     public void createSerialID(){
-        if (serialID == null)
-            serialID = generateSerialID();
+        if (serialId == null)
+            serialId = generateSerialID();
     }
     private String generateSerialID(){
         UUID uuid = UUID.randomUUID();

@@ -1,29 +1,42 @@
 package model;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by Александр on 07.11.2016.
  */
+@Entity
+@Table(name = "device")
 public class Effect extends NamedEntity {
-
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "led")
+    @OrderBy()
     private List<Led> beginLedList; // начальный цвет
+
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "led")
+    @OrderBy()
     private List<Led> endLedList; // конечный цвет
+
     /**
      *  Общее время эффекта в милисикундах
      */
+    @Column(name = "commonTime", nullable = false)
     private int commonTime;
 
     /**
      * Затухание
      */
+    @Column(name = "commonTime")
     private boolean attenuation;
 
     /**
      * Появление
      */
+    @Column(name = "appearance")
     private boolean appearance;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public Effect() {

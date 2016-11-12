@@ -1,6 +1,7 @@
 package model;
 
 
+import javax.persistence.*;
 import java.applet.AudioClip;
 import java.util.Map;
 
@@ -8,22 +9,35 @@ import java.util.Map;
  * Created by Александр on 06.11.2016.
  * Световое шоу
  */
+@Entity
+@Table(name = "lightShow")
 public class LightShow  extends  NamedEntity {
 
     /**
      * key - объект эффект
      * value - позиция начала эффекта в милисекундах
      */
+    @OneToMany(mappedBy="lightShow")
+    @MapKeyJoinColumn(name = "effect_id", referencedColumnName = "id")
     private Map<Effect, Integer> effects;
 
+    @ManyToOne()
+    @JoinColumn(name="device_id")
     private Device device;
 
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false)
     private User remixUser;
 
+    @Column(name = "time", nullable = false)
     private int time; // в милисекундах продолжительность шоу
 
+    @ManyToOne()
+    @JoinColumn(name = "audio_id", nullable = false)
     private Audio audio;
 
     public LightShow() {
