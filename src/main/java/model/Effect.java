@@ -7,13 +7,13 @@ import java.util.List;
  * Created by Александр on 07.11.2016.
  */
 @Entity
-@Table(name = "device")
+@Table(name = "effect")
 public class Effect extends NamedEntity {
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "led")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @OrderBy()
     private List<Led> beginLedList; // начальный цвет
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "led")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @OrderBy()
     private List<Led> endLedList; // конечный цвет
 
@@ -26,7 +26,7 @@ public class Effect extends NamedEntity {
     /**
      * Затухание
      */
-    @Column(name = "commonTime")
+    @Column(name = "attenuation")
     private boolean attenuation;
 
     /**
@@ -36,7 +36,7 @@ public class Effect extends NamedEntity {
     private boolean appearance;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "users_id", nullable = false)
     private User user;
 
     public Effect() {
@@ -105,5 +105,35 @@ public class Effect extends NamedEntity {
     }
     public void removeEndLed(Led led){
         endLedList.remove(led);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Effect effect = (Effect) o;
+
+        if (commonTime != effect.commonTime) return false;
+        if (attenuation != effect.attenuation) return false;
+        if (appearance != effect.appearance) return false;
+        if (beginLedList != null ? !beginLedList.equals(effect.beginLedList) : effect.beginLedList != null)
+            return false;
+        if (endLedList != null ? !endLedList.equals(effect.endLedList) : effect.endLedList != null) return false;
+        return user != null ? user.equals(effect.user) : effect.user == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (beginLedList != null ? beginLedList.hashCode() : 0);
+        result = 31 * result + (endLedList != null ? endLedList.hashCode() : 0);
+        result = 31 * result + commonTime;
+        result = 31 * result + (attenuation ? 1 : 0);
+        result = 31 * result + (appearance ? 1 : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
     }
 }

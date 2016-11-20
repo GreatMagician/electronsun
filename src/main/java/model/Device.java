@@ -23,8 +23,8 @@ public class Device  extends BaseEntity {
     @Column(name = "serialId")
     private String serialId; // серийный номер прибора (уникальный)
 
-    @ManyToOne()
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id", nullable = false)
     private User user;
 
     public Device() {

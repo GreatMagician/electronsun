@@ -6,12 +6,17 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by Александр on 05.11.2016.
  */
+@Entity
+@Table(name = "users")
 public class User extends NamedEntity {
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -34,11 +39,15 @@ public class User extends NamedEntity {
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     @BatchSize(size = 200)
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<Role>();
 
+    @Column(name = "firstName")
     private String firstName;
+
+    @Column(name = "LastName")
     private String LastName;
+
+    @Column(name = "address")
     private String address;
 
     public User() {
@@ -51,6 +60,17 @@ public class User extends NamedEntity {
      */
     public User(Integer id, String name) {
         super(id, name);
+    }
+
+    public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles, String firstName, String lastName, String address) {
+        super(id, name);
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.roles = roles;
+        this.firstName = firstName;
+        LastName = lastName;
+        this.address = address;
     }
 
     public String getEmail() {

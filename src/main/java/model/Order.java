@@ -16,11 +16,9 @@ public class Order extends BaseEntity {
     @Column(name = "price", nullable = false)
     private int price;
 
-    @ManyToOne()
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "users_id", nullable = false)
     private User user;
 
-    @ManyToMany()
     @JoinColumn(name="device_id")
     private Device device;
 

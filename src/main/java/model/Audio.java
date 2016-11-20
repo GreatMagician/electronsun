@@ -14,21 +14,21 @@ import java.nio.file.Path;
 @Table(name = "audio")
 public class Audio extends NamedEntity implements AudioClip{
     @Column(name = "path", nullable = false)
-    private Path path;
+    private String path;
 
     public Audio() {
     }
 
-    public Audio(Integer id, String name, Path path) {
+    public Audio(Integer id, String name, String path) {
         super(id, name);
         this.path = path;
     }
 
-    public Path getPath() {
+    public String getPath() {
         return path;
     }
 
-    public void setPath(Path path) {
+    public void setPath(String path) {
         this.path = path;
     }
 

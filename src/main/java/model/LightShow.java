@@ -17,8 +17,10 @@ public class LightShow  extends  NamedEntity {
      * key - объект эффект
      * value - позиция начала эффекта в милисекундах
      */
-    @OneToMany(mappedBy="lightShow")
-    @MapKeyJoinColumn(name = "effect_id", referencedColumnName = "id")
+    @ElementCollection
+    @CollectionTable(name="effectTimeStart")
+    @Column(name="time")
+    @MapKeyJoinColumn(name="effects", referencedColumnName="ID")
     private Map<Effect, Integer> effects;
 
     @ManyToOne()
@@ -26,11 +28,11 @@ public class LightShow  extends  NamedEntity {
     private Device device;
 
     @ManyToOne()
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "users_id", nullable = false)
     private User user;
 
     @ManyToOne()
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "users_id", nullable = false, insertable = false, updatable = false)
     private User remixUser;
 
     @Column(name = "time", nullable = false)
