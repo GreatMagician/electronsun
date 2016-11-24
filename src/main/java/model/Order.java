@@ -2,44 +2,46 @@ package model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by Александр on 07.11.2016.
  * Заказы
  */
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order extends BaseEntity {
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     private Date registered = new Date();
 
-    @Column(name = "price", nullable = false)
-    private int price;
+    @ElementCollection
+    @CollectionTable(name = "order_products",joinColumns = @JoinColumn(name = "order_id"))
+    @MapKeyColumn(name = "product_id")
+    @Column(name = "number", nullable = false)
+    private Map<Product, Integer> products; // number - кол-во приборов в заказе
 
-    @JoinColumn(name = "users_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    @JoinColumn(name="device_id")
-    private Device device;
 
     /**
      * оплачено
      */
     @Column(name = "paid")
-    private boolean paid;
+    private boolean paid = false;
 
-    @Enumerated
-    @Column(name = "status")
-    private Status status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "statusOrder")
+    private StatusOrder statusOrder;
 
     public Order() {
     }
 
-    public Order(Integer id, int price, User user, Device device) {
+    public Order(Integer id, Map<Product, Integer> products, User user, StatusOrder statusOrder) {
         super(id);
-        this.price = price;
+        this.products = products;
         this.user = user;
-        this.device = device;
+        this.statusOrder = statusOrder;
     }
 
     public Date getRegistered() {
@@ -50,13 +52,6 @@ public class Order extends BaseEntity {
         this.registered = registered;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public User getUser() {
         return user;
@@ -64,14 +59,6 @@ public class Order extends BaseEntity {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Device getDevice() {
-        return device;
-    }
-
-    public void setDevice(Device device) {
-        this.device = device;
     }
 
     public boolean isPaid() {
@@ -82,26 +69,19 @@ public class Order extends BaseEntity {
         this.paid = paid;
     }
 
-    public Status getStatus() {
-        return status;
+    public StatusOrder getStatusOrder() {
+        return statusOrder;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatusOrder(StatusOrder statusOrder) {
+        this.statusOrder = statusOrder;
     }
 
-    private enum Status {
-        /**
-         * Ожидает обработки
-         */
-        PENDING,
-        /**
-         * обработка
-         */
-        TREATMENT,
-        /**
-         * отправлено
-         */
-        SENT;
+    public Map<Product, Integer> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Map<Product, Integer> products) {
+        this.products = products;
     }
 }

@@ -24,22 +24,23 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean delete(int id) {
-        return proxy.delete(id) != 0;
-    }
-
-    @Override
     public User get(int id) {
         return proxy.findOne(id);
     }
 
     @Override
+    public User getNickName(String name) {
+        return proxy.findByName(name);
+    }
+
+    @Override
     public User getByEmail(String email) {
-        return proxy.getByEmail(email);
+        return proxy.findByEmail(email);
     }
 
     @Override
     public List<User> getAll() {
         return proxy.findAll(SORT_NAME_EMAIL);
     }
+
 }

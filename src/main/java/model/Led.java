@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Светодиод
  */
 @Entity
-@Table(name = "led")
+@Table(name = "leds")
 public class Led extends BaseEntity {
 
     @Column(name="r")
@@ -20,41 +20,24 @@ public class Led extends BaseEntity {
     private byte b;
 
     @Column(name="enabled")
-    private boolean enabled; // включён или выключен
+    private boolean enabled = false; // включён или выключен
 
     @Column(name="number")
     private int number; // номер светодиода в приборе
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "effect_id", nullable = false)
     private Effect effect;
 
     public Led() {
     }
 
-    public Led(Integer id) {
-        super(id);
-    }
 
-    public Led(Integer id, byte r, byte g, byte b) {
+    public Led(Integer id, byte r, byte g, byte b, int number, Effect effect) {
         super(id);
         this.r = r;
         this.g = g;
         this.b = b;
-    }
-
-    public void setRGB(byte r, byte g, byte b){
-        this.r = r;
-        this.g = g;
-        this.b = b;
-    }
-
-    public Led(Integer id, byte r, byte g, byte b, boolean enabled, int number, Effect effect) {
-        super(id);
-        this.r = r;
-        this.g = g;
-        this.b = b;
-        this.enabled = enabled;
         this.number = number;
         this.effect = effect;
     }

@@ -11,9 +11,9 @@ import java.util.List;
 public interface UserService {
     User save(User user);
 
-    void delete(int id) throws NotFoundException;
-
     User get(int id) throws NotFoundException;
+
+    User getNickName(String name) throws NotFoundException;
 
     User getByEmail(String email) throws NotFoundException;
 
@@ -22,4 +22,6 @@ public interface UserService {
     void update(User user);
 
     void enable(int id, boolean enable);
+
+
 }

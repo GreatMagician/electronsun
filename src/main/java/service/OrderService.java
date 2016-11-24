@@ -1,16 +1,16 @@
-package repository;
+package service;
 
 import model.Order;
 import model.StatusOrder;
 import model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * Created by Александр on 13.11.2016.
+ * Created by Александр on 22.11.2016.
  */
-public interface OrderRepository {
-
+public interface OrderService {
     Order save(Order order);
 
     Order get(int id);

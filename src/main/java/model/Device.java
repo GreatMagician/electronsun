@@ -8,46 +8,37 @@ import java.util.UUID;
  * прибор
  */
 @Entity
-@Table(name = "device")
+@Table(name = "devices")
 public class Device  extends BaseEntity {
-    @Enumerated(EnumType.STRING)
-    @Column(name = "description")
-    private Description description;
 
-    @Column(name = "maxLed")
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    @Column(name = "maxLed", nullable = false)
     private int maxLed; // кол-во светодиодов в приборе
 
     @Column(name = "enabled")
-    private boolean enabled; // подключен ли прибор
+    private boolean enabled = false; // подключен ли прибор к программе
 
-    @Column(name = "serialId")
-    private String serialId; // серийный номер прибора (уникальный)
+    @Column(name = "uuid")
+    private UUID uuid; // серийный номер прибора (уникальный)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public Device() {
     }
 
-    public Device(Integer id, Description description) {
+    public Device(Integer id, Product product) {
         super(id);
-        this.description = description;
-        maxLed = createMaxLed(description);
+        this.product = product;
+        maxLed = product.getMaxLed();
     }
 
-    private int createMaxLed(Description description)
-    {
-        int numberLed = 0;
-        switch (description){
-            case ELECTRON_SUN_8_8: numberLed = 64; break;
-            case ELECTRON_SUN_32_32: numberLed = 1024; break;
-        }
-        return numberLed;
-    }
 
-    public Description getDescription() {
-        return description;
+    public Product getProduct() {
+        return product;
     }
 
     public int getMaxLed() {
@@ -62,17 +53,17 @@ public class Device  extends BaseEntity {
         this.enabled = enabled;
     }
 
-    public String getSerialId() {
-        return serialId;
+    public UUID getUuid() {
+        return uuid;
     }
 
     public void createSerialID(){
-        if (serialId == null)
-            serialId = generateSerialID();
+        if (uuid == null)
+            uuid = UUID.randomUUID();
     }
-    private String generateSerialID(){
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString();
+
+    public void setMaxLed(int maxLed) {
+        this.maxLed = maxLed;
     }
 
     public User getUser() {

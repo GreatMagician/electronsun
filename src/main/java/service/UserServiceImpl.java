@@ -4,6 +4,7 @@ import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import repository.OrderRepository;
 import repository.UserRepository;
 import util.exception.NotFoundException;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
+
     @Autowired
     private UserRepository repository;
 
@@ -24,14 +26,15 @@ public class UserServiceImpl implements UserService {
         return repository.save(user);
     }
 
-    @Override
-    public void delete(int id) throws NotFoundException {
-        repository.delete(id);
-    }
 
     @Override
     public User get(int id) throws NotFoundException {
         return repository.get(id);
+    }
+
+    @Override
+    public User getNickName(String name) throws NotFoundException {
+        return repository.getNickName(name);
     }
 
     @Override

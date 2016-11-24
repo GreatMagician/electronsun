@@ -11,7 +11,7 @@ import java.nio.file.Path;
  * Класс работы с музыкой
  */
 @Entity
-@Table(name = "audio")
+@Table(name = "audios")
 public class Audio extends NamedEntity implements AudioClip{
     @Column(name = "path", nullable = false)
     private String path;

@@ -7,18 +7,20 @@ import java.util.List;
  * Created by Александр on 07.11.2016.
  */
 @Entity
-@Table(name = "effect")
+@Table(name = "effects")
 public class Effect extends NamedEntity {
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @OrderBy()
+    @ElementCollection
+    @CollectionTable(name = "effect_beginLedList", joinColumns = @JoinColumn(name = "effect_id"))
+    @Column(name = "led_id")
     private List<Led> beginLedList; // начальный цвет
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @OrderBy()
+    @ElementCollection
+    @CollectionTable(name = "effect_endLedList", joinColumns = @JoinColumn(name = "effect_id"))
+    @Column(name = "led_id")
     private List<Led> endLedList; // конечный цвет
 
     /**
-     *  Общее время эффекта в милисикундах
+     * Общее время эффекта в милисикундах
      */
     @Column(name = "commonTime", nullable = false)
     private int commonTime;
@@ -27,23 +29,25 @@ public class Effect extends NamedEntity {
      * Затухание
      */
     @Column(name = "attenuation")
-    private boolean attenuation;
+    private boolean attenuation = false;
 
     /**
      * Появление
      */
     @Column(name = "appearance")
-    private boolean appearance;
+    private boolean appearance = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id", nullable = false)
-    private User user;
+    @ManyToOne
+    @JoinColumn(name = "lightShow_id", nullable = false)
+    private LightShow lightShow;
 
     public Effect() {
     }
 
-    public Effect(Integer id, String name) {
+    public Effect(Integer id, String name, int commonTime, LightShow lightShow) {
         super(id, name);
+        this.commonTime = commonTime;
+        this.lightShow = lightShow;
     }
 
     public List<Led> getBeginLedList() {
@@ -86,54 +90,28 @@ public class Effect extends NamedEntity {
         this.appearance = appearance;
     }
 
-    public User getUser() {
-        return user;
+    public LightShow getLightShow() {
+        return lightShow;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setLightShow(LightShow lightShow) {
+        this.lightShow = lightShow;
     }
 
-    public void addBeginLed(Led led){
+    public void addBeginLed(Led led) {
         beginLedList.add(led);
     }
-    public void removeBeginLed(Led led){
+
+    public void removeBeginLed(Led led) {
         beginLedList.remove(led);
     }
-    public void addEndLed(Led led){
+
+    public void addEndLed(Led led) {
         endLedList.add(led);
     }
-    public void removeEndLed(Led led){
+
+    public void removeEndLed(Led led) {
         endLedList.remove(led);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        Effect effect = (Effect) o;
-
-        if (commonTime != effect.commonTime) return false;
-        if (attenuation != effect.attenuation) return false;
-        if (appearance != effect.appearance) return false;
-        if (beginLedList != null ? !beginLedList.equals(effect.beginLedList) : effect.beginLedList != null)
-            return false;
-        if (endLedList != null ? !endLedList.equals(effect.endLedList) : effect.endLedList != null) return false;
-        return user != null ? user.equals(effect.user) : effect.user == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (beginLedList != null ? beginLedList.hashCode() : 0);
-        result = 31 * result + (endLedList != null ? endLedList.hashCode() : 0);
-        result = 31 * result + commonTime;
-        result = 31 * result + (attenuation ? 1 : 0);
-        result = 31 * result + (appearance ? 1 : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        return result;
-    }
 }

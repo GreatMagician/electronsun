@@ -10,7 +10,7 @@ import java.util.Map;
  * Световое шоу
  */
 @Entity
-@Table(name = "lightShow")
+@Table(name = "lightShows")
 public class LightShow  extends  NamedEntity {
 
     /**
@@ -18,27 +18,25 @@ public class LightShow  extends  NamedEntity {
      * value - позиция начала эффекта в милисекундах
      */
     @ElementCollection
-    @CollectionTable(name="effectTimeStart")
+    @CollectionTable(name="effect_time_start",joinColumns = @JoinColumn(name = "lightShow_id"))
+    @MapKeyColumn(name="effect_id")
     @Column(name="time")
-    @MapKeyJoinColumn(name="effects", referencedColumnName="ID")
     private Map<Effect, Integer> effects;
 
-    @ManyToOne()
     @JoinColumn(name="device_id")
     private Device device;
 
-    @ManyToOne()
-    @JoinColumn(name = "users_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne()
-    @JoinColumn(name = "users_id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "remix_user_id", nullable = false)
     private User remixUser;
 
     @Column(name = "time", nullable = false)
     private int time; // в милисекундах продолжительность шоу
 
-    @ManyToOne()
     @JoinColumn(name = "audio_id", nullable = false)
     private Audio audio;
 

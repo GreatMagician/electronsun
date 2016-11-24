@@ -4,8 +4,10 @@ import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
@@ -16,7 +18,7 @@ import java.util.Set;
  * Created by Александр on 05.11.2016.
  */
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints={@UniqueConstraint(columnNames={"name"})})
 public class User extends NamedEntity {
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -35,10 +37,9 @@ public class User extends NamedEntity {
     private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
+    @ElementCollection()
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
-    @ElementCollection(fetch = FetchType.EAGER)
-    @BatchSize(size = 200)
     private Set<Role> roles = new HashSet<Role>();
 
     @Column(name = "firstName")
@@ -49,6 +50,9 @@ public class User extends NamedEntity {
 
     @Column(name = "address")
     private String address;
+
+    @Column(name = "deleted")
+    private boolean deleted = false; // при удалении юзера = true
 
     public User() {
     }
@@ -136,4 +140,29 @@ public class User extends NamedEntity {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", registered=" + registered +
+                ", roles=" + roles +
+                ", firstName='" + firstName + '\'' +
+                ", LastName='" + LastName + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
 }
