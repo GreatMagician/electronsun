@@ -37,7 +37,7 @@ public class User extends NamedEntity {
     private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection()
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     private Set<Role> roles = new HashSet<Role>();
@@ -62,11 +62,11 @@ public class User extends NamedEntity {
      * @param id
      * @param name - Ник пользователя уникальный
      */
-    public User(Integer id, String name) {
+    public User(Long id, String name) {
         super(id, name);
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles, String firstName, String lastName, String address) {
+    public User(Long id, String name, String email, String password, boolean enabled, Set<Role> roles, String firstName, String lastName, String address) {
         super(id, name);
         this.email = email;
         this.password = password;

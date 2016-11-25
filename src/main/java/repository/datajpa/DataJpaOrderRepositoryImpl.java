@@ -26,12 +26,12 @@ public class DataJpaOrderRepositoryImpl implements OrderRepository{
     }
 
     @Override
-    public Order get(int id) {
+    public Order get(Long id) {
         return proxy.findOne(id);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         proxy.delete(id);
     }
 

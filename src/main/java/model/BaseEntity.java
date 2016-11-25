@@ -12,27 +12,27 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public class BaseEntity implements Persistable<Integer> {
+public class BaseEntity implements Persistable<Long> {
 
     @Id
     @Access(value = AccessType.PROPERTY)
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    protected Integer id;
+    protected Long id;
 
     public BaseEntity() {
     }
 
-    protected BaseEntity(Integer id) {
+    protected BaseEntity(Long id) {
         this.id = id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Override
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

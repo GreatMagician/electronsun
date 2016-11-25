@@ -14,12 +14,12 @@ import java.util.List;
  * Created by Александр on 14.11.2016.
  */
 @Transactional
-public interface ProxyUserRepository extends JpaRepository<User, Integer> {
+public interface ProxyUserRepository extends JpaRepository<User, Long> {
     @Override
     User save(User user);
 
     @Override
-    User findOne(Integer id);
+    User findOne(Long id);
 
     @Override
     List<User> findAll(Sort sort);

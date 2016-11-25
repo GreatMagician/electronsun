@@ -41,13 +41,13 @@ public class Product  extends NamedEntity {
     public Product() {
     }
 
-    public Product(Integer id, String name, String description, double price) {
+    public Product(Long id, String name, String description, double price) {
         super(id, name);
         this.description = description;
         this.price = price;
     }
 
-    public Product(Integer id, String name, String description, double price, int maxLed) {
+    public Product(Long id, String name, String description, double price, int maxLed) {
         super(id, name);
         this.description = description;
         this.price = price;

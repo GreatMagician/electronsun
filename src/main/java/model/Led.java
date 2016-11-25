@@ -33,7 +33,7 @@ public class Led extends BaseEntity {
     }
 
 
-    public Led(Integer id, byte r, byte g, byte b, int number, Effect effect) {
+    public Led(Long id, byte r, byte g, byte b, int number, Effect effect) {
         super(id);
         this.r = r;
         this.g = g;

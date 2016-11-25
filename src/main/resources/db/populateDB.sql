@@ -22,10 +22,14 @@ VALUES ('User', 'user@yandex.ru', 'pass', 'Имя', 'Фамилия', 'адре�
 INSERT INTO users (name, email, password, firstName, LastName, address)
 VALUES ('Admin', 'admin@yandex.ru', 'pass', 'Имя', 'Фамилия', 'адрес');
 
+INSERT INTO users (name, email, password, firstName, LastName, address)
+VALUES ('Delete', 'delete@yandex.ru', 'pass', 'Имя', 'Фамилия', 'адрес');
+
 INSERT INTO user_roles (user_id, role) VALUES
   (10, 'ROLE_USER'),
   (11, 'ROLE_USER'),
-  (11, 'ROLE_ADMIN');
+  (11, 'ROLE_ADMIN'),
+  (12, 'ROLE_USER');
 
 INSERT INTO products (name, description, price, discount, maxLed) VALUES
   ('ELECTRON_SUN_8_8', 'светодиодная матрица 8*8', 250, 5, 64),
@@ -35,7 +39,7 @@ INSERT INTO orders (user_id, statusOrder) VALUES
   (10, 'PENDING_PAYMENT');
 
 INSERT INTO order_products (order_id, product_id, number) VALUES
-  (14, 12, 1);
+  (15, 13, 1);
 
 -- INSERT INTO lightShows (name, device_id, user_id, time) VALUES
 --   ('шоу', 10, 10);

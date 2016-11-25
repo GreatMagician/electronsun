@@ -30,7 +30,7 @@ public class Device  extends BaseEntity {
     public Device() {
     }
 
-    public Device(Integer id, Product product) {
+    public Device(Long id, Product product) {
         super(id);
         this.product = product;
         maxLed = product.getMaxLed();

@@ -45,14 +45,14 @@ public class UserServiceTest {
 
     @Test
     public void testGetUserId() throws Exception {
-        User user = service.get(10);
+        User user = service.get(10l);
         assertThat(user.getId(), is(notNullValue()));
         printUser(user);
     }
 
     @Test
     public void testGetNickName() throws Exception {
-        User user = service.getNickName("UserTest");
+        User user = service.getNickName("Admin");
         assertThat(user.getId(), is(notNullValue()));
         printUser(user);
     }
@@ -63,7 +63,7 @@ public class UserServiceTest {
         Random random = new Random();
         int count = random.nextInt(10000);
         User newUser = new User(null, "UserTest", count + "userTest@gmail.com", count + "newPassEdit", false, Collections.singleton(Role.ROLE_USER), count +"ИмяEdit",count +"ФамилияEdit", count +"адресEdit");
-        User user = service.get(20);
+        User user = service.get(12l);
         user.setName(newUser.getName());
         user.setEmail(newUser.getEmail());
         user.setPassword(newUser.getPassword());

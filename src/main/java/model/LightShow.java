@@ -43,7 +43,7 @@ public class LightShow  extends  NamedEntity {
     public LightShow() {
     }
 
-    public LightShow(Integer id, String name, Device device, User user) {
+    public LightShow(Long id, String name, Device device, User user) {
         super(id, name);
         this.device = device;
         this.user = user;

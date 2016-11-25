@@ -44,7 +44,7 @@ public class Effect extends NamedEntity {
     public Effect() {
     }
 
-    public Effect(Integer id, String name, int commonTime, LightShow lightShow) {
+    public Effect(Long id, String name, int commonTime, LightShow lightShow) {
         super(id, name);
         this.commonTime = commonTime;
         this.lightShow = lightShow;

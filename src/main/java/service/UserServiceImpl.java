@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User get(int id) throws NotFoundException {
+    public User get(Long id) throws NotFoundException {
         return repository.get(id);
     }
 
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void enable(int id, boolean enable) {
+    public void enable(Long id, boolean enable) {
         User user = get(id);
         user.setEnabled(enable);
         repository.save(user);

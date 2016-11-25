@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserService {
     User save(User user);
 
-    User get(int id) throws NotFoundException;
+    User get(Long id) throws NotFoundException;
 
     User getNickName(String name) throws NotFoundException;
 
@@ -21,7 +21,7 @@ public interface UserService {
 
     void update(User user);
 
-    void enable(int id, boolean enable);
+    void enable(Long id, boolean enable);
 
 
 }

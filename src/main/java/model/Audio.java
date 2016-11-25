@@ -19,7 +19,7 @@ public class Audio extends NamedEntity implements AudioClip{
     public Audio() {
     }
 
-    public Audio(Integer id, String name, String path) {
+    public Audio(Long id, String name, String path) {
         super(id, name);
         this.path = path;
     }

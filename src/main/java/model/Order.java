@@ -37,7 +37,7 @@ public class Order extends BaseEntity {
     public Order() {
     }
 
-    public Order(Integer id, Map<Product, Integer> products, User user, StatusOrder statusOrder) {
+    public Order(Long id, Map<Product, Integer> products, User user, StatusOrder statusOrder) {
         super(id);
         this.products = products;
         this.user = user;

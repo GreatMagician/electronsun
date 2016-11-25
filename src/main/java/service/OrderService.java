@@ -13,9 +13,9 @@ import java.util.List;
 public interface OrderService {
     Order save(Order order);
 
-    Order get(int id);
+    Order get(Long id);
 
-    void delete(int id);
+    void delete(Long id);
 
     /**
      *  Получить все заказы юзера

@@ -11,7 +11,7 @@ public interface UserRepository {
     User save(User user);
 
     // null if not found
-    User get(int id);
+    User get(Long id);
 
     User getNickName(String name);
 
