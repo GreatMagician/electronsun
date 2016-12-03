@@ -37,7 +37,7 @@ public class Effect extends NamedEntity {
     @Column(name = "appearance")
     private boolean appearance = false;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lightShow_id", nullable = false)
     private LightShow lightShow;
 

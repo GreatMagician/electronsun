@@ -26,4 +26,15 @@ public class ExceptionUtil {
             throw new NotFoundException("Объект не найден с " + msg);
         }
     }
+
+    /**
+     * Проверка значение на диапозон Byte
+     * @param value
+     * @return
+     */
+    public static int checkExcessValueToByte(int value){
+        if (value < 0 || value > 255)
+            throw new ExcessValueException("Значение должно быть в диапозоне от 0 до 255");
+        return value;
+    }
 }

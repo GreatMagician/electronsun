@@ -29,7 +29,6 @@ public class LightShow  extends  NamedEntity {
     @Column(name="time")
     private Map<Effect, Integer> effects;
 
-    @OneToMany(cascade = javax.persistence.CascadeType.REMOVE, mappedBy = "lightShow")
     @ElementCollection
     @CollectionTable(name="lightShow_devices",joinColumns = @JoinColumn(name = "lightShow_id"))
     @JoinColumn(name="device_id")
@@ -46,7 +45,7 @@ public class LightShow  extends  NamedEntity {
     @Column(name = "time", nullable = false)
     private int time; // в милисекундах продолжительность шоу
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "audio_id", nullable = false)
     private Audio audio;
 

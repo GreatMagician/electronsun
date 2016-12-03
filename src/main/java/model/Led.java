@@ -1,5 +1,8 @@
 package model;
 
+import util.exception.ExceptionUtil;
+import util.exception.ExcessValueException;
+
 import javax.persistence.*;
 
 /**
@@ -11,13 +14,13 @@ import javax.persistence.*;
 public class Led extends BaseEntity {
 
     @Column(name="r")
-    private byte r;
+    private int r;
 
     @Column(name="g")
-    private byte g;
+    private int g;
 
     @Column(name="b")
-    private byte b;
+    private int b;
 
     @Column(name="enabled")
     private boolean enabled = false; // включён или выключен
@@ -33,37 +36,37 @@ public class Led extends BaseEntity {
     }
 
 
-    public Led(Long id, byte r, byte g, byte b, int number, Effect effect) {
+    public Led(Long id, int r, int g, int b, int number, Effect effect) {
         super(id);
-        this.r = r;
-        this.g = g;
-        this.b = b;
+        this.r = ExceptionUtil.checkExcessValueToByte(r);
+        this.g = ExceptionUtil.checkExcessValueToByte(g);
+        this.b = ExceptionUtil.checkExcessValueToByte(b);
         this.number = number;
         this.effect = effect;
     }
 
-    public byte getR() {
+    public int getR() {
         return r;
     }
 
-    public void setR(byte r) {
-        this.r = r;
+    public void setR(int r) {
+        this.r = ExceptionUtil.checkExcessValueToByte(r);
     }
 
-    public byte getG() {
+    public int getG() {
         return g;
     }
 
-    public void setG(byte g) {
-        this.g = g;
+    public void setG(int g) {
+        this.g = ExceptionUtil.checkExcessValueToByte(g);
     }
 
-    public byte getB() {
+    public int getB() {
         return b;
     }
 
-    public void setB(byte b) {
-        this.b = b;
+    public void setB(int b) {
+        this.b = ExceptionUtil.checkExcessValueToByte(b);
     }
 
     public boolean isEnabled() {
@@ -89,4 +92,7 @@ public class Led extends BaseEntity {
     public void setEffect(Effect effect) {
         this.effect = effect;
     }
+
+
+
 }

@@ -53,7 +53,7 @@ public class LightShowServiceTest {
 
     @Test
     public void getLightShowToUser() throws Exception {
-        User user = userService.get(10l);
+        User user = userService.get(10L);
         List<LightShow> lightShowToUser = lightShowService.getLightShowToUser(user);
         assertThat(lightShowToUser.size() > 0, is(true));
         lightShowToUser.forEach(value -> assertThat(value.getId(), is(notNullValue())));
@@ -61,7 +61,7 @@ public class LightShowServiceTest {
 
     @Test
     public void delete() throws Exception {
-        lightShowService.delete(23l);
+        lightShowService.delete(23L);
     }
 
 }
