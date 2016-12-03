@@ -1,8 +1,14 @@
 package model;
 
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.applet.AudioClip;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,13 +24,16 @@ public class LightShow  extends  NamedEntity {
      * value - позиция начала эффекта в милисекундах
      */
     @ElementCollection
-    @CollectionTable(name="effect_time_start",joinColumns = @JoinColumn(name = "lightShow_id"))
-    @MapKeyColumn(name="effect_id")
+    @CollectionTable(name="lightShow_effect_time_start",joinColumns = @JoinColumn(name = "lightShow_id"))
+    @MapKeyJoinColumn(name="effect_id")
     @Column(name="time")
     private Map<Effect, Integer> effects;
 
+    @OneToMany(cascade = javax.persistence.CascadeType.REMOVE, mappedBy = "lightShow")
+    @ElementCollection
+    @CollectionTable(name="lightShow_devices",joinColumns = @JoinColumn(name = "lightShow_id"))
     @JoinColumn(name="device_id")
-    private Device device;
+    private List<Device> devices;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -37,15 +46,16 @@ public class LightShow  extends  NamedEntity {
     @Column(name = "time", nullable = false)
     private int time; // в милисекундах продолжительность шоу
 
+    @OneToOne
     @JoinColumn(name = "audio_id", nullable = false)
     private Audio audio;
 
     public LightShow() {
     }
 
-    public LightShow(Long id, String name, Device device, User user) {
+    public LightShow(Long id, String name, List<Device> devices, User user) {
         super(id, name);
-        this.device = device;
+        this.devices = devices;
         this.user = user;
     }
 
@@ -65,12 +75,12 @@ public class LightShow  extends  NamedEntity {
         effects.remove(effect);
     }
 
-    public Device getDevice() {
-        return device;
+    public List<Device> getDevices() {
+        return devices;
     }
 
-    public void setDevice(Device device) {
-        this.device = device;
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
     }
 
     public User getUser() {

@@ -1,17 +1,18 @@
-package repository;
+package service;
 
 import model.Effect;
 import model.Led;
+import util.exception.NotFoundException;
 
 import java.util.List;
 
 /**
- * Created by Александр on 13.11.2016.
+ * Created by Александр on 27.11.2016.
  */
-public interface LedRepository {
-    Led save(Led led);
+public interface LedService {
+    Led save(Led led) throws NotFoundException;
 
-    Led get(Long id);
+    Led get(Long id) throws NotFoundException;
 
     /**
      * Получить все светодиоды эффекта
@@ -21,4 +22,5 @@ public interface LedRepository {
     List<Led> getLedToEffect(Effect effect);
 
     void delete(Long id);
+
 }

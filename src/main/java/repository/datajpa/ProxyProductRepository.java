@@ -1,28 +1,29 @@
 package repository.datajpa;
 
-import model.Audio;
+import model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * Created by Александр on 14.11.2016.
+ * Created by Александр on 25.11.2016.
  */
 @Transactional
-public interface ProxyAudioRepository extends JpaRepository<Audio, Long> {
-    @Override
-    Audio save (Audio audio);
+public interface ProxyProductRepository extends JpaRepository<Product, Long> {
 
     @Override
-    Audio getOne(Long id);
+    Product save (Product product);
 
     @Override
-    List<Audio> findAll();
+    Product getOne(Long id);
 
-    Audio findByName(String name);
-   
+    @Override
+    List<Product> findAll();
+
     @Override
     void delete(Long id);
+
+
 
 }

@@ -14,13 +14,13 @@ public class Order extends BaseEntity {
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     private Date registered = new Date();
 
-    @ElementCollection
+    @ElementCollection()
     @CollectionTable(name = "order_products",joinColumns = @JoinColumn(name = "order_id"))
-    @MapKeyColumn(name = "product_id")
+    @MapKeyJoinColumn(name = "product_id")
     @Column(name = "number", nullable = false)
     private Map<Product, Integer> products; // number - кол-во приборов в заказе
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

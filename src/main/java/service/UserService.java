@@ -23,5 +23,5 @@ public interface UserService {
 
     void enable(Long id, boolean enable);
 
-
+    void delete(Long id);
 }

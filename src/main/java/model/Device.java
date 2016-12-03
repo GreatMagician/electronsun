@@ -1,5 +1,8 @@
 package model;
 
+import org.hibernate.annotations.Target;
+import org.hibernate.tool.schema.TargetType;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -11,6 +14,7 @@ import java.util.UUID;
 @Table(name = "devices")
 public class Device  extends BaseEntity {
 
+    @OneToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -30,9 +34,10 @@ public class Device  extends BaseEntity {
     public Device() {
     }
 
-    public Device(Long id, Product product) {
+    public Device(Long id, Product product, User user) {
         super(id);
         this.product = product;
+        this.user = user;
         maxLed = product.getMaxLed();
     }
 

@@ -4,6 +4,7 @@ import model.Order;
 import model.StatusOrder;
 import model.User;
 import org.springframework.stereotype.Service;
+import util.exception.NotFoundException;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ import java.util.List;
  * Created by Александр on 22.11.2016.
  */
 public interface OrderService {
-    Order save(Order order);
+    Order save(Order order) throws NotFoundException;
 
-    Order get(Long id);
+    Order get(Long id) throws NotFoundException;
 
     void delete(Long id);
 

@@ -5,26 +5,29 @@ import model.StatusOrder;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import repository.OrderRepository;
+import util.exception.ExceptionUtil;
 
 import java.util.List;
 
 /**
  * Created by Александр on 22.11.2016.
  */
-@Service
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository repository;
 
     @Override
     public Order save(Order order) {
+        Assert.notNull(order, "order не должен быть пустым");
         return repository.save(order);
     }
 
     @Override
     public Order get(Long id) {
-        return repository.get(id);
+        return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 
     @Override
@@ -34,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getUser(User user) {
+        Assert.notNull(user, "user не должен быть пустым");
         return repository.getUser(user);
     }
 

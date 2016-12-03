@@ -1,18 +1,18 @@
-package repository;
+package service;
 
 import model.Device;
 import model.User;
+import util.exception.NotFoundException;
 
 import java.util.List;
 
 /**
- * Created by Александр on 13.11.2016.
+ * Created by Александр on 27.11.2016.
  */
-public interface DeviceRepository {
+public interface DeviceService {
+    Device save(Device device) throws NotFoundException;
 
-    Device save(Device device);
-
-    Device get(Long id);
+    Device get(Long id) throws NotFoundException;
 
     List<Device> getAll();
 

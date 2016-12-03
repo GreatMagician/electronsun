@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import repository.OrderRepository;
 import repository.UserRepository;
+import util.exception.ExceptionUtil;
 import util.exception.NotFoundException;
 
 import java.util.List;
@@ -22,24 +23,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        Assert.notNull(user, "user must not be null");
+        Assert.notNull(user, "Пользователь не должен быть пустым");
         return repository.save(user);
     }
 
 
     @Override
     public User get(Long id) throws NotFoundException {
-        return repository.get(id);
+        return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 
     @Override
     public User getNickName(String name) throws NotFoundException {
-        return repository.getNickName(name);
+        Assert.notNull(name, "Ник не должен быть пустым");
+        return ExceptionUtil.checkNotFound(repository.getNickName(name), name);
     }
 
     @Override
     public User getByEmail(String email) throws NotFoundException {
-        return repository.getByEmail(email);
+        Assert.notNull(email, "email не должен быть пустым");
+        return ExceptionUtil.checkNotFound(repository.getByEmail(email), email);
     }
 
     @Override
@@ -49,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
-        Assert.notNull(user, "user must not be null");
+        Assert.notNull(user, "Пользователь не должен быть пустым");
         repository.save(user);
     }
 
@@ -58,6 +61,13 @@ public class UserServiceImpl implements UserService {
     public void enable(Long id, boolean enable) {
         User user = get(id);
         user.setEnabled(enable);
+        repository.save(user);
+    }
+
+    @Override
+    public void delete(Long id) {
+        User user = get(id);
+        user.setDeleted(true);
         repository.save(user);
     }
 }

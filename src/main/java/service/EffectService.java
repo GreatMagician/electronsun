@@ -1,18 +1,18 @@
-package repository;
+package service;
 
 import model.Effect;
 import model.LightShow;
+import util.exception.NotFoundException;
 
 import java.util.List;
 
 /**
- * Created by Александр on 13.11.2016.
+ * Created by Александр on 28.11.2016.
  */
-public interface EffectRepository {
+public interface EffectService {
+    Effect save(Effect effect) throws NotFoundException;
 
-    Effect save(Effect effect);
-
-    Effect get(Long id);
+    Effect get(Long id) throws NotFoundException;
 
     /**
      * Получить все эффекты шоу

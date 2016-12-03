@@ -1,10 +1,11 @@
-DROP TABLE IF EXISTS effect_time_start CASCADE;
 DROP TABLE IF EXISTS user_roles CASCADE;
 DROP TABLE IF EXISTS products CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS order_products CASCADE;
 DROP TABLE IF EXISTS lightShows CASCADE;
+DROP TABLE IF EXISTS lightShow_effect_time_start CASCADE;
+DROP TABLE IF EXISTS lightShow_devices CASCADE;
 DROP TABLE IF EXISTS devices CASCADE;
 DROP TABLE IF EXISTS leds CASCADE;
 DROP TABLE IF EXISTS effects CASCADE;
@@ -42,16 +43,16 @@ CREATE TABLE products (
   id              int8 PRIMARY KEY DEFAULT nextval('global_seq'),
   name            VARCHAR NOT NULL UNIQUE,
   description     TEXT,
-  price           MONEY NOT NULL,
-  discount        INTEGER,
-  discount_price  MONEY,
+  price           DOUBLE PRECISION NOT NULL,
+  discount        INTEGER DEFAULT 0,
+  discount_price  DOUBLE PRECISION DEFAULT 0,
   maxLed          INTEGER NOT NULL
 );
 
 CREATE TABLE orders (
   id          int8 PRIMARY KEY DEFAULT nextval('global_seq'),
   registered  TIMESTAMP DEFAULT now(),
-  user_id     int8 REFERENCES users (id),
+  user_id     int8 REFERENCES users (id) ON DELETE CASCADE,
   paid        BOOL DEFAULT FALSE,
   statusOrder VARCHAR
 );
@@ -67,11 +68,11 @@ CREATE TABLE order_products (
 
 CREATE TABLE devices (
   id             int8 PRIMARY KEY DEFAULT nextval('global_seq'),
-  product_id     int8 REFERENCES products (id),
+  product_id     int8 REFERENCES products (id) ON DELETE CASCADE,
   maxLed         INTEGER NOT NULL,
   enabled        BOOL DEFAULT FALSE,
   uuid           UUID,
-  user_id        int8 REFERENCES users (id)
+  user_id        int8 REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE audios(
@@ -84,11 +85,18 @@ CREATE TABLE audios(
 CREATE TABLE lightShows (
   id             int8 PRIMARY KEY DEFAULT nextval('global_seq'),
   name           VARCHAR NOT NULL,
-  device_id      int8 REFERENCES devices (id),
-  user_id        int8 REFERENCES users (id),
+  user_id        int8 NOT NULL,
   remix_user_id  int8 REFERENCES users (id),
   time           INTEGER NOT NULL,
-  audio_id       int8 REFERENCES audios (id)
+  audio_id       int8 REFERENCES audios (id),
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE TABLE lightShow_devices (
+  lightShow_id   int8 NOT NULL,
+  device_id      int8 NOT NULL,
+  FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE,
+  FOREIGN KEY (device_id) REFERENCES devices (id) ON DELETE CASCADE
 );
 
 CREATE TABLE effects(
@@ -97,13 +105,13 @@ CREATE TABLE effects(
   commonTime     INTEGER NOT NULL,
   attenuation    BOOL DEFAULT FALSE,
   appearance     BOOL DEFAULT FALSE,
-  lightShow_id   int8 REFERENCES lightShows (id),
+  lightShow_id   int8 NOT NULL,
   FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE
 );
 
-CREATE TABLE effect_time_start (
-  lightShow_id   int8 REFERENCES lightShows (id),
-  effect_id      int8 REFERENCES effects (id),
+CREATE TABLE lightShow_effect_time_start (
+  lightShow_id   int8 NOT NULL,
+  effect_id      int8 NOT NULL,
   time           INTEGER NOT NULL,
   FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE,
   FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
@@ -112,24 +120,24 @@ CREATE TABLE effect_time_start (
 
 CREATE TABLE leds(
   id             int8 PRIMARY KEY DEFAULT nextval('global_seq'),
-  r              BYTEA,
-  g              BYTEA,
-  b              BYTEA,
+  r              INTEGER CHECK (r >= 0) CHECK (r < 256),
+  g              INTEGER CHECK (g >= 0) CHECK (g < 256),
+  b              INTEGER CHECK (b >= 0) CHECK (b < 256),
   enabled        BOOL DEFAULT FALSE,
   number         INTEGER NOT NULL,
-  effect_id      int8 REFERENCES effects (id),
+  effect_id      int8,
   FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
 );
 
 
 CREATE TABLE effect_beginLedList(
-  effect_id      int8 REFERENCES effects (id),
+  effect_id      int8,
   led_id         int8 REFERENCES leds (id),
   FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
 );
 
 CREATE TABLE effect_endLedList(
-  effect_id      int8 REFERENCES effects (id),
+  effect_id      int8,
   led_id         int8 REFERENCES leds (id),
   FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
 );

@@ -32,7 +32,7 @@ public class UserServiceTest {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceTest.class);
 
     @Autowired
-    protected UserService service;
+    private UserService service;
 
 
     @Test
