@@ -45,8 +45,8 @@ public class LightShow  extends  NamedEntity {
     @Column(name = "time", nullable = false)
     private int time; // в милисекундах продолжительность шоу
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "audio_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "audio_id")
     private Audio audio;
 
     public LightShow() {
