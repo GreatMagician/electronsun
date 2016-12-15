@@ -3,6 +3,7 @@ package web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,10 +22,20 @@ public class RootController {
         return "index";
     }
 
-//    @RequestMapping(value = "/users", method = RequestMethod.GET)
-//    public String users(Model model) {
-//        model.addAttribute("users", userService.getAll());
-//        return "users";
-//    }
+    @GetMapping("/index")
+    public String index(ModelMap model) {
+        return "index";
+    }
+
+    @GetMapping("/register")
+    public String register(ModelMap model) {
+        model.addAttribute("register", true);
+        return "register";
+    }
+
+    @GetMapping("/feedback")
+    public String feedback(ModelMap model) {
+        return "feedback";
+    }
 
 }

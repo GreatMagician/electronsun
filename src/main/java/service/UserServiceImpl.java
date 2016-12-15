@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        Assert.notNull(user, "Пользователь не должен быть пустым");
+        Assert.notNull(user, "Пользователь не должен быть null");
         return repository.save(user);
     }
 
@@ -35,13 +35,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getNickName(String name) throws NotFoundException {
-        Assert.notNull(name, "Ник не должен быть пустым");
+        Assert.notNull(name, "Ник не должен быть null");
         return ExceptionUtil.checkNotFound(repository.getNickName(name), name);
     }
 
     @Override
     public User getByEmail(String email) throws NotFoundException {
-        Assert.notNull(email, "email не должен быть пустым");
+        Assert.notNull(email, "email не должен быть null");
         return ExceptionUtil.checkNotFound(repository.getByEmail(email), email);
     }
 

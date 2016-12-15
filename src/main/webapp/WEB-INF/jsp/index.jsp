@@ -1,16 +1,24 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Александр
-  Date: 04.12.2016
-  Time: 16:58
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <html>
+<jsp:include page="fragments/headTag.jsp"/>
+
 <head>
-    <title>Title</title>
+    <link rel="stylesheet" href="resources/css/index-style.css">
 </head>
 <body>
-    <h1>Здравствуй мир!</h1>
+    <jsp:include page="fragments/header.jsp"/>
+    <div class="content">
+        <%--новости--%>
+        <div class="news">
+            <h2> <spring:message code="app.news"/> </h2>
+        </div>
+        <%--последнее шоу--%>
+        <div class="shows">
+           <h2> <spring:message code="app.shows"/></h2>
+        </div>
+    </div>
+    <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
