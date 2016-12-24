@@ -50,9 +50,8 @@ public class LedServiceTest {
         leds.forEach(led -> assertThat(led.getId(), is(notNullValue())));
     }
 
-    @Test
-    public void delete() throws Exception {
-        ledService.delete(27L);
-    }
-
+//    @Test
+//    public void delete() throws Exception {
+//        ledService.delete(27L);
+//    }
 }

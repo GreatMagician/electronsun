@@ -1,0 +1,19 @@
+.login-container {
+    padding-right: 20px;
+    padding-top: 10px;
+}
+.login-container input {
+    background-color: cornflowerblue;
+    border-color: darkmagenta;
+    color: aqua;
+}
+.login-container ::-webkit-input-placeholder{
+    color: aquamarine;
+}
+.login-container button {
+    background-color: cornflowerblue;
+    color: azure;
+}
+.login-container a {
+    color: mediumspringgreen;
+}

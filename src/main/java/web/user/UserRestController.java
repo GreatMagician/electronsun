@@ -1,7 +1,11 @@
 package web.user;
 
 import model.User;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -40,7 +44,28 @@ public class UserRestController extends AbstractUserController{
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public User getByMail(@Valid String email) {
-        return super.getByMail(email);
+    public ModelAndView getByMail(@Valid String email, @Valid String password) {
+        User user = super.getByMail(email);
+        if (user != null)
+        {
+            if (user.getPassword().equals(password)){
+                return new ModelAndView("index","user", user);
+            }
+        }
+        return new ModelAndView("users/login", "user", new User());
     }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout (ModelMap model) {
+        model.addAttribute("user", new User());
+        return new ModelAndView("index", "user", new User());
+    }
+
+    @RequestMapping("/login")
+    public String login(ModelMap model) {
+        model.addAttribute("login", true);
+        return "login";
+    }
+
+
 }

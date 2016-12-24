@@ -17,7 +17,7 @@ ALTER SEQUENCE global_seq RESTART WITH 10;
 
 -- user
 INSERT INTO users (name, email, password, firstName, LastName, address)
-VALUES ('User', 'user@yandex.ru', 'pass', 'Имя', 'Фамилия', 'адрес');
+VALUES ('Юзер', 'user@yandex.ru', 'pass', 'Имя', 'Фамилия', 'адрес');
 
 -- admin
 INSERT INTO users (name, email, password, firstName, LastName, address)

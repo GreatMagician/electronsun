@@ -5,10 +5,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
+    <mvc:default-servlet-handler/>
+
     <mvc:annotation-driven/>
     <context:component-scan base-package="web"/>
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <!-- uses WebJars so Javascript and CSS libs can be declared as Maven dependencies (Bootstrap, jQuery...) -->
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:cacheSeconds="60"
@@ -16,6 +21,7 @@
         <property name="basenames" value="file:///#{systemEnvironment['ELECTRON_SUN']}/config/messages/app"/>
         <property name="fallbackToSystemLocale" value="false"/>
     </bean>
+
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"

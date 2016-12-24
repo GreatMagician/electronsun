@@ -32,10 +32,16 @@
     background-color: cornflowerblue;
     color: azure;
 }
-.logout-block a {
+
+.logout-block .registerLink {
     float: right;
     color: mediumspringgreen;
 }
+.logout-block .prof {
+    color: #0ff945;
+    padding-right: 10px;
+}
+
 .main-menu {
    float: left;
     margin-top: 5px;

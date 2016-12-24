@@ -52,7 +52,7 @@ public class OrderServiceTest {
 
     @Test
     public void get() throws Exception {
-        Order created = orderService.get(15l);
+        Order created = orderService.get(16l);
         assertThat(created.getId(), is(notNullValue()));
     }
 

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class User extends NamedEntity {
 
     @Column(name = "password", nullable = false)
     @NotEmpty
-    @Length(min = 5)
+    @Size(min = 5, max = 50, message = "Пароль должен быть от 5 до 50 символов")
     private String password;
 
     @Column(name = "enabled", nullable = false)

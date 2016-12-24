@@ -5,7 +5,7 @@
 <jsp:include page="fragments/headTag.jsp"/>
 
 <head>
-    <link rel="stylesheet" href="resources/css/index-style.css">
+    <link rel="stylesheet" href="/electronsun/resources/css/index-style.css">
 </head>
 <body>
     <jsp:include page="fragments/header.jsp"/>

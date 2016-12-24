@@ -1,5 +1,6 @@
 package web;
 
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 /**
  * Created by Александр on 04.12.2016.
  */
@@ -17,25 +20,27 @@ import javax.servlet.http.HttpServletRequest;
 public class RootController {
 
 
-    @GetMapping("/")
-    public String root() {
+    @RequestMapping("/")
+    public String root(ModelMap model) {
+        model.addAttribute("user", new User());
         return "index";
     }
 
-    @GetMapping("/index")
+    @RequestMapping("/index")
     public String index(ModelMap model) {
         return "index";
     }
 
-    @GetMapping("/register")
+    @RequestMapping("/register")
     public String register(ModelMap model) {
         model.addAttribute("register", true);
         return "register";
     }
 
-    @GetMapping("/feedback")
+    @RequestMapping("/feedback")
     public String feedback(ModelMap model) {
         return "feedback";
     }
+
 
 }

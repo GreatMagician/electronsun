@@ -1,6 +1,8 @@
 package util.exception;
 
 
+import service.UserService;
+
 /**
 Обработка ошибок
  */
@@ -23,7 +25,7 @@ public class ExceptionUtil {
 
     public static void checkNotFound(boolean found, String msg) {
         if (!found) {
-            throw new NotFoundException("Объект не найден с " + msg);
+            throw new NotFoundException("Данные не найдены для " + msg);
         }
     }
 
@@ -37,4 +39,5 @@ public class ExceptionUtil {
             throw new ExcessValueException("Значение должно быть в диапозоне от 0 до 255");
         return value;
     }
+
 }
