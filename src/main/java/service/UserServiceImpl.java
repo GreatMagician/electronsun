@@ -2,20 +2,25 @@ package service;
 
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import repository.OrderRepository;
 import repository.UserRepository;
+import util.AuthorizedUser;
 import util.exception.ExceptionUtil;
 import util.exception.NotFoundException;
 
 import java.util.List;
 
+import static util.UserUtil.prepareToSave;
+
 /**
  * Created by Александр on 19.11.2016.
  */
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Autowired
@@ -24,7 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         Assert.notNull(user, "Пользователь не должен быть null");
-        return repository.save(user);
+        return repository.save(prepareToSave(user));
     }
 
 
@@ -36,6 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getNickName(String name) throws NotFoundException {
         Assert.notNull(name, "Ник не должен быть null");
+        name = name.replace(" ", ""); // удаление пробелов
         return ExceptionUtil.checkNotFound(repository.getNickName(name), name);
     }
 
@@ -70,4 +76,15 @@ public class UserServiceImpl implements UserService {
         user.setDeleted(true);
         repository.save(user);
     }
+
+
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User u = repository.getByEmail(email.toLowerCase());
+        if (u == null) {
+            throw new UsernameNotFoundException("User " + email + " не найден");
+        }
+        return new AuthorizedUser(u);
+    }
+
 }

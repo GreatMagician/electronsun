@@ -5,15 +5,14 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.repository.query.Param;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Александр on 05.11.2016.
@@ -28,7 +27,7 @@ public class User extends NamedEntity {
 
     @Column(name = "password", nullable = false)
     @NotEmpty
-    @Size(min = 5, max = 50, message = "Пароль должен быть от 5 до 50 символов")
+    @Size(min = 5, max = 200, message = "Пароль должен быть от 5 до 200 символов")
     private String password;
 
     @Column(name = "enabled", nullable = false)
@@ -114,8 +113,8 @@ public class User extends NamedEntity {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     public String getFirstName() {

@@ -6,7 +6,7 @@
 
 <head>
     <script type="text/javascript" src="/electronsun/resources/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/electronsun/resources/js/exception.js"></script>
+    <script type="text/javascript" src="/electronsun/resources/js/hide.js"></script>
 </head>
 <jsp:include page="../fragments/headTag.jsp"/>
 

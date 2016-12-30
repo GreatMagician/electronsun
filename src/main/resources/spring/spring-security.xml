@@ -1,0 +1,42 @@
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http pattern="/resources/**" security="none"/>
+
+    <http use-expressions="true">
+        <intercept-url pattern="/login*" access="permitAll"/>
+        <intercept-url pattern="/index" access="permitAll"/>
+        <intercept-url pattern="/register" access="permitAll"/>
+
+        <intercept-url pattern="/profile/**" access="hasAnyRole(ROLE_USER, ROLE_ADMIN)"/>
+        <intercept-url pattern="/*/admin/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+
+        <form-login login-page="/login" default-target-url="/index"
+                    authentication-failure-url="/login?error=true"
+                    username-parameter="email_login"
+                    password-parameter="password_login"
+                    login-processing-url="/spring_security_check"/>
+        <logout logout-success-url="/index"/>
+    </http>
+
+    <beans:bean class="util.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userService">
+            <password-encoder ref="passwordEncoder"/>
+
+
+            <!--<user-service>-->
+                <!--<user name="user@yandex.ru" password="password" authorities="ROLE_USER"/>-->
+                <!--<user name="aadmin@yandex.ru" password="admin" authorities="ROLE_ADMIN, ROLE_USER"/>-->
+            <!--</user-service>-->
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

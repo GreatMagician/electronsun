@@ -5,29 +5,32 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sppring" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<jsp:include page="headTag.jsp"/>
 
 <div class="header-background">
     <div class="header-title">
        <label><fmt:message key="app.title"/></label>
     </div>
-        <c:if test="${user.isNew()}">
+        <c:if test="${empty user}">
             <div class="logout-block">
-                <form:form method="post"  role="form" action="users/login" id="login">
-                    <input  type="email"  placeholder="email" name="email">
-                    <input type="password" placeholder="пароль" name="password">
+                <form:form method="post"  action="spring_security_check">
+                    <input  type="email"  placeholder="email" name="email_login">
+                    <input type="password" placeholder="пароль" name="password_login">
                     <button type="submit"> <fmt:message key="app.login"/></button>
                 </form:form>
                 <a class="registerLink" href="/electronsun/register"><fmt:message key="app.register"/> </a>
             </div>
         </c:if>
-        <c:if test="${!user.isNew()}">
-            <div class="logout-block">
-                <form:form method="post"  role="form" action="logout">
-                    <a class="prof" href="/electronsun/profile/profile">${user.getName()}</a>
+        <form:form  action="logout" method="post">
+            <sec:authorize access="isAuthenticated()">
+                <div class="logout-block">
+                    <a class="prof" href="/electronsun/users/profile">${user.getName()}</a>
                     <button type="submit"> <fmt:message key="app.logout"/></button>
-                </form:form>
-            </div>
-        </c:if>
+                </div>
+            </sec:authorize>
+        </form:form>
 </div>
     <%--Меню--%>
 <ul class="main-menu">

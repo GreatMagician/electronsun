@@ -4,6 +4,6 @@
     <title>Title</title>
 </head>
 <body>
-
+player.jsp
 </body>
 </html>
