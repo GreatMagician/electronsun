@@ -6,16 +6,15 @@ $(document).ready(function () {
         success: function (json) {
             $('#datatableusers').DataTable({
                 data: json,
-                type: "POST",
                 columns: [
-                    {data: 'nick'},
+                    {data: 'name'},
                     {data: 'email'},
                     {data: 'roles'},
                     {data: 'registered'},
                     {data: 'firstName'},
                     {data: 'lastName'},
-                    {data: 'active'}
-                ],
+                    {data: 'enabled'}
+                ]
             });
         }
     });

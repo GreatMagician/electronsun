@@ -1,6 +1,7 @@
 package web.user;
 
 import model.User;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class AdminUserController extends AbstractUserController {
         return "admin/users";
     }
 
-    @RequestMapping(value = "/loadusers", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "/loadusers", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody List<User> loadUsers (){
         return super.getAll();
     }

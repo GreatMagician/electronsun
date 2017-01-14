@@ -1,17 +1,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="../fragments/header.jsp"/>
 
 <head>
-    <script type="text/javascript" src="/electronsun/webjars/datatables/1.10.12/css/jquery.dataTables.min.css"></script>
+    <link rel="stylesheet" href=<c:url value="/webjars/datatables/1.10.12/css/jquery.dataTables.min.css"/>>
     <script type="text/javascript" src="/electronsun/webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/electronsun/resources/js/datatableusers.js"></script>
 
 </head>
 <h1><fmt:message key="users.title"/></h1>
-<table class="display" cellspacing="0" width="100%" id="datatableusers">
+<table class="display"  width="100%" id="datatableusers">
     <thead>
     <tr>
         <th><spring:message code="users.nick"/></th>
