@@ -3,21 +3,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<jsp:include page="fragments/header.jsp"/>
+
 <head>
-    <script type="text/javascript" src="/electronsun/resources/js/jquery.min.js"></script>
     <script type="text/javascript" src="/electronsun/resources/js/hide.js"></script>
     <script type="text/javascript" src="/electronsun/resources/js/register.js"></script>
     <link rel="stylesheet" href="/electronsun/resources/css/register-style.css">
 </head>
 <body>
-<jsp:include page="fragments/header.jsp"/>
-<h1>Регистрация пользователя</h1>
+<h1>
+    <c:if test="${register}">
+        <fmt:message key="app.registerUser"/>
+    </c:if>
+    <c:if test="${not register}">
+        <fmt:message key="app.profile"/>
+    </c:if>
+</h1>
 <div class="error-register">
     <c:if test="${not empty error}">
         ${error}
     </c:if>
 </div>
-<form:form method="post"  commandName="newUser" action="/electronsun/register">
+<form:form method="post"  commandName="newUser"
+           action="${register ? '/electronsun/register': '/electronsun/users/profile'}"
+           charset="utf-8" accept-charset="UTF-8">
     <table>
         <tr>
             <td><p><fmt:message key="users.nick"/></p></td>
@@ -64,7 +73,10 @@
 
         <tr>
             <td></td>
-            <td><button type="submit" id="submit" disabled> <fmt:message key="app.register"/></button></td>
+            <td>
+                <button type="submit" id="submit" name="save" value="true" disabled> <fmt:message key="app.save"/></button>
+                <button type="button" id="submit2"  name="save" value="false" onClick="index()"> <fmt:message key="app.cancel"/></button>
+            </td>
         </tr>
     </table>
 </form:form>

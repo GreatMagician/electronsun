@@ -5,6 +5,12 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <%--Настройки безопастности заголовков для AJAX запросов--%>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
     <title><spring:message code="app.title"/></title>
-    <link rel="stylesheet" href="/electronsun/resources/css/header-style.css">
+    <script type="text/javascript" src="/electronsun/webjars/jquery/3.1.1-1/jquery.min.js"></script>
+    <script type="text/javascript" src=<c:url value="/resources/js/header.js"/>></script>
+    <link rel="stylesheet" href=<c:url value="/resources/css/header-style.css"/>>
 </head>

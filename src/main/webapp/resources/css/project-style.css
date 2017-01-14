@@ -1,0 +1,25 @@
+.project{
+    float: left;
+    clear: none;
+    background-image: url(../img/body-2.jpg);
+    background-color: blueviolet;
+    width: 100%;
+    height: 30%;
+    margin-top: -10px;
+    margin-bottom: 5px;
+}
+
+h1{
+    text-align: center;
+    color: #13e3e8;
+}
+h3{
+    text-align: justify;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #0de89d;
+}
+
+h3 a{
+    color: #0ce88b;
+}

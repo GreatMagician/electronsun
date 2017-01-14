@@ -1,7 +1,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
-    <link rel="stylesheet" href="/electronsun/resources/css/footer-style.css">
+    <link rel="stylesheet" href=<c:url value="/resources/css/footer-style.css"/>>
 </head>
 <div class="footer">
     <div class="container1">

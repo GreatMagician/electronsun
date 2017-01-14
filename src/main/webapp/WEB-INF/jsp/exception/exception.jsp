@@ -3,15 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <html>
+<jsp:include page="../fragments/header.jsp"/>
 
 <head>
-    <script type="text/javascript" src="/electronsun/resources/js/jquery.min.js"></script>
     <script type="text/javascript" src="/electronsun/resources/js/hide.js"></script>
 </head>
-<jsp:include page="../fragments/headTag.jsp"/>
 
 <body>
-    <jsp:include page="../fragments/header.jsp"/>
 
     <div class="modal">
         <br>

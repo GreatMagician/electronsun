@@ -2,6 +2,10 @@ h1 {
     text-align: center;
     color: #d66bf9;
 }
+h3 {
+    text-align: center;
+    color: #3de20a;
+}
 .error-login {
     text-align: center;
     color: red;

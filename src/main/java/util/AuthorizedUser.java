@@ -30,6 +30,10 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
         return user;
     }
 
+    public void update(User newUser) {
+        user = newUser;
+    }
+
     public static Long id() {
         return get().user.getId();
     }

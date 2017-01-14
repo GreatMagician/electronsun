@@ -64,19 +64,24 @@ public class RootController extends AbstractUserController{
         return "player";
     }
 
-    @RequestMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(ModelMap model) {
         model.addAttribute("newUser", new User());
+        model.addAttribute("register", true);
         return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@Valid @ModelAttribute User newUser, ModelMap model) {
+    public String register(@Valid @ModelAttribute User newUser, @RequestParam String save, ModelMap model) {
+        if (save.equals("false")){
+            return "index";
+        }
         try {
             User user = super.getByMail(newUser.getEmail());
             if (user.getId() != null){
                 model.addAttribute("error", "Email уже занят");
                 model.addAttribute("newUser", newUser);
+                model.addAttribute("register", true);
                 return "register";
             }
         } catch (NotFoundException e) {
@@ -86,6 +91,7 @@ public class RootController extends AbstractUserController{
             if (user.getId() != null){
                 model.addAttribute("error", "Ник уже занят. Попрубуйте ввести другой ник");
                 model.addAttribute("newUser", newUser);
+                model.addAttribute("register", true);
             }
         } catch (NotFoundException e) {
             newUser.setRoles(Collections.singletonList(Role.ROLE_USER));
@@ -98,5 +104,9 @@ public class RootController extends AbstractUserController{
         return "register";
     }
 
+    @RequestMapping("/project")
+    public String project (ModelMap model) {
+        return "project";
+    }
 
 }

@@ -11,7 +11,7 @@
 
 <div class="header-background">
     <div class="header-title">
-       <label><fmt:message key="app.title"/></label>
+       <label onClick="index()"><fmt:message key="app.title"/></label>
     </div>
         <c:if test="${empty user}">
             <div class="logout-block">
@@ -28,6 +28,10 @@
                 <div class="logout-block">
                     <a class="prof" href="/electronsun/users/profile">${user.getName()}</a>
                     <button type="submit"> <fmt:message key="app.logout"/></button>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <br/><br/>
+                        <a class="adminLink" href="/electronsun/admin/users"><fmt:message key="app.admin"/> </a>
+                    </sec:authorize>
                 </div>
             </sec:authorize>
         </form:form>
@@ -35,8 +39,8 @@
     <%--Меню--%>
 <ul class="main-menu">
     <li><a href="/electronsun/index"><fmt:message key="menu.main"/></a></li>
-    <li><a href="project"><fmt:message key="menu.project"/></a></li>
-    <li><a href="player"><fmt:message key="menu.play"/></a></li>
-    <li><a href="shows"><fmt:message key="menu.lightShow"/></a></li>
-    <li><a href="devices"><fmt:message key="menu.device"/></a></li>
+    <li><a href="/electronsun/project"><fmt:message key="menu.project"/></a></li>
+    <li><a href="/electronsun/player"><fmt:message key="menu.play"/></a></li>
+    <li><a href="/electronsun/lightshow"><fmt:message key="menu.lightShow"/></a></li>
+    <li><a href="/electronsun/devices"><fmt:message key="menu.device"/></a></li>
 </ul>

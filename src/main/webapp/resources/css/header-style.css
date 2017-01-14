@@ -37,6 +37,11 @@
     float: right;
     color: mediumspringgreen;
 }
+.logout-block .adminLink {
+    float: right;
+    color: #fac3b5;
+}
+
 .logout-block .prof {
     color: #0ff945;
     padding-right: 10px;
@@ -45,7 +50,7 @@
 .main-menu {
    float: left;
     margin-top: 5px;
-    padding: 10px 15px;
+    padding: 10px 18px;
     list-style: none;
     background-color: slateblue;
     border: 1px solid orchid;
@@ -63,7 +68,7 @@
 .main-menu a {
     display: block;
     margin-left: -1px;
-    padding: 8px 65px;
+    padding: 8px 60px;
     color: lawngreen;
     font-size: 25px;
     border-left: 1px solid orchid;
