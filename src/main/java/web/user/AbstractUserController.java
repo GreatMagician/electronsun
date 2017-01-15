@@ -54,7 +54,7 @@ public abstract class AbstractUserController {
     }
 
     public void enable(Long id, boolean enabled) {
-        log.info((enabled ? "enable " : "disable ") + id);
+        log.info((enabled ? "enableClick " : "disable ") + id);
         service.enable(id, enabled);
     }
 

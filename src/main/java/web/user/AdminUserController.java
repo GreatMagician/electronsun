@@ -4,10 +4,7 @@ import model.User;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +24,11 @@ public class AdminUserController extends AbstractUserController {
     public @ResponseBody List<User> loadUsers (){
         return super.getAll();
     }
+
+    @RequestMapping(value = "/enableuser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody boolean enabled(@RequestParam Long id, @RequestParam("enabled") boolean enabled) {
+        super.enable(id, enabled);
+        return enabled;
+    }
+
 }
