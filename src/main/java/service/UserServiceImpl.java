@@ -11,6 +11,7 @@ import repository.UserRepository;
 import util.AuthorizedUser;
 import util.exception.ExceptionUtil;
 import util.exception.NotFoundException;
+import util.exception.UserDeletedException;
 
 import java.util.List;
 
@@ -79,11 +80,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException, UserDeletedException {
         User u = repository.getByEmail(email.toLowerCase());
         if (u == null) {
             throw new UsernameNotFoundException("User " + email + " не найден");
         }
+        if (u.isDeleted()){
+            throw new UserDeletedException("Пользователь " + email + " удалён");
+        }
+
         return new AuthorizedUser(u);
     }
 

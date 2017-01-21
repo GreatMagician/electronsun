@@ -20,19 +20,22 @@
                     <input type="password" placeholder="пароль" name="password_login">
                     <button type="submit"> <fmt:message key="app.login"/></button>
                 </form:form>
-                <a class="registerLink" href="/electronsun/register"><fmt:message key="app.register"/> </a>
+                <a class="registrlink"  href="/electronsun/register"><fmt:message key="app.register"/> </a>
             </div>
         </c:if>
-        <form:form  action="logout" method="post">
+        <form:form  action="/electronsun/logout" method="post">
             <sec:authorize access="isAuthenticated()">
                 <div class="logout-block">
                     <a class="prof" href="/electronsun/users/profile">${user.getName()}</a>
                     <button type="submit"> <fmt:message key="app.logout"/></button>
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <br/><br/>
-                        <a class="adminLink" href="/electronsun/admin/users"><fmt:message key="app.admin"/> </a>
-                    </sec:authorize>
                 </div>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <div class="adminpanel">
+                        <a href="/electronsun/admin/users"><fmt:message key="admin.user"/> </a>
+                        <a href="/electronsun/admin/product"><fmt:message key="admin.product"/> </a>
+                        <a href="/electronsun/admin/device"><fmt:message key="admin.device"/> </a>
+                    </div>
+                </sec:authorize>
             </sec:authorize>
         </form:form>
 </div>

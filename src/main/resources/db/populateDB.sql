@@ -23,8 +23,8 @@ VALUES ('Юзер', 'user@yandex.ru', '$2a$10$Rl0H50WkOyB7TqLilqRqp.udeKe3bKR8XE
 INSERT INTO users (name, email, password, firstName, LastName, address)
 VALUES ('Admin', 'admin@yandex.ru', '$2a$10$pZZXC6IMSYtn0QLZnAySzOk2r2xTzTAHiZL1J1U3nYLF3s/RJ1v.C', 'Имя', 'Фамилия', 'адрес');
 
-INSERT INTO users (name, email, password, firstName, LastName, address)
-VALUES ('Delete', 'delete@yandex.ru', 'password', 'Имя', 'Фамилия', 'адрес');
+INSERT INTO users (name, email, password, firstName, LastName, address, deleted)
+VALUES ('Delete', 'delete@yandex.ru', '$2a$10$Rl0H50WkOyB7TqLilqRqp.udeKe3bKR8XEIKovMOHTQ1TPdgD6262', 'Имя', 'Фамилия', 'адрес', 'true');
 
 INSERT INTO user_roles (user_id, role) VALUES
   (10, 'ROLE_USER'),

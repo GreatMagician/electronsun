@@ -32,13 +32,13 @@
     <authentication-manager>
         <authentication-provider user-service-ref="userService">
             <password-encoder ref="passwordEncoder"/>
-
-
             <!--<user-service>-->
                 <!--<user name="user@yandex.ru" password="password" authorities="ROLE_USER"/>-->
                 <!--<user name="aadmin@yandex.ru" password="admin" authorities="ROLE_ADMIN, ROLE_USER"/>-->
             <!--</user-service>-->
         </authentication-provider>
     </authentication-manager>
+
+
 
 </beans:beans>

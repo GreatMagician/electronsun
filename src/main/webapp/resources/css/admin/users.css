@@ -1,0 +1,11 @@
+h1{
+    text-align: center;
+    color: #c208fa;
+}
+.filter{
+    margin: 10px;
+}
+.filter span{
+    padding-left: 30px;
+    color: #0a13e2;
+}

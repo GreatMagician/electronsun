@@ -12,5 +12,6 @@
     <title><spring:message code="app.title"/></title>
     <script type="text/javascript" src="/electronsun/webjars/jquery/3.1.1-1/jquery.min.js"></script>
     <script type="text/javascript" src=<c:url value="/resources/js/header.js"/>></script>
+    <link rel="stylesheet" href=<c:url value="/resources/css/style.css"/>>
     <link rel="stylesheet" href=<c:url value="/resources/css/header-style.css"/>>
 </head>

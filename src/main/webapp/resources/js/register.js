@@ -1,15 +1,14 @@
 $(document).ready(function() {
-    $('#repPass').keyup(function() {
+    $('#repPass').change(function() {
         var pass = $("#pass").val();
         var pass_rep = $("#repPass").val();
 
         if (pass != pass_rep) {
             borderRed('#repPass');
             textColor("#errorPass");
-            message('#errorPass', 'Пароли не совпадают');
+            message('Пароли не совпадают');
         }else if (pass == pass_rep && pass.length >=5 && pass.length <= 200){
             borderGreen('#repPass');
-            message('#errorPass','');
         }
     });
 
@@ -18,10 +17,9 @@ $(document).ready(function() {
         if (nick.length < 3 || nick.length > 50) {
             borderRed('#nick');
             textColor('#errorNick');
-            message('#errorNick', 'Ник должен быть от 3 до 50 символов');
+            message('Ник должен быть от 3 до 50 символов');
         }else {
             borderGreen('#nick');
-            message('#errorNick','');
         }
     });
     $('#name').change(function() {
@@ -29,10 +27,9 @@ $(document).ready(function() {
         if (name.length < 3 || name.length > 50) {
             borderRed('#name');
             textColor('#errorName');
-            message('#errorName', 'Имя должно быть от 3 до 50 символов');
+            message('Имя должно быть от 3 до 50 символов');
         }else {
             borderGreen('#name');
-            message('#errorName','');
         }
     });
     $('#lastName').change(function() {
@@ -40,10 +37,9 @@ $(document).ready(function() {
         if (lastName.length < 3 || lastName.length > 50) {
             borderRed('#lastName');
             textColor('#errorLastName');
-            message('#errorLastName', 'Имя должно быть от 3 до 50 символов');
+            message('Фамилия должна быть от 3 до 50 символов');
         }else {
             borderGreen('#lastName');
-            message('#errorLastName','');
         }
     });
     $('#pass').change(function() {
@@ -51,10 +47,9 @@ $(document).ready(function() {
         if (pass.length < 5 || pass.length > 200) {
             borderRed('#pass');
             textColor('#errorPassword');
-            message('#errorPassword', 'Пароль должн быть от 5 до 200 символов');
+            message('Пароль должн быть от 5 до 200 символов');
         }else {
             borderGreen('#pass');
-            message('#errorPassword','');
         }
     });
 });
@@ -79,6 +74,12 @@ function borderGreen(id) {
 function textColor(color) {
     $(color).css('color', 'red');
 }
-function message(id, message) {
-    $(id).html(message);
+function message(message) {
+    //$(id).html(message);
+    noty({
+        text: message,
+        type: 'error',
+        layout: 'centerRight',
+        timeout: 10000
+    });
 }

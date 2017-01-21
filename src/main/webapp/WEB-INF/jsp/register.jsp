@@ -6,6 +6,7 @@
 <jsp:include page="fragments/header.jsp"/>
 
 <head>
+    <script type="text/javascript" src="/electronsun/webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
     <script type="text/javascript" src="/electronsun/resources/js/hide.js"></script>
     <script type="text/javascript" src="/electronsun/resources/js/register.js"></script>
     <link rel="stylesheet" href="/electronsun/resources/css/register-style.css">
