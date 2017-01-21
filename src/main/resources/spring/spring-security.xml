@@ -25,6 +25,8 @@
                     password-parameter="password_login"
                     login-processing-url="/spring_security_check"/>
         <logout logout-success-url="/index"/>
+
+        <remember-me remember-me-parameter="spring_security_remember_me"/>
     </http>
 
     <beans:bean class="util.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>

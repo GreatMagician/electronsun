@@ -34,6 +34,7 @@
                <td></td>
                <td>
                    <button type="submit"> <fmt:message key="app.login"/></button>
+                    <input type="checkbox" name="spring_security_remember_me"> <fmt:message key="users.rememberme"/>
                </td>
            </tr>
            <tr>
