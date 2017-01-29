@@ -2,6 +2,7 @@ package service;
 
 import model.User;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.transaction.annotation.Transactional;
 import util.exception.NotFoundException;
 
 import java.util.List;
@@ -25,7 +26,9 @@ public interface UserService {
 
     void update(User user);
 
+    @Secured("ROLE_ADMIN")
     void enable(Long id, boolean enable);
 
+    @Secured("ROLE_USER")
     void delete(Long id);
 }

@@ -54,6 +54,15 @@ public class Product  extends NamedEntity {
         this.maxLed = maxLed;
     }
 
+    public Product(Long id, String name, String description, double price, int discount, int maxLed) {
+        super(id, name);
+        this.description = description;
+        this.price = price;
+        this.discount = discount;
+        setDiscount(discount);
+        this.maxLed = maxLed;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -85,6 +94,10 @@ public class Product  extends NamedEntity {
 
     public int getMaxLed() {
         return maxLed;
+    }
+
+    public void setMaxLed(int maxLed) {
+        this.maxLed = maxLed;
     }
 
     @Override

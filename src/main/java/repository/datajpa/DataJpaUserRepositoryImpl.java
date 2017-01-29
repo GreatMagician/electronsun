@@ -20,7 +20,6 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
     private ProxyUserRepository proxy;
 
     @Override
-    @Transactional
     public User save(User user) {
         return proxy.save(user);
     }

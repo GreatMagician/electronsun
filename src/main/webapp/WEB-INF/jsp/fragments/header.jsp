@@ -32,8 +32,8 @@
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <div class="adminpanel">
                         <a href="/electronsun/admin/users"><fmt:message key="admin.user"/> </a>
-                        <a href="/electronsun/admin/product"><fmt:message key="admin.product"/> </a>
-                        <a href="/electronsun/admin/device"><fmt:message key="admin.device"/> </a>
+                        <a href="/electronsun/admin/products"><fmt:message key="admin.product"/> </a>
+                        <a href="/electronsun/admin/devices"><fmt:message key="admin.device"/> </a>
                     </div>
                 </sec:authorize>
             </sec:authorize>

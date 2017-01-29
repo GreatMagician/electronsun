@@ -7,7 +7,7 @@
 
 <head>
     <link rel="stylesheet" href=<c:url value="/webjars/datatables/1.10.12/css/jquery.dataTables.min.css"/>>
-    <link rel="stylesheet" href="/electronsun/resources/css/admin/users.css">
+    <link rel="stylesheet" href="/electronsun/resources/css/admin/admin.css">
     <script type="text/javascript" src="/electronsun/webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/electronsun/webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
     <script type="text/javascript" src="/electronsun/resources/js/date.format.js"></script>

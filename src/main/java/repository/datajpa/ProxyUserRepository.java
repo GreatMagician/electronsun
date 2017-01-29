@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * Created by Александр on 14.11.2016.
  */
-@Transactional
 public interface ProxyUserRepository extends JpaRepository<User, Long> {
+
     @Override
     User save(User user);
 

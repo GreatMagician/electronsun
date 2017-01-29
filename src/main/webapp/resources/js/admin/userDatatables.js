@@ -155,10 +155,9 @@ function enableClick(chkbox, id) {
             if (enabled){
                 noty({
                     text: 'пользователь активирован',
-                    fontSize: 14,
                     type: 'success',
                     layout: 'bottomRight',
-                    timeout: 3000,
+                    timeout: 3000
                 });
             }else{
                 noty({

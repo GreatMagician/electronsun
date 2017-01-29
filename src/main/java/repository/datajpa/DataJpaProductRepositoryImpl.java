@@ -23,7 +23,7 @@ public class DataJpaProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Product get(Long id) {
-        return proxy.getOne(id);
+        return proxy.findOne(id);
     }
 
     @Override

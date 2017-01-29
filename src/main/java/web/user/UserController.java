@@ -24,27 +24,6 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserController extends AbstractUserController{
 
-    @GetMapping("/{id}")
-    public User get(@PathVariable("id") Long id) {
-        return super.get(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        super.delete(id);
-    }
-
-
-    @GetMapping
-    public User create(@Valid @RequestBody User user) {
-        return super.create(user);
-    }
-
-
-    @PutMapping
-    public void update(@Valid @RequestBody User user) {
-        super.update(user);
-    }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView profile(){
