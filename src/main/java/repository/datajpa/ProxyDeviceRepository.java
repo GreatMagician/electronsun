@@ -17,7 +17,7 @@ public interface ProxyDeviceRepository extends JpaRepository<Device, Long> {
     Device save(Device device);
 
     @Override
-    Device getOne(Long id);
+    Device findOne(Long id);
 
     @Override
     List<Device> findAll();

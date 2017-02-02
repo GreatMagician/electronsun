@@ -24,10 +24,10 @@ public class Device  extends BaseEntity {
     @Column(name = "enabled")
     private boolean enabled = false; // подключен ли прибор к программе
 
-    @Column(name = "uuid")
+    @Column(name = "uuid", unique = true)
     private UUID uuid; // серийный номер прибора (уникальный)
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

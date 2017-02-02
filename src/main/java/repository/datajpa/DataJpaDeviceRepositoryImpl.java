@@ -23,7 +23,7 @@ public class DataJpaDeviceRepositoryImpl implements DeviceRepository{
 
     @Override
     public Device get(Long id) {
-        return proxy.getOne(id);
+        return proxy.findOne(id);
     }
 
     @Override

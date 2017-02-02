@@ -30,3 +30,12 @@ function errorMessageCenter(message) {
         timeout: 3000
     });
 }
+function warningMessageBotton(message) {
+    noty({
+        text: message,
+        type: 'warning',
+        layout: 'bottomRight',
+        timeout: 5000
+    });
+}
+

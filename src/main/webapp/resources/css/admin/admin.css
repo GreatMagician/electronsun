@@ -9,6 +9,11 @@ h1{
     padding-left: 30px;
     color: #0a13e2;
 }
+.display td, .addTable{
+   vertical-align: middle;
+    text-align: center;
+}
+
 .addTable{
     border:1px solid #5b5b5b;
 }

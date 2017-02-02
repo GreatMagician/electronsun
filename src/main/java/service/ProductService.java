@@ -23,4 +23,5 @@ public interface ProductService {
     void delete(Long id);
 
     Product update(Long id, String column, String value);
+
 }

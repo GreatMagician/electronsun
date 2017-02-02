@@ -116,6 +116,7 @@ function changeInput(inpt, id) {
         sussesMessageBottom('Данные сохранены');
     }).fail(function( xhr, status, errorThrown ) {
         errorMessageBottom('Ошибка при сохранении данных');
+        errorConsole(xhr, status, errorThrown);
     });
 
 }
@@ -138,6 +139,7 @@ function deleteRow(id) {
         sussesMessageBottom('Данные удалены');
     }).fail(function( xhr, status, errorThrown ) {
         errorMessageBottom('Ошибка при удалении данных');
+        errorConsole(xhr, status, errorThrown);
     });
 }
 
@@ -162,6 +164,7 @@ function addProductClick() {
         sussesMessageBottom('Продукт добавлен');
     }).fail(function( xhr, status, errorThrown ) {
         errorMessageBottom('Ошибка при добавлении продукта');
+        errorConsole(xhr, status, errorThrown);
     });
 
 }

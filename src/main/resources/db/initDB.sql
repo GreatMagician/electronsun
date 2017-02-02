@@ -71,7 +71,7 @@ CREATE TABLE devices (
   product_id     int8 REFERENCES products (id) ON DELETE CASCADE,
   maxLed         INTEGER NOT NULL,
   enabled        BOOL DEFAULT FALSE,
-  uuid           UUID,
+  uuid           UUID UNIQUE,
   user_id        int8 REFERENCES users (id) ON DELETE CASCADE
 );
 

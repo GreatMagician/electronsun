@@ -153,19 +153,9 @@ function enableClick(chkbox, id) {
         },
         success: function () {
             if (enabled){
-                noty({
-                    text: 'пользователь активирован',
-                    type: 'success',
-                    layout: 'bottomRight',
-                    timeout: 3000
-                });
+                sussesMessageBottom('пользователь активирован');
             }else{
-                noty({
-                    text: 'заблокирован',
-                    type: 'success',
-                    layout: 'bottomRight',
-                    timeout: 3000
-                });
+                sussesMessageBottom('заблокирован');
             }
         }
     });

@@ -10,3 +10,8 @@ $(function () {
 function index() {
     window.location = "/electronsun/index"
 }
+function errorConsole(xhr, status, errorThrown) {
+    console.log( "Error: " + errorThrown );
+    console.log( "Status: " + status );
+    console.dir( xhr );
+}
