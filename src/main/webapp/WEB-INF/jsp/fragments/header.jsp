@@ -44,6 +44,6 @@
     <li><a href="/electronsun/index"><fmt:message key="menu.main"/></a></li>
     <li><a href="/electronsun/project"><fmt:message key="menu.project"/></a></li>
     <li><a href="/electronsun/player"><fmt:message key="menu.play"/></a></li>
-    <li><a href="/electronsun/lightshow"><fmt:message key="menu.lightShow"/></a></li>
+    <li><a href="/electronsun/lightshow/show"><fmt:message key="menu.lightShow"/></a></li>
     <li><a href="/electronsun/devices"><fmt:message key="menu.device"/></a></li>
 </ul>

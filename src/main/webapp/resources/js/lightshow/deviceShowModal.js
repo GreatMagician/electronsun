@@ -1,14 +1,17 @@
 var deviceTable;
 
 $(document).ready(function () {
-    createTable();
-
+    $('#deviceLightShowModal').on($.modal.BEFORE_OPEN, function(event, modal) {
+        if (deviceTable == undefined){
+            createTable();
+        }
+    });
 });
 
 
 function createTable() {
     $.ajax({
-        url: '/electronsun/admin/loaddevices',
+        url: '/electronsun/device/loaduserdevices',
         dataType: "json",
         type: "POST",
         success: function (json) {
@@ -24,24 +27,21 @@ function createTable() {
                             return data;
                         }
                     },
-                    {data: 'maxLed'},
-                    {data: 'enabled'},
                     {
-                        "data": "user",
+                        "data": "description",
                         "render": function (data, type, row) {
                             if (type == 'display') {
-                                return data.name;
+                                return '<input  type="text"  value="' + data + '"' + ' onchange="onchangeDescription($(this),' + row.id  + ');"/>';
                             }
                             return data;
                         }
                     },
+
                     {
                         "data": "uuid",
                         "render": function (data, type, row) {
                             if (type == 'display') {
-                                if (data == null){
-                                    return '<div id="div-' + row.id +'"'   + '> <input  type="submit"  value="Сгенерировать" onclick="uuidGenerated(' + row.id  + ');"/> </div>';
-                                }
+                                return data == null ? 'нет' : 'зарегистрирован'
                             }
                             return data;
                         }
@@ -86,26 +86,10 @@ function createTable() {
     });
 }
 
-function uuidGenerated(id) {
-    $.ajax({
-        url: '/electronsun/admin/uuidgenerate',
-        type: 'POST',
-        data: {
-            id: id
-        }
-    }).done(function( text) {
-        $('#div-' + id).html(text);
-        sussesMessageBottom('Сгенерировано');
-    }).fail(function( xhr, status, errorThrown ) {
-        errorMessageBottom('Не удалось сгенерировать');
-        errorConsole(xhr, status, errorThrown);
-    });
-
-}
 
 function renderDeleteBtn(data, type, row) {
     if (type == 'display') {
-        return '<input type="submit" id="btnDelete-' + row.id + '" value="Удалить" onclick="deleteRow(' + row.id + ');"> ';
+        return '<input type="submit" class="modal-btn-del" id="btnDelete-' + row.id + '" value="Удалить" onclick="deleteRow(' + row.id + ');"> ';
     }
 }
 
@@ -125,7 +109,8 @@ function deleteRow(id) {
                         id: id
                     }
                 }).done(function (json) {
-                    $('#btnDelete-' + id).closest('tr').remove();
+                    // $('#btnDelete-' + id).closest('tr').remove();
+                    deviceTable.row( $('#btnDelete-' + id).parents('tr') ).remove().draw();
                     sussesMessageBottom('Данные удалены');
                 }).fail(function (xhr, status, errorThrown) {
                     errorMessageBottom('Ошибка при удалении данных');
@@ -150,17 +135,38 @@ function addDevice() {
         return;
     }
     $.ajax({
-        url: '/electronsun/admin/adddevice',
+        url: '/electronsun/device/adddevice',
         type: 'POST',
         data: {
-            productId: productId,
-            usernik: usernik
+            productId: productId
         }
     }).done(function (json) {
-        deviceTable.row.add(json).draw();
-        sussesMessageBottom('Прибор добавлен');
+        if (json == ""){
+            errorMessageBottom('У вас уже есть незарегистрированный прибор такого типа');
+        }else{
+            deviceTable = deviceTable.row.add(json).draw();
+            sussesMessageBottom('Прибор добавлен');
+        }
     }).fail(function (xhr, status, errorThrown) {
         errorMessageBottom('Ошибка при добавлении данных');
+        errorConsole(xhr, status, errorThrown);
+    });
+
+}
+
+function onchangeDescription(inpt, id) {
+    var description = $(inpt).val();
+    $.ajax({
+        url: '/electronsun/device/updatedevice',
+        type: 'POST',
+        data: {
+            id: id,
+            description: description
+        }
+    }).done(function( json ) {
+        sussesMessageBottom('Данные сохранены');
+    }).fail(function( xhr, status, errorThrown ) {
+        errorMessageBottom('Ошибка при сохранении данных');
         errorConsole(xhr, status, errorThrown);
     });
 

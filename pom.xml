@@ -53,6 +53,7 @@
         <webjars-jquery.version>3.1.1-1</webjars-jquery.version>
         <webjars-datatables.version>1.10.12-1</webjars-datatables.version>
         <webjars-noty.version>2.3.8</webjars-noty.version>
+        <webjars-jquery-modal.version>0.8.0</webjars-jquery-modal.version>
 
     </properties>
 
@@ -230,6 +231,11 @@
             <version>${webjars-noty.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery-modal</artifactId>
+            <version>${webjars-jquery-modal.version}</version>
+        </dependency>
         <!--JSON-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

@@ -69,6 +69,7 @@ CREATE TABLE order_products (
 CREATE TABLE devices (
   id             int8 PRIMARY KEY DEFAULT nextval('global_seq'),
   product_id     int8 REFERENCES products (id) ON DELETE CASCADE,
+  description    TEXT,
   maxLed         INTEGER NOT NULL,
   enabled        BOOL DEFAULT FALSE,
   uuid           UUID UNIQUE,

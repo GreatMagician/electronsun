@@ -1,0 +1,7 @@
+.led-window{
+    float: left;
+    width: 55%;
+    height: 75%;
+    margin-top: -13px;
+    background-color: black;
+}

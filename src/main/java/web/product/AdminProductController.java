@@ -23,14 +23,10 @@ public class AdminProductController {
     private ProductService productService;
 
     @RequestMapping("/products")
-    public String login(ModelMap model) {
+    public String products(ModelMap model) {
         return "admin/products";
     }
 
-    @RequestMapping(value = "/loadproducts", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public @ResponseBody List<Product> loadProducts (){
-        return productService.getAll();
-    }
 
     @RequestMapping(value = "/updateproduct", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody Product saveProduct(@RequestParam Long id, @RequestParam("column") String column,

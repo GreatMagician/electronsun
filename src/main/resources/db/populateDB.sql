@@ -35,7 +35,7 @@ INSERT INTO user_roles (user_id, role) VALUES
 INSERT INTO products (name, description, price, discount, maxLed) VALUES
   ('ELECTRON_SUN_8_8', 'светодиодная матрица 8*8', 250, 5, 64),
   ('ELECTRON_SUN_32_32', 'светодиодная матрица 32*32', 2500, 8, 1024),
-  ('deleteTest', 'test', 2502, 8, 1024); -- 15
+  ('deleteTest', 'test', 2502, 8, 0); -- 15
 
 INSERT INTO orders (user_id, statusOrder) VALUES
   (10, 'PENDING_PAYMENT'),

@@ -16,6 +16,7 @@
         <intercept-url pattern="/project" access="permitAll"/>
 
         <intercept-url pattern="/**/profile/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/**/lightshow/**" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/**" access="isAuthenticated()"/>
 

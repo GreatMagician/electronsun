@@ -1,0 +1,51 @@
+.show-menu{
+    float: left;
+    width: 97%;
+    height: 20px;
+    margin-top: -5px;
+    padding-top: 2px;
+    list-style: none;
+    background-color: slateblue;
+    border: 2px solid orchid;
+}
+.show-menu li {
+    display: inline-block;
+    margin-left: -20px;
+}
+.menu-element{
+    padding-left: 3%;
+}
+.show-menu button {
+    background-color: cornflowerblue;
+    color: azure;
+}
+
+.show-menu a {
+    color: lawngreen;
+    font-size: 15px;
+    text-decoration: none;
+}
+.show-menu a:hover {
+    color: #fffbfd;
+}
+.show-user{
+    float: right;
+    padding-right: 5px;
+}
+
+.modal{
+    background-color: #7ddded;
+}
+.modal-btn{
+    background-color: #3b9bff;
+    color: #fffbfd;
+}
+.modal-select{
+    width: 100%;
+}
+h2{
+    text-align: center;
+}
+.noty_text{
+    font-size: 20px;
+}

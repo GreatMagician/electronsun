@@ -61,7 +61,7 @@ public class DeviceServiceTest {
     @Test
     public void getUserDevices() throws Exception {
         User user = userService.get(10l);
-        List<Device> devices = deviceService.getUserDevices(user);
+        List<Device> devices = deviceService.getUserDevices();
         assertThat(devices.size() > 0, is(true));
         devices.forEach(value -> assertThat(value.getId(), is(notNullValue())));
     }

@@ -1,0 +1,3 @@
+function opendeviceLightShow() {
+    $('#deviceLightShowModal').modal();
+}

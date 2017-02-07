@@ -18,6 +18,12 @@ public class Device  extends BaseEntity {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    /*
+        Описание где находится прибор
+     */
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "maxLed", nullable = false)
     private int maxLed; // кол-во светодиодов в приборе
 
@@ -65,6 +71,14 @@ public class Device  extends BaseEntity {
     public void createSerialID(){
         if (uuid == null)
             uuid = UUID.randomUUID();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setMaxLed(int maxLed) {

@@ -9,6 +9,8 @@
     <script type="text/javascript" src="/electronsun/webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/electronsun/webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
     <script type="text/javascript" src="/electronsun/resources/js/admin/deviceDatatables.js"></script>
+    <script src="/electronsun/resources/js/product.js" type="text/javascript" charset="utf-8" ></script>
+
 </head>
 <body>
 <h1><spring:message code="admin.device"/></h1>
@@ -45,7 +47,7 @@
     </tr>
     <tr>
         <td>
-            <p><select id="add-select" onclick="addselect()" >
+            <p><select id="add-select" onclick="getAllProductToLed(optionId='option-device-', selectId='add-select')" >
                 <option disabled><spring:message code="product.select"/></option>
             </select></p>
         </td>

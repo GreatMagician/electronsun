@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import repository.DeviceRepository;
+import util.AuthorizedUser;
 import util.exception.ExceptionUtil;
 import util.exception.NotFoundException;
 
@@ -24,9 +25,9 @@ public class DeviceServiceImpl implements DeviceService {
     @Autowired
     private DeviceRepository repository;
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Override
     public Device save(Device device) throws NotFoundException {
@@ -48,7 +49,8 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public List<Device> getUserDevices(User user) {
+    public List<Device> getUserDevices() {
+        User user = AuthorizedUser.get().getUser();
         log.info("getUserDevices " + user);
         Assert.notNull(user, "user не должен быть пустым");
         return repository.getUserDevices(user);
@@ -78,4 +80,31 @@ public class DeviceServiceImpl implements DeviceService {
         Device device = new Device(null, product, user);
         return save(device);
     }
+
+    @Override
+    public Device addDevice(Long productId) {
+        User user = AuthorizedUser.get().getUser();
+        Product product = productService.get(productId);
+        if (checkedDeviceRegistered(product))
+            return null;
+        Device device = new Device(null, product, user);
+        return save(device);
+    }
+
+    @Override
+    public Device update(Long id, String description) {
+        Device device = get(id);
+        device.setDescription(description);
+        return save(device);
+    }
+
+    // проверка имеет ли юзер такой прибор не зарегистрированный
+    private boolean checkedDeviceRegistered(Product product){
+        for (Device device : getUserDevices()){
+            if (device.getProduct().getName().equals(product.getName()) && device.getUuid() == null)
+                return true;
+        }
+        return false;
+    }
+
 }

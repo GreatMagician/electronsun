@@ -22,10 +22,8 @@ public interface DeviceService {
 
     /**
      * Получить все приборы юзера
-     * @param user
-     * @return
      */
-    List<Device> getUserDevices(User user);
+    List<Device> getUserDevices();
 
     void delete(Long id);
 
@@ -36,4 +34,8 @@ public interface DeviceService {
     @Transactional
     @Secured("ROLE_ADMIN")
     Device addDevice(Long productId, String userNik);
+
+    Device addDevice(Long productId);
+
+    Device update(Long id, String description);
 }

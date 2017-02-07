@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.DeviceService;
-import service.ProductService;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class AdminDeviceController {
     private DeviceService deviceService;
 
     @RequestMapping("/devices")
-    public String login(ModelMap model) {
+    public String devices(ModelMap model) {
         return "admin/devices";
     }
 
@@ -42,10 +41,6 @@ public class AdminDeviceController {
         return deviceService.generateUUID(id);
     }
 
-    @RequestMapping(value = "/deletedevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public @ResponseBody void deleteDevices (@RequestParam Long id){
-        deviceService.delete(id);
-    }
 
     @RequestMapping(value = "/adddevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody Device addDevice (@RequestParam Long productId, @RequestParam String usernik){
