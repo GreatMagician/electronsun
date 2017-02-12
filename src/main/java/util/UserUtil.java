@@ -1,6 +1,7 @@
 package util;
 
 import model.User;
+import to.UserTo;
 
 /**
  * Created by Александр on 30.12.2016.
@@ -13,4 +14,9 @@ public class UserUtil {
         return user;
     }
 
+    public static UserTo createUserTo(User user){
+        if (user == null)
+            return new UserTo(null, null, true);
+        return new UserTo(user.getId(), user.getName(), user.isEnabled());
+    }
 }

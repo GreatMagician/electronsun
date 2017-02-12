@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import service.LightShowService;
+import to.LightShowTo;
 import util.AuthorizedUser;
+import util.modelUtil.LightShowUtil;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +20,7 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping(value = "/lightshow")
+@SessionAttributes("lightshowto")
 public class LightShowController {
     @Autowired
     private LightShowService lightShowService;
@@ -30,13 +30,19 @@ public class LightShowController {
         return "lightshow/show";
     }
 
-    @RequestMapping(value = "/createlightshow", method = RequestMethod.POST)
-    public String createlightshow (@RequestParam String name, @RequestParam int deviceId, ModelMap model){
-        if (Objects.equals(name, "") || deviceId == 0)
-            return "lightshow/show";
-        User user = AuthorizedUser.get().getUser();
-        return "lightshow/show";
+    @RequestMapping(value = "/createlightshowto", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody
+    LightShowTo createLightShowTo (@RequestParam String nameShow, @RequestParam Long deviceId, ModelMap model){
+        LightShow lightShow = lightShowService.createLightShow(nameShow, deviceId);
+        LightShowTo lightShowTo = LightShowUtil.createLightShowTo(lightShow);
+        model.addAttribute("lightshowto", lightShowTo);
+        return lightShowTo;
     }
 
+    @RequestMapping(value = "/getLightShowToSession", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody
+    LightShowTo getLightShowToSession (ModelMap model){
+        return (LightShowTo) model.get("lightshowto");
+    }
 
 }

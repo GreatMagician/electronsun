@@ -95,9 +95,9 @@ CREATE TABLE lightShows (
 
 CREATE TABLE lightShow_devices (
   lightShow_id   int8 NOT NULL,
-  device_id      int8 NOT NULL,
+  devices_id      int8 NOT NULL,
   FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE,
-  FOREIGN KEY (device_id) REFERENCES devices (id) ON DELETE CASCADE
+  FOREIGN KEY (devices_id) REFERENCES devices (id) ON DELETE CASCADE
 );
 
 CREATE TABLE effects(

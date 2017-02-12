@@ -37,10 +37,9 @@
 
 <%----------------------- Создание светового шоу----------------------------------------------------%>
 
-<form:form method="post"  id="createLightShowModal" style="display:none;"
-            action="/electronsun/lightshow/createlightshow" charset="utf-8" accept-charset="UTF-8">
+<div  id="createLightShowModal" style="display:none;">
     <jsp:include page="./modalmenu/createShowModal.jsp"/>
-</form:form>
+</div>
 
 <%----------------------- Мои шоу --------------------------------------------------------%>
 

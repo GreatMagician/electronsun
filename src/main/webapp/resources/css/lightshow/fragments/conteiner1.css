@@ -7,3 +7,10 @@
     border: 1px solid #0a13e2;
 
 }
+.show-container1 label {
+    color: #0a13e2;
+}
+.show-container1 .value{
+    color: #670298;
+    padding-right: 10px;
+}

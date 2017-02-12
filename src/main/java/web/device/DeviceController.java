@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.DeviceService;
+import to.DeviceTo;
 import util.AuthorizedUser;
+import util.modelUtil.DeviceUtil;
 
 import java.util.List;
 
@@ -25,13 +27,13 @@ public class DeviceController {
 
     @RequestMapping(value = "/loaduserdevices", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody
-    List<Device> loadUserDevices (){
-        return deviceService.getUserDevices();
+    List<DeviceTo> loadUserDevices (){
+        return DeviceUtil.convertDevices(deviceService.getUserDevices());
     }
 
     @RequestMapping(value = "/adddevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public @ResponseBody  Device addDevice (@RequestParam Long productId){
-        return deviceService.addDevice(productId);
+    public @ResponseBody  DeviceTo addDevice (@RequestParam Long productId){
+        return DeviceUtil.createDeviceTo(deviceService.addDevice(productId));
     }
 
     @RequestMapping(value = "/deletedevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -40,8 +42,8 @@ public class DeviceController {
     }
 
     @RequestMapping(value = "/updatedevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public @ResponseBody Device saveProduct(@RequestParam Long id, @RequestParam("description") String description ) {
-        return deviceService.update(id, description);
+    public @ResponseBody DeviceTo saveProduct(@RequestParam Long id, @RequestParam("description") String description ) {
+        return DeviceUtil.createDeviceTo(deviceService.update(id, description));
     }
 
 }

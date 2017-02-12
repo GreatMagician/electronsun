@@ -65,7 +65,7 @@ INSERT INTO leds (r, g, b, number, effect_id) VALUES
   (200, 0, 22, 1,24),
   (0, 250, 22, 2,25); -- id 27
 
-INSERT INTO lightShow_devices (lightShow_id, device_id) VALUES
+INSERT INTO lightShow_devices (lightShow_id, devices_id) VALUES
   (23, 21);
 
 

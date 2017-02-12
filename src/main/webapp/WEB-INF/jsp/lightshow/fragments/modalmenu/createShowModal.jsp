@@ -15,13 +15,14 @@
         <td><label>Выберите или <a href="#" onclick="opendeviceLightShow()">создайте</a> прибор:</label></td>
         <td>
             <select class="modal-select" id="create-select" name="deviceId"
-                    onclick="getAllProductToLed(optionId='option-show-', selectId='create-select')" >">
+                    onclick="loadUserDevices(optionId='option-show-', selectId='create-select')" >">
                 <OPTION selected label="none" value="0"></OPTION>
             </select>
         </td>
     </tr>
     <tr>
         <td></td>
-        <td><input class="modal-btn" type="submit" id="create-btn" value="<fmt:message key="menu.create"/>"></td>
+        <td><input class="modal-btn" type="submit" id="create-btn" onclick="createShow()"
+                   value="<fmt:message key="menu.create"/>"></td>
     </tr>
 </table>

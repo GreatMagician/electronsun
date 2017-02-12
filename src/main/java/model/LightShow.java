@@ -31,7 +31,7 @@ public class LightShow  extends  NamedEntity {
 
     @ElementCollection
     @CollectionTable(name="lightShow_devices",joinColumns = @JoinColumn(name = "lightShow_id"))
-    @JoinColumn(name="device_id")
+    @JoinColumn(name="devices_id")
     private List<Device> devices;
 
     @ManyToOne(fetch = FetchType.LAZY)
