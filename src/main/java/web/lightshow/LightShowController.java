@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import service.LightShowService;
 import to.LightShowTo;
 import util.AuthorizedUser;
+import util.exception.LightShowRemixException;
 import util.modelUtil.LightShowUtil;
 
 import java.util.List;
@@ -44,5 +45,30 @@ public class LightShowController {
     LightShowTo getLightShowToSession (ModelMap model){
         return (LightShowTo) model.get("lightshowto");
     }
+
+
+    @RequestMapping(value = "/loaduserlightshow", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody List<LightShowTo> loadUserLightShow (){
+        return LightShowUtil.convertLightShowsToLazy(lightShowService.getLightShowToUser());
+    }
+
+    // загрузить другое шоу функция открыть
+    @RequestMapping(value = "/choicelightshow", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody LightShowTo choiceLightShowTo (@RequestParam Long id, ModelMap model){
+        LightShowTo lightShowTo = LightShowUtil.createLightShowTo(lightShowService.get(id));
+        model.addAttribute("lightshowto", lightShowTo);
+        return lightShowTo;
+    }
+
+    @RequestMapping(value = "/deletelightshow", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody String deleteLightShow (@RequestParam Long id){
+        try {
+            lightShowService.delete(id);
+        } catch (LightShowRemixException e) {
+            return e.getMessage();
+        }
+        return "true";
+    }
+
 
 }

@@ -3,6 +3,9 @@ package service;
 import model.LightShow;
 import model.User;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import util.exception.LightShowRemixException;
 import util.exception.NotFoundException;
 
 import java.util.List;
@@ -13,16 +16,20 @@ import java.util.List;
 @Secured("ROLE_USER")
 public interface LightShowService {
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     LightShow save(LightShow lightShow) throws NotFoundException;
 
+    @Transactional
     LightShow get(Long id) throws NotFoundException;
 
     /**
      * Получить все шоу юзера
      */
-    List<LightShow> getLightShowToUser(User user);
+    List<LightShow> getLightShowToUser();
 
-    void delete(Long id);
+    @Transactional
+    void delete(Long id) throws LightShowRemixException;
 
     LightShow createLightShow(String nameShow, Long deviceId);
+
 }

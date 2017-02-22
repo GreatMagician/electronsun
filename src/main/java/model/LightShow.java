@@ -1,6 +1,7 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 
@@ -23,24 +24,38 @@ public class LightShow  extends  NamedEntity {
      * key - объект эффект
      * value - позиция начала эффекта в милисекундах
      */
+    @JsonIgnore
     @ElementCollection
     @CollectionTable(name="lightShow_effect_time_start",joinColumns = @JoinColumn(name = "lightShow_id"))
     @MapKeyJoinColumn(name="effect_id")
     @Column(name="time")
     private Map<Effect, Integer> effects;
 
+    @JsonIgnore
     @ElementCollection
     @CollectionTable(name="lightShow_devices",joinColumns = @JoinColumn(name = "lightShow_id"))
     @JoinColumn(name="devices_id")
     private List<Device> devices;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "remix_user_id", nullable = false)
-    private User remixUser;
+    /**
+     *  ссылка на id шоу на каторый делаем ремикс
+     */
+    @Column(name = "lightshow_remix_id")
+    private Long lightShowRemixId;
+
+    /**
+     *  Список id шоу ремиксов на это шоу
+     */
+    @JsonIgnore
+    @ElementCollection
+    @CollectionTable(name="lightShow_remixes",joinColumns = @JoinColumn(name = "lightShow_id"))
+    @Column(name = "remixid", nullable = false)
+    private List<Long> lightShowRemixes;
 
     @Column(name = "time", nullable = false)
     private int time; // в милисекундах продолжительность шоу
@@ -48,6 +63,9 @@ public class LightShow  extends  NamedEntity {
     @OneToOne
     @JoinColumn(name = "audio_id")
     private Audio audio;
+
+    @Column(name = "public")
+    private boolean publicShow = false;
 
     public LightShow() {
     }
@@ -90,12 +108,20 @@ public class LightShow  extends  NamedEntity {
         this.user = user;
     }
 
-    public User getRemixUser() {
-        return remixUser;
+    public Long getLightShowRemixId() {
+        return lightShowRemixId;
     }
 
-    public void setRemixUser(User remixUser) {
-        this.remixUser = remixUser;
+    public void setLightShowRemixId(Long lightShowRemixId) {
+        this.lightShowRemixId = lightShowRemixId;
+    }
+
+    public List<Long> getLightShowRemixes() {
+        return lightShowRemixes;
+    }
+
+    public void setLightShowRemixes(List<Long> lightShowRemixes) {
+        this.lightShowRemixes = lightShowRemixes;
     }
 
     public int getTime() {
@@ -112,5 +138,18 @@ public class LightShow  extends  NamedEntity {
 
     public void setAudio(Audio audio) {
         this.audio = audio;
+    }
+
+    public boolean isPublicShow() {
+        return publicShow;
+    }
+
+    public void setPublicShow(boolean publicShow) {
+        this.publicShow = publicShow;
+    }
+
+    @Override
+    public String toString() {
+        return name + "("  + audio != null ? audio.getName() : "" + ')';
     }
 }

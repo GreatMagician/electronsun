@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS order_products CASCADE;
 DROP TABLE IF EXISTS lightShows CASCADE;
 DROP TABLE IF EXISTS lightShow_effect_time_start CASCADE;
+DROP TABLE IF EXISTS lightShow_remixes CASCADE;
 DROP TABLE IF EXISTS lightShow_devices CASCADE;
 DROP TABLE IF EXISTS devices CASCADE;
 DROP TABLE IF EXISTS leds CASCADE;
@@ -84,13 +85,20 @@ CREATE TABLE audios(
 
 
 CREATE TABLE lightShows (
-  id             int8 PRIMARY KEY DEFAULT nextval('global_seq'),
-  name           VARCHAR NOT NULL,
-  user_id        int8 NOT NULL,
-  remix_user_id  int8 REFERENCES users (id),
-  time           INTEGER NOT NULL,
-  audio_id       int8 REFERENCES audios (id),
+  id                  int8 PRIMARY KEY DEFAULT nextval('global_seq'),
+  name                VARCHAR NOT NULL,
+  user_id             int8 NOT NULL,
+  lightshow_remix_id  int8,
+  time                INTEGER NOT NULL,
+  audio_id            int8 REFERENCES audios (id),
+  public              BOOL DEFAULT FALSE,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE TABLE lightShow_remixes (
+  lightShow_id   int8 NOT NULL,
+  remixid        int8 NOT NULL,
+  FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE
 );
 
 CREATE TABLE lightShow_devices (

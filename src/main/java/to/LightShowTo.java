@@ -12,25 +12,38 @@ import java.util.Map;
  */
 public class LightShowTo {
 
+    private final Long id;
+
     private final String name;
 
     private final Map<Effect, Integer> effects;
 
     private final List<DeviceTo> devices;
 
-    private final UserTo remixUser;
+    private final Long lightShowRemixId;
+
+    private final List<Long> lightShowRemixes;
 
     private final int time; // в милисекундах продолжительность шоу
 
     private final Audio audio;
 
-    public LightShowTo(String name, Map<Effect, Integer> effects, List<DeviceTo> devices, UserTo remixUser, int time, Audio audio) {
+    private final boolean publicShow;
+
+    public LightShowTo(Long id, String name, Map<Effect, Integer> effects, List<DeviceTo> devices, Long lightShowRemixId, List<Long> lightShowRemixes, int time, Audio audio, boolean publicShow) {
+        this.id = id;
         this.name = name;
         this.effects = effects;
         this.devices = devices;
-        this.remixUser = remixUser;
+        this.lightShowRemixId = lightShowRemixId;
+        this.lightShowRemixes = lightShowRemixes;
         this.time = time;
         this.audio = audio;
+        this.publicShow = publicShow;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -45,8 +58,12 @@ public class LightShowTo {
         return devices;
     }
 
-    public UserTo getRemixUser() {
-        return remixUser;
+    public Long getLightShowRemixId() {
+        return lightShowRemixId;
+    }
+
+    public List<Long> getLightShowRemixes() {
+        return lightShowRemixes;
     }
 
     public int getTime() {
@@ -55,5 +72,9 @@ public class LightShowTo {
 
     public Audio getAudio() {
         return audio;
+    }
+
+    public boolean isPublicShow() {
+        return publicShow;
     }
 }

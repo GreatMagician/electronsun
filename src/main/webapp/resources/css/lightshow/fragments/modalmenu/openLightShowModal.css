@@ -1,0 +1,11 @@
+/*Размер окна*/
+.modal  {
+    max-width: 1000px;
+}
+.modal-btn-del{
+    background-color: #38dbfd;
+    color: #f90707;
+}
+.select-option{
+    width: 150px;
+}

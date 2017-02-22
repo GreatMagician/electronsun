@@ -15,8 +15,10 @@ public class UserUtil {
     }
 
     public static UserTo createUserTo(User user){
-        if (user == null)
+        if (user == null){
             return new UserTo(null, null, true);
+        }
         return new UserTo(user.getId(), user.getName(), user.isEnabled());
     }
+
 }

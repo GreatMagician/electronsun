@@ -58,6 +58,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public void delete(Long id) {
+        ExceptionUtil.checkAccessUser(get(id).getUser());
         log.info("delete " + id);
         repository.delete(id);
     }
@@ -94,6 +95,7 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public Device update(Long id, String description) {
         Device device = get(id);
+        ExceptionUtil.checkAccessUser(device.getUser());
         device.setDescription(description);
         return save(device);
     }

@@ -23,7 +23,7 @@ public class DataJpaLightShowRepositoryImpl implements LightShowRepository{
 
     @Override
     public LightShow get(Long id) {
-        return proxy.getOne(id);
+        return proxy.findOne(id);
     }
 
     @Override

@@ -14,3 +14,106 @@
     color: #670298;
     padding-right: 10px;
 }
+.show-container1 .show-name{
+    float: left;
+    width: 100%;
+    height: 20px;
+}
+
+.show-container1 .leds, .effects{
+    float: left;
+    width: 49%;
+    margin-top: 2px;
+    margin-left: 2px;
+    border: 1px solid #0a13e2;
+}
+.show-container1 .leds, .effects{
+    float: left;
+    width: 49%;
+    margin-top: 2px;
+    margin-left: 2px;
+    border: 1px solid #0a13e2;
+}
+
+.show-container1 .leds{
+    height: 52%;
+}
+
+.show-container1 .leds .title{
+    padding-left: 40%;
+}
+
+.show-container1 .leds-label{
+    color: #9818b7;
+}
+.show-container1 .leds-value{
+    color: #b618e8;
+}
+.show-container1 .leds select, input{
+    background-color: #cacaca;
+    color: #54265f;
+}
+.show-container1 .leds select{
+    width: 50px;
+}
+.show-container1 .leds input[type="color"]{
+    width: 100px;
+}
+.show-container1 .leds input[type="checkbox"]{
+    width: 15px;
+    height: 15px;
+}
+.show-container1 .leds input[type="number"]{
+    width: 100px;
+}
+.show-container1 .leds input[type="button"]{
+    margin-left: 10px;
+    width: 95%;
+    margin-top: 5px;
+}
+
+.show-container1 .effects{
+    text-align: center;
+}
+.show-container1 .effects select, .effects input{
+    width: 95%;
+    background-color: #cacaca;
+    color: #54265f;
+}
+
+.show-container1 .effects input[type="button"], #saveshow{
+    margin-top: 5px;
+    height: 35px;
+    background-color: #c0abd6;
+    color: rgb(101, 5, 140);
+    font-size: 18px;
+
+}
+
+.show-container1 .play-show{
+    border: 1px solid #0a13e2;
+    margin-top: 5px;
+}
+.show-container1 .play-show .play-show-title{
+    padding-left: 40%;
+}
+.show-container1 .play-show input[type="radio"]{
+    width: 15px;
+    height: 15px;
+}
+.show-container1 .play-show .play-show-label{
+    color: #9818b7;
+}
+.show-container1 .play-show button img{
+    width: 30px;
+}
+.play-show-table{
+    border-spacing: 5px;
+    padding-left: 20%;
+}
+.show-container1 .audio-setting{
+    border: 1px solid #0a13e2;
+    margin-top: 1px;
+    height: 26%;
+
+}

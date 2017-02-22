@@ -5,3 +5,18 @@
     margin-top: -13px;
     background-color: black;
 }
+#led-display{
+    margin-top: 5%;
+    margin-left: 30%;
+}
+.circle{
+    float: left;
+    width: 4%;
+    height: 5%;
+    border-radius: 50%;
+    border: 1px solid #fffc2e;
+    margin: 1%;
+}
+.circle-right-block{
+    clear: left;
+}

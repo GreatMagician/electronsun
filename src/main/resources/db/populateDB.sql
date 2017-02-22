@@ -5,6 +5,7 @@ DELETE FROM orders;
 DELETE FROM order_products;
 DELETE FROM lightShows;
 DELETE FROM lightShow_effect_time_start;
+DELETE FROM lightShow_remixes;
 DELETE FROM lightShow_devices;
 DELETE FROM devices;
 DELETE FROM leds;
@@ -53,9 +54,9 @@ INSERT INTO devices (product_id, maxLed, user_id) VALUES
   (13, 64, 10),
   (14, 64, 11);
 
-INSERT INTO lightshows (name, user_id, time) VALUES
-  ('test',10,1000),
-  ('testDelete',10,1002); -- id 23
+INSERT INTO lightshows (name, user_id, lightshow_remix_id, time) VALUES
+  ('test',10, 23, 1000),
+  ('testDelete',10, NULL, 1002); -- id 23
 
 INSERT INTO effects (name, commonTime, lightShow_id) VALUES
   ('test', 200, 22),
@@ -65,7 +66,11 @@ INSERT INTO leds (r, g, b, number, effect_id) VALUES
   (200, 0, 22, 1,24),
   (0, 250, 22, 2,25); -- id 27
 
+INSERT INTO lightShow_remixes (lightShow_id, remixid) VALUES
+  (23, 22);
+
 INSERT INTO lightShow_devices (lightShow_id, devices_id) VALUES
+  (22, 20),
   (23, 21);
 
 

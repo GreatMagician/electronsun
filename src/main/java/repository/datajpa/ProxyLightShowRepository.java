@@ -17,7 +17,7 @@ public interface ProxyLightShowRepository extends JpaRepository<LightShow, Long>
     LightShow save(LightShow lightShow);
 
     @Override
-    LightShow getOne(Long id);
+    LightShow findOne(Long id);
 
     List<LightShow> findByUser(User user);
 
