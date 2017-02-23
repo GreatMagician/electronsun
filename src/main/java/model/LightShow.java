@@ -148,8 +148,4 @@ public class LightShow  extends  NamedEntity {
         this.publicShow = publicShow;
     }
 
-    @Override
-    public String toString() {
-        return name + "("  + audio != null ? audio.getName() : "" + ')';
-    }
 }

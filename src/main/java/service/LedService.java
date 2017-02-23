@@ -1,6 +1,7 @@
 package service;
 
 import model.Effect;
+import model.EventEffect;
 import model.Led;
 import util.exception.NotFoundException;
 
@@ -16,10 +17,10 @@ public interface LedService {
 
     /**
      * Получить все светодиоды эффекта
-     * @param effect
+     * @param eventEffect
      * @return
      */
-    List<Led> getLedToEffect(Effect effect);
+    List<Led> getLedToEventEffect(EventEffect eventEffect);
 
     void delete(Long id);
 

@@ -28,13 +28,13 @@ public class LedServiceTest {
     @Autowired
     private EffectService effectService;
 
-    @Test
-    public void save() throws Exception {
-        Effect effect = effectService.get(24L);
-        Led led = new Led(null, 255, 0, 0, 5, effect);
-        Led created = ledService.save(led);
-        assertThat(created.getId(), is(notNullValue()));
-    }
+//    @Test
+//    public void save() throws Exception {
+//        Effect effect = effectService.get(24L);
+//        Led led = new Led(null, 255, 0, 0, 5, effect);
+//        Led created = ledService.save(led);
+//        assertThat(created.getId(), is(notNullValue()));
+//    }
 
     @Test
     public void get() throws Exception {
@@ -42,13 +42,13 @@ public class LedServiceTest {
         assertThat(led.getId(), is(notNullValue()));
     }
 
-    @Test
-    public void getLedToEffect() throws Exception {
-        Effect effect = effectService.get(24L);
-        List<Led> leds = ledService.getLedToEffect(effect);
-        assertThat(leds.size()>0, is(true));
-        leds.forEach(led -> assertThat(led.getId(), is(notNullValue())));
-    }
+//    @Test
+//    public void getLedToEffect() throws Exception {
+//        Effect effect = effectService.get(24L);
+//        List<Led> leds = ledService.getLedToEffect(effect);
+//        assertThat(leds.size()>0, is(true));
+//        leds.forEach(led -> assertThat(led.getId(), is(notNullValue())));
+//    }
 
 //    @Test
 //    public void delete() throws Exception {

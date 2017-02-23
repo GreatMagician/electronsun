@@ -9,13 +9,12 @@ import java.util.List;
 /**
  * Created by Александр on 14.11.2016.
  */
-@Transactional
 public interface ProxyAudioRepository extends JpaRepository<Audio, Long> {
     @Override
     Audio save (Audio audio);
 
     @Override
-    Audio getOne(Long id);
+    Audio findOne(Long id);
 
     @Override
     List<Audio> findAll();

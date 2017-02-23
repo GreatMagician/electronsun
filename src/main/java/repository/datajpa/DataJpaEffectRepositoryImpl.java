@@ -2,6 +2,7 @@ package repository.datajpa;
 
 import model.Effect;
 import model.LightShow;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import repository.EffectRepository;
@@ -30,6 +31,11 @@ public class DataJpaEffectRepositoryImpl implements EffectRepository{
     @Override
     public List<Effect> getEffectToLightShow(LightShow lightShow) {
         return proxy.findByLightShow(lightShow);
+    }
+
+    @Override
+    public List<Effect> getEffectToUser(User user) {
+        return proxy.findByUser(user);
     }
 
     @Override

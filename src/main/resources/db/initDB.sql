@@ -7,11 +7,12 @@ DROP TABLE IF EXISTS lightShows CASCADE;
 DROP TABLE IF EXISTS lightShow_effect_time_start CASCADE;
 DROP TABLE IF EXISTS lightShow_remixes CASCADE;
 DROP TABLE IF EXISTS lightShow_devices CASCADE;
+DROP TABLE IF EXISTS effects CASCADE;
 DROP TABLE IF EXISTS devices CASCADE;
 DROP TABLE IF EXISTS leds CASCADE;
-DROP TABLE IF EXISTS effects CASCADE;
-DROP TABLE IF EXISTS effect_beginLedList CASCADE;
-DROP TABLE IF EXISTS effect_endLedList CASCADE;
+DROP TABLE IF EXISTS eventeffect CASCADE;
+DROP TABLE IF EXISTS eventeffect_leds CASCADE;
+DROP TABLE IF EXISTS effects_eventEffects CASCADE;
 DROP TABLE IF EXISTS audios;
 DROP SEQUENCE IF EXISTS global_seq;
 
@@ -111,11 +112,10 @@ CREATE TABLE lightShow_devices (
 CREATE TABLE effects(
   id             int8 PRIMARY KEY DEFAULT nextval('global_seq'),
   name           VARCHAR NOT NULL,
-  commonTime     INTEGER NOT NULL,
-  attenuation    BOOL DEFAULT FALSE,
-  appearance     BOOL DEFAULT FALSE,
   lightShow_id   int8 NOT NULL,
-  FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE
+  users_id       int8 NOT NULL,
+  FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE,
+  FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE lightShow_effect_time_start (
@@ -126,28 +126,41 @@ CREATE TABLE lightShow_effect_time_start (
   FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
 );
 
+CREATE TABLE eventeffect(
+  id                  int8 PRIMARY KEY DEFAULT nextval('global_seq'),
+  appearance          INT DEFAULT 0,
+  glow                INT,
+  brightness          INT CHECK (brightness >= 0) CHECK (brightness <= 100),
+  newcolor            BOOL DEFAULT FALSE,
+  newcolorled         VARCHAR,
+  transition          INT DEFAULT 0,
+  attenuation         INT DEFAULT 0,
+  pause               INT DEFAULT 0,
+  effects_id          int8,
+  FOREIGN KEY (effects_id) REFERENCES effects (id) ON DELETE CASCADE
+);
 
 CREATE TABLE leds(
-  id             int8 PRIMARY KEY DEFAULT nextval('global_seq'),
-  r              INTEGER CHECK (r >= 0) CHECK (r < 256),
-  g              INTEGER CHECK (g >= 0) CHECK (g < 256),
-  b              INTEGER CHECK (b >= 0) CHECK (b < 256),
-  enabled        BOOL DEFAULT FALSE,
-  number         INTEGER NOT NULL,
-  effect_id      int8,
-  FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
+  id                int8 PRIMARY KEY DEFAULT nextval('global_seq'),
+  r                 INTEGER CHECK (r >= 0) CHECK (r < 256),
+  g                 INTEGER CHECK (g >= 0) CHECK (g < 256),
+  b                 INTEGER CHECK (b >= 0) CHECK (b < 256),
+  enabled           BOOL DEFAULT FALSE,
+  number            INTEGER NOT NULL,
+  eventeffect_id    int8,
+  FOREIGN KEY (eventeffect_id) REFERENCES eventeffect (id) ON DELETE CASCADE
 );
 
-
-CREATE TABLE effect_beginLedList(
-  effect_id      int8,
-  led_id         int8 REFERENCES leds (id),
-  FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
+CREATE TABLE eventeffect_leds(
+  eventeffect_id      int8,
+  led_id              int8 REFERENCES leds (id),
+  FOREIGN KEY (eventeffect_id) REFERENCES eventeffect (id) ON DELETE CASCADE
 );
 
-CREATE TABLE effect_endLedList(
-  effect_id      int8,
-  led_id         int8 REFERENCES leds (id),
+CREATE TABLE effects_eventEffects(
+  effect_id           int8,
+  event               INT,
+  eventeffect_id      int8 REFERENCES eventeffect (id),
   FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
 );
 

@@ -10,8 +10,9 @@ DELETE FROM lightShow_devices;
 DELETE FROM devices;
 DELETE FROM leds;
 DELETE FROM effects;
-DELETE FROM effect_beginLedList;
-DELETE FROM effect_endLedList;
+DELETE FROM eventeffect;
+DELETE FROM eventeffect_leds;
+DELETE FROM effects_eventEffects;
 DELETE FROM audios;
 
 ALTER SEQUENCE global_seq RESTART WITH 10;
@@ -58,13 +59,13 @@ INSERT INTO lightshows (name, user_id, lightshow_remix_id, time) VALUES
   ('test',10, 23, 1000),
   ('testDelete',10, NULL, 1002); -- id 23
 
-INSERT INTO effects (name, commonTime, lightShow_id) VALUES
-  ('test', 200, 22),
-  ('testDelete', 210, 23); -- id 25
+-- INSERT INTO effects (name, commonTime, lightShow_id) VALUES
+--   ('test', 200, 22),
+--   ('testDelete', 210, 23); -- id 25
 
-INSERT INTO leds (r, g, b, number, effect_id) VALUES
-  (200, 0, 22, 1,24),
-  (0, 250, 22, 2,25); -- id 27
+-- INSERT INTO leds (r, g, b, number, effect_id) VALUES
+--   (200, 0, 22, 1,24),
+--   (0, 250, 22, 2,25); -- id 27
 
 INSERT INTO lightShow_remixes (lightShow_id, remixid) VALUES
   (23, 22);

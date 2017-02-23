@@ -2,6 +2,7 @@ package service;
 
 import model.Effect;
 import model.LightShow;
+import model.User;
 import util.exception.NotFoundException;
 
 import java.util.List;
@@ -20,6 +21,12 @@ public interface EffectService {
      * @return
      */
     List<Effect> getEffectToLightShow(LightShow lightShow);
+    /**
+     *  Получить все эффекты юзера
+     * @param user
+     * @return
+     */
+    List<Effect> getEffectToUser(User user);
 
     void delete(Long id);
 

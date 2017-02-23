@@ -1,6 +1,7 @@
 package repository;
 
 import model.Effect;
+import model.EventEffect;
 import model.Led;
 
 import java.util.List;
@@ -14,11 +15,11 @@ public interface LedRepository {
     Led get(Long id);
 
     /**
-     * Получить все светодиоды эффекта
-     * @param effect
+     * Получить все светодиоды события
+     * @param eventEffect
      * @return
      */
-    List<Led> getLedToEffect(Effect effect);
+    List<Led> getLedToEventEffect(EventEffect eventEffect);
 
     void delete(Long id);
 }

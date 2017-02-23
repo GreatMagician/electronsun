@@ -1,6 +1,7 @@
 package service;
 
 import model.Effect;
+import model.EventEffect;
 import model.Led;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,9 @@ public class LedServiceImpl implements LedService {
     }
 
     @Override
-    public List<Led> getLedToEffect(Effect effect) {
-        Assert.notNull(effect, "effect не должен быть пустым");
-        return repository.getLedToEffect(effect);
+    public List<Led> getLedToEventEffect(EventEffect eventEffect) {
+        Assert.notNull(eventEffect, "effect не должен быть пустым");
+        return repository.getLedToEventEffect(eventEffect);
     }
 
     @Override

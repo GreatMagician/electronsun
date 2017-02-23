@@ -2,6 +2,7 @@ package service;
 
 import model.Effect;
 import model.LightShow;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -35,6 +36,12 @@ public class EffectServiceImpl implements EffectService {
     public List<Effect> getEffectToLightShow(LightShow lightShow) {
         Assert.notNull(lightShow, "lightShow не должен быть пустым");
         return repository.getEffectToLightShow(lightShow);
+    }
+
+    @Override
+    public List<Effect> getEffectToUser(User user) {
+        Assert.notNull(user, "user не должен быть пустым");
+        return repository.getEffectToUser(user);
     }
 
     @Override

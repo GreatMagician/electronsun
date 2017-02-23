@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * Created by Александр on 14.11.2016.
  */
-@Transactional
 public interface ProxyDeviceRepository extends JpaRepository<Device, Long> {
 
     @Override

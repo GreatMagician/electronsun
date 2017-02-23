@@ -2,6 +2,7 @@ package repository;
 
 import model.Effect;
 import model.LightShow;
+import model.User;
 
 import java.util.List;
 
@@ -20,6 +21,13 @@ public interface EffectRepository {
      * @return
      */
     List<Effect> getEffectToLightShow(LightShow lightShow);
+
+    /**
+     *  Получить все эффекты юзера
+     * @param user
+     * @return
+     */
+    List<Effect> getEffectToUser(User user);
 
     void delete(Long id);
 

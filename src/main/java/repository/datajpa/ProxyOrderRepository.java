@@ -11,10 +11,9 @@ import java.util.List;
 /**
  * Created by Александр on 14.11.2016.
  */
-@Transactional
 public interface ProxyOrderRepository extends JpaRepository<Order, Long> {
     @Override
-    Order getOne(Long id);
+    Order findOne(Long id);
 
     @Override
     Order save(Order order);

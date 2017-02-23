@@ -1,6 +1,7 @@
 package repository.datajpa;
 
 import model.Effect;
+import model.EventEffect;
 import model.Led;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,8 +29,8 @@ public class DataJpaLedRepositoryImpl implements LedRepository{
     }
 
     @Override
-    public List<Led> getLedToEffect(Effect effect) {
-        return proxy.findByEffect(effect);
+    public List<Led> getLedToEventEffect(EventEffect eventEffect) {
+        return proxy.findByEventEffect(eventEffect);
     }
 
     @Override

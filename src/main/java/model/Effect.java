@@ -1,7 +1,9 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Александр on 07.11.2016.
@@ -9,85 +11,39 @@ import java.util.List;
 @Entity
 @Table(name = "effects")
 public class Effect extends NamedEntity {
+    @JsonIgnore
     @ElementCollection
-    @CollectionTable(name = "effect_beginLedList", joinColumns = @JoinColumn(name = "effect_id"))
-    @Column(name = "led_id")
-    private List<Led> beginLedList; // начальный цвет
+    @CollectionTable(name="effects_eventEffects",joinColumns = @JoinColumn(name = "effects_id"))
+    @MapKeyColumn(name="event")
+    @JoinColumn(name="eventeffect_id")
+    private Map<Integer, EventEffect> eventEffectMap;
 
-    @ElementCollection
-    @CollectionTable(name = "effect_endLedList", joinColumns = @JoinColumn(name = "effect_id"))
-    @Column(name = "led_id")
-    private List<Led> endLedList; // конечный цвет
-
-    /**
-     * Общее время эффекта в милисикундах
-     */
-    @Column(name = "commonTime", nullable = false)
-    private int commonTime;
-
-    /**
-     * Затухание
-     */
-    @Column(name = "attenuation")
-    private boolean attenuation = false;
-
-    /**
-     * Появление
-     */
-    @Column(name = "appearance")
-    private boolean appearance = false;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lightShow_id", nullable = false)
+    @JoinColumn(name = "lightShows_id", nullable = false)
     private LightShow lightShow;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Effect() {
     }
 
-    public Effect(Long id, String name, int commonTime, LightShow lightShow) {
+    public Effect(Long id, String name, Map<Integer, EventEffect> eventEffectMap, LightShow lightShow, User user) {
         super(id, name);
-        this.commonTime = commonTime;
+        this.eventEffectMap = eventEffectMap;
         this.lightShow = lightShow;
+        this.user = user;
     }
 
-    public List<Led> getBeginLedList() {
-        return beginLedList;
+    public Map<Integer, EventEffect> getEventEffectMap() {
+        return eventEffectMap;
     }
 
-    public void setBeginLedList(List<Led> beginLedList) {
-        this.beginLedList = beginLedList;
-    }
-
-    public List<Led> getEndLedList() {
-        return endLedList;
-    }
-
-    public void setEndLedList(List<Led> endLedList) {
-        this.endLedList = endLedList;
-    }
-
-    public int getCommonTime() {
-        return commonTime;
-    }
-
-    public void setCommonTime(int commonTime) {
-        this.commonTime = commonTime;
-    }
-
-    public boolean isAttenuation() {
-        return attenuation;
-    }
-
-    public void setAttenuation(boolean attenuation) {
-        this.attenuation = attenuation;
-    }
-
-    public boolean isAppearance() {
-        return appearance;
-    }
-
-    public void setAppearance(boolean appearance) {
-        this.appearance = appearance;
+    public void setEventEffectMap(Map<Integer, EventEffect> eventEffectMap) {
+        this.eventEffectMap = eventEffectMap;
     }
 
     public LightShow getLightShow() {
@@ -98,20 +54,34 @@ public class Effect extends NamedEntity {
         this.lightShow = lightShow;
     }
 
-    public void addBeginLed(Led led) {
-        beginLedList.add(led);
+    public User getUser() {
+        return user;
     }
 
-    public void removeBeginLed(Led led) {
-        beginLedList.remove(led);
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void addEndLed(Led led) {
-        endLedList.add(led);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Effect effect = (Effect) o;
+
+        if (eventEffectMap != null ? !eventEffectMap.equals(effect.eventEffectMap) : effect.eventEffectMap != null)
+            return false;
+        if (lightShow != null ? !lightShow.equals(effect.lightShow) : effect.lightShow != null) return false;
+        return user != null ? user.equals(effect.user) : effect.user == null;
     }
 
-    public void removeEndLed(Led led) {
-        endLedList.remove(led);
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (eventEffectMap != null ? eventEffectMap.hashCode() : 0);
+        result = 31 * result + (lightShow != null ? lightShow.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
     }
-
 }
