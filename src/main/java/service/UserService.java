@@ -2,6 +2,7 @@ package service;
 
 import model.User;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import util.exception.NotFoundException;
 
@@ -15,6 +16,7 @@ public interface UserService {
     User save(User user);
 
     @Secured("ROLE_USER")
+    @Transactional(propagation = Propagation.SUPPORTS)
     User get(Long id) throws NotFoundException;
 
     User getNickName(String name) throws NotFoundException;

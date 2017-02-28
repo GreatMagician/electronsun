@@ -16,7 +16,8 @@ public class LightShowTo {
 
     private final String name;
 
-    private final Map<Effect, Integer> effects;
+    // кол-во эффектов шоу
+    private final int countEffect;
 
     private final List<DeviceTo> devices;
 
@@ -30,10 +31,10 @@ public class LightShowTo {
 
     private final boolean publicShow;
 
-    public LightShowTo(Long id, String name, Map<Effect, Integer> effects, List<DeviceTo> devices, Long lightShowRemixId, List<Long> lightShowRemixes, int time, Audio audio, boolean publicShow) {
+    public LightShowTo(Long id, String name, int countEffect, List<DeviceTo> devices, Long lightShowRemixId, List<Long> lightShowRemixes, int time, Audio audio, boolean publicShow) {
         this.id = id;
         this.name = name;
-        this.effects = effects;
+        this.countEffect = countEffect;
         this.devices = devices;
         this.lightShowRemixId = lightShowRemixId;
         this.lightShowRemixes = lightShowRemixes;
@@ -50,8 +51,8 @@ public class LightShowTo {
         return name;
     }
 
-    public Map<Effect, Integer> getEffects() {
-        return effects;
+    public int getCountEffect() {
+        return countEffect;
     }
 
     public List<DeviceTo> getDevices() {

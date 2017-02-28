@@ -3,16 +3,13 @@ DROP TABLE IF EXISTS products CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS order_products CASCADE;
-DROP TABLE IF EXISTS lightShows CASCADE;
-DROP TABLE IF EXISTS lightShow_effect_time_start CASCADE;
-DROP TABLE IF EXISTS lightShow_remixes CASCADE;
-DROP TABLE IF EXISTS lightShow_devices CASCADE;
+DROP TABLE IF EXISTS lightshows CASCADE;
+DROP TABLE IF EXISTS lightshow_remixes CASCADE;
+DROP TABLE IF EXISTS lightshow_devices CASCADE;
 DROP TABLE IF EXISTS effects CASCADE;
 DROP TABLE IF EXISTS devices CASCADE;
 DROP TABLE IF EXISTS leds CASCADE;
 DROP TABLE IF EXISTS eventeffect CASCADE;
-DROP TABLE IF EXISTS eventeffect_leds CASCADE;
-DROP TABLE IF EXISTS effects_eventEffects CASCADE;
 DROP TABLE IF EXISTS audios;
 DROP SEQUENCE IF EXISTS global_seq;
 
@@ -85,9 +82,10 @@ CREATE TABLE audios(
 );
 
 
-CREATE TABLE lightShows (
+CREATE TABLE lightshows (
   id                  int8 PRIMARY KEY DEFAULT nextval('global_seq'),
   name                VARCHAR NOT NULL,
+  counteffect         INT DEFAULT 0,
   user_id             int8 NOT NULL,
   lightshow_remix_id  int8,
   time                INTEGER NOT NULL,
@@ -96,38 +94,33 @@ CREATE TABLE lightShows (
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE lightShow_remixes (
-  lightShow_id   int8 NOT NULL,
+CREATE TABLE lightshow_remixes (
+  lightshow_id   int8 NOT NULL,
   remixid        int8 NOT NULL,
-  FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE
+  FOREIGN KEY (lightshow_id) REFERENCES lightshows (id) ON DELETE CASCADE
 );
 
-CREATE TABLE lightShow_devices (
-  lightShow_id   int8 NOT NULL,
+CREATE TABLE lightshow_devices (
+  lightshow_id   int8 NOT NULL,
   devices_id      int8 NOT NULL,
-  FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE,
+  FOREIGN KEY (lightshow_id) REFERENCES lightshows (id) ON DELETE CASCADE,
   FOREIGN KEY (devices_id) REFERENCES devices (id) ON DELETE CASCADE
 );
 
 CREATE TABLE effects(
-  id             int8 PRIMARY KEY DEFAULT nextval('global_seq'),
-  name           VARCHAR NOT NULL,
-  lightShow_id   int8 NOT NULL,
-  users_id       int8 NOT NULL,
-  FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE,
-  FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE CASCADE
+  id                  int8 PRIMARY KEY DEFAULT nextval('global_seq'),
+  name                VARCHAR NOT NULL,
+  counteventeffect    INT DEFAULT 0,
+  lightshow_id        int8 NOT NULL,
+  user_id             int8 NOT NULL,
+  FOREIGN KEY (lightshow_id) REFERENCES lightshows (id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE lightShow_effect_time_start (
-  lightShow_id   int8 NOT NULL,
-  effect_id      int8 NOT NULL,
-  time           INTEGER NOT NULL,
-  FOREIGN KEY (lightShow_id) REFERENCES lightShows (id) ON DELETE CASCADE,
-  FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
-);
 
 CREATE TABLE eventeffect(
   id                  int8 PRIMARY KEY DEFAULT nextval('global_seq'),
+  countLed            INT DEFAULT 0,
   appearance          INT DEFAULT 0,
   glow                INT,
   brightness          INT CHECK (brightness >= 0) CHECK (brightness <= 100),
@@ -151,16 +144,5 @@ CREATE TABLE leds(
   FOREIGN KEY (eventeffect_id) REFERENCES eventeffect (id) ON DELETE CASCADE
 );
 
-CREATE TABLE eventeffect_leds(
-  eventeffect_id      int8,
-  led_id              int8 REFERENCES leds (id),
-  FOREIGN KEY (eventeffect_id) REFERENCES eventeffect (id) ON DELETE CASCADE
-);
 
-CREATE TABLE effects_eventEffects(
-  effect_id           int8,
-  event               INT,
-  eventeffect_id      int8 REFERENCES eventeffect (id),
-  FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
-);
 

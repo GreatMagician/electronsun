@@ -3,6 +3,8 @@ package service;
 import model.Effect;
 import model.EventEffect;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import util.exception.NotFoundException;
 
 import java.util.List;
@@ -15,6 +17,7 @@ public interface EventEffectService {
 
     EventEffect save(EventEffect eventEffect);
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     EventEffect get(Long id) throws NotFoundException;
 
     /**

@@ -76,4 +76,7 @@ function body_right_value() {
     $('#nameShow').html(lightShow.name);
     $('#nameDevice').html(lightShow.devices[0].product.name);
     commandCircle();
+    addListEffectMy();
+    addListEffectAll();
+    addListEffectRemix();
 }

@@ -30,10 +30,6 @@ public class LightShowServiceImpl implements LightShowService {
     private LightShowRepository repository;
     @Autowired
     private DeviceService deviceService;
-    @Autowired
-    private  EffectService effectService;
-    @Autowired
-    private  UserService userService;
 
     @Override
     public LightShow save(LightShow lightShow) throws NotFoundException {
@@ -46,7 +42,6 @@ public class LightShowServiceImpl implements LightShowService {
     public LightShow get(Long id) throws NotFoundException {
         log.info("get id=" + id);
         LightShow lightShow = ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
-        Hibernate.initialize(lightShow.getEffects());
         Hibernate.initialize(lightShow.getDevices());
         Hibernate.initialize(lightShow.getUser());
         Hibernate.initialize(lightShow.getLightShowRemixes());

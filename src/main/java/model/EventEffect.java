@@ -13,10 +13,12 @@ import java.util.List;
 @Entity
 @Table(name = "eventeffect")
 public class EventEffect extends BaseEntity {
-    @ElementCollection
-    @CollectionTable(name = "eventeffect_leds", joinColumns = @JoinColumn(name = "eventeffect_id"))
-    @JoinColumn(name = "led_id")
-    private List<Led> leds;
+
+    // кол-во светодиодов в событии
+    @Column(name="countLed")
+    private int countLed = 0;
+
+
     /**
      * Появление
      */
@@ -66,16 +68,14 @@ public class EventEffect extends BaseEntity {
     public EventEffect() {
     }
 
-    public EventEffect(Long id, List<Led> leds, int glow, Effect effect) {
+    public EventEffect(Long id, int glow, Effect effect) {
         super(id);
-        this.leds = leds;
         this.glow = glow;
         this.effect = effect;
     }
 
-    public EventEffect(Long id, List<Led> leds, int appearance, int glow, int brightness, boolean newColor, String newColorLed, int transition, int attenuation, int pause, Effect effect) {
+    public EventEffect(Long id,  int appearance, int glow, int brightness, boolean newColor, String newColorLed, int transition, int attenuation, int pause, Effect effect) {
         super(id);
-        this.leds = leds;
         this.appearance = appearance;
         this.glow = glow;
         this.brightness = brightness;
@@ -87,12 +87,19 @@ public class EventEffect extends BaseEntity {
         this.effect = effect;
     }
 
-    public List<Led> getLeds() {
-        return leds;
+    public int getCountLed() {
+        return countLed;
+    }
+    public int addCountLed() {
+        return countLed++;
     }
 
-    public void setLeds(List<Led> leds) {
-        this.leds = leds;
+    public int removeCountLed() {
+        return  (countLed >0) ? countLed-- : 0;
+    }
+
+    public void setCountLed(int countLed) {
+        this.countLed = countLed;
     }
 
     public int getAppearance() {

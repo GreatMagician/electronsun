@@ -11,16 +11,14 @@ import java.util.Map;
 @Entity
 @Table(name = "effects")
 public class Effect extends NamedEntity {
-    @JsonIgnore
-    @ElementCollection
-    @CollectionTable(name="effects_eventEffects",joinColumns = @JoinColumn(name = "effects_id"))
-    @MapKeyColumn(name="event")
-    @JoinColumn(name="eventeffect_id")
-    private Map<Integer, EventEffect> eventEffectMap;
+
+    // кол-во событий в эффекте
+    @Column(name="counteventeffect")
+    private int countEventEffect = 0;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lightShows_id", nullable = false)
+    @JoinColumn(name = "lightshow_id", nullable = false)
     private LightShow lightShow;
 
     @JsonIgnore
@@ -31,19 +29,23 @@ public class Effect extends NamedEntity {
     public Effect() {
     }
 
-    public Effect(Long id, String name, Map<Integer, EventEffect> eventEffectMap, LightShow lightShow, User user) {
+    public Effect(Long id, String name, LightShow lightShow, User user) {
         super(id, name);
-        this.eventEffectMap = eventEffectMap;
         this.lightShow = lightShow;
         this.user = user;
     }
 
-    public Map<Integer, EventEffect> getEventEffectMap() {
-        return eventEffectMap;
+
+    public int getCountEventEffect() {
+        return countEventEffect;
     }
 
-    public void setEventEffectMap(Map<Integer, EventEffect> eventEffectMap) {
-        this.eventEffectMap = eventEffectMap;
+    public int addCountEventEffect() {
+        return countEventEffect++;
+    }
+
+    public int removeCountEventEffect() {
+        return  (countEventEffect >0) ? countEventEffect-- : 0;
     }
 
     public LightShow getLightShow() {
@@ -62,26 +64,4 @@ public class Effect extends NamedEntity {
         this.user = user;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        Effect effect = (Effect) o;
-
-        if (eventEffectMap != null ? !eventEffectMap.equals(effect.eventEffectMap) : effect.eventEffectMap != null)
-            return false;
-        if (lightShow != null ? !lightShow.equals(effect.lightShow) : effect.lightShow != null) return false;
-        return user != null ? user.equals(effect.user) : effect.user == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (eventEffectMap != null ? eventEffectMap.hashCode() : 0);
-        result = 31 * result + (lightShow != null ? lightShow.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        return result;
-    }
 }

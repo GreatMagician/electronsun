@@ -43,13 +43,13 @@ public class EffectServiceTest {
         assertThat(created.getId(), is(notNullValue()));
     }
 
-    @Test
-    public void getEffectToLightShow() throws Exception {
-        LightShow lightShow = lightShowService.get(22l);
-        List<Effect> effects = effectService.getEffectToLightShow(lightShow);
-        assertThat(effects.size()>0, is(true));
-        effects.forEach(effect -> assertThat(effect.getId(), is(notNullValue())));
-    }
+//    @Test
+//    public void getEffectToLightShow() throws Exception {
+//        LightShow lightShow = lightShowService.get(22l);
+//        List<Effect> effects = effectService.getEffectToLightShow(lightShow);
+//        assertThat(effects.size()>0, is(true));
+//        effects.forEach(effect -> assertThat(effect.getId(), is(notNullValue())));
+//    }
 
     @Test
     public void delete() throws Exception {

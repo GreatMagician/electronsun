@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <link rel="stylesheet" href=<c:url value="/resources/css/lightshow/fragments/conteiner1.css"/>>
+    <script src="/electronsun/resources/js/lightshow/body-right.js" type="text/javascript" charset="utf-8" ></script>
 </head>
 <div class="show-container1">
     <div class="show-name">
@@ -13,55 +14,56 @@
     <div class="leds">
         <label class="title">Светодиоды</label> <br/>
         <label class="leds-label">Событие: </label>
-        <select id="leds-select-event"><option selected>0</option></select>
+        <select id="leds-select-event"></select>
         <label style="padding-left: 5px" class="leds-label">Выбрано светодиодов: </label> <label class="leds-value" id="selected-leds">0</label>
         <br/>
         <table>
             <tr>
                 <td><label class="leds-label">Цвет: </label></td>
                 <td></td>
-                <td><input type="color" id="leds-color1" value="#fffbfd"></td>
+                <td><input class="leds-input" type="color" id="leds-color1" value="#fffbfd"></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Появление: </label></td>
                 <td></td>
-                <td><input type="number" min="0" value="0" id="leds-number-appearance"/> <label class="leds-label" >мс</label></td>
+                <td><input class="leds-input" type="number" min="0" value="0" id="leds-number-appearance"/> <label class="leds-label" >мс</label></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Длительность свечения: </label></td>
                 <td></td>
-                <td><input type="number" min="0" value="1000" id="leds-number-emission"/><label class="leds-label"> мс</label></td>
+                <td><input class="leds-input" type="number" min="0" value="1000" id="leds-number-emission"/><label class="leds-label"> мс</label></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Яркость: </label></td>
                 <td></td>
-                <td><input type="number" min="0" max="100" value="100" id="leds-number-brightness1"/><label class="leds-label"> %</label></td>
+                <td><input class="leds-input" type="number" min="0" max="100" value="100" id="leds-number-brightness1"/><label class="leds-label"> %</label></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Переход в цвет: </label></td>
                 <td><input type="checkbox" id="leds-transition"/></td>
-                <td><input type="color" id="leds-color2" value="#fffbfd"></td>
+                <td><input class="leds-input" type="color" id="leds-color2" value="#fffbfd"></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Длительность перехода: </label></td>
                 <td></td>
-                <td><input type="number" min="0" value="1000" id="leds-number-lentransition"/><label class="leds-label"> мс</label></td>
+                <td><input class="leds-input" type="number" min="0" value="1000" id="leds-number-lentransition"/><label class="leds-label"> мс</label></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Затухание: </label></td>
                 <td></td>
-                <td><input type="number" min="0" value="0" id="leds-number-attenuation"/> <label class="leds-label">мс</label></td>
+                <td><input class="leds-input" type="number" min="0" value="0" id="leds-number-attenuation"/> <label class="leds-label">мс</label></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Длительность паузы: </label></td>
                 <td></td>
-                <td><input type="number" min="0" value="0" id="leds-number-pause"/> <label class="leds-label">мс</label></td>
+                <td><input class="leds-input" type="number" min="0" value="0" id="leds-number-pause"/> <label class="leds-label">мс</label></td>
             </tr>
         </table>
-        <input type="button" value="Добавить событие" />
-        <input type="button" id="saveeffect" value="Сохранить эффект" />
-
-
+        <input class="leds-input" type="button" onclick="addEvent()" value="Добавить событие" />
+        <div class="effect-name-label">
+            <label class="leds-label">Эффект: </label>
+            <label class="value" id="nameEffectLabel"></label>
+        </div>
         <div class="play-show">
             <label class="play-show-title">Воспроизвести</label> <br/>
 
@@ -94,8 +96,8 @@
         <div class="audio-setting">
             <label class="audio-setting-title">Аудио: </label>
             <label class="value" id="audioname"></label>
-            <input type="button"  value="Загрузить аудио" />
-            <input type="button"  value="Удалить аудио" />
+            <input class="leds-input" type="button"  value="Загрузить аудио" />
+            <input class="leds-input" type="button"  value="Удалить аудио" />
         </div>
 
         <input type="button" id="saveshow" value="Сохранить световое шоу" />
@@ -106,40 +108,16 @@
         <label class="title">Эффекты</label> <br/>
         <input type="text" placeholder="Поиск"/>
         <label class="effects-label">Эффекты этого шоу</label>
-        <select size="10">
-            <option>Только это шоу</option>
-            <option>Все эффекты</option>
-        </select>
+        <select size="10" id="select-my-effects"> </select>
         <label class="effects-label">Все эффекты</label>
-        <select  size="8">
-            <option>велосипедист</option>
-            <option>стол</option>
-            <option>игра</option>
-            <option>пианино</option>
-            <option>друшлак</option>
-            <option>специалист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-            <option>велосипедист</option>
-        </select>
+        <select  size="8" id="select-all-effects"> </select>
         <label class="effects-label">Эффекты ремикса</label>
-        <select size="3"> </select>
+        <select size="3"  id="select-remix-effects"> </select>
 
-        <input type="button" value="Создать эффект" />
+        <input type="button" onclick="openCreateEffectsModal()" value="Создать эффект" />
+        <div id="createEffectsModal" style="display:none;">
+            <label >Название эффекта</label> <input type="text" id="createEffectsModalName" /><br/>
+            <input type="button" onclick="createEffect()" value="Создать" />
+        </div>
     </div>
 </div>

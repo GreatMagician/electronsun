@@ -19,7 +19,7 @@ public class LightShowUtil {
 
     public static LightShowTo createLightShowTo(LightShow lightShow){
         if (lightShow == null) return null;
-        return new LightShowTo(lightShow.getId(), lightShow.getName(), lightShow.getEffects(), DeviceUtil.convertDevices(lightShow.getDevices()),
+        return new LightShowTo(lightShow.getId(), lightShow.getName(),lightShow.getCountEffect(), DeviceUtil.convertDevices(lightShow.getDevices()),
                 lightShow.getLightShowRemixId(), lightShow.getLightShowRemixes(), lightShow.getTime(), lightShow.getAudio(),
                 lightShow.isPublicShow());
     }
@@ -33,7 +33,7 @@ public class LightShowUtil {
 
     public static  LightShowTo createLightShowToLazy(LightShow lightShow){
         if (lightShow == null) return null;
-        return new LightShowTo(lightShow.getId(), lightShow.getName(), null, null,
+        return new LightShowTo(lightShow.getId(), lightShow.getName(), lightShow.getCountEffect(), null,
                 lightShow.getLightShowRemixId(), null, lightShow.getTime(), lightShow.getAudio(),
                 lightShow.isPublicShow());
     }

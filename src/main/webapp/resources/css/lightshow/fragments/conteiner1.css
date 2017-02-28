@@ -49,7 +49,7 @@
 .show-container1 .leds-value{
     color: #b618e8;
 }
-.show-container1 .leds select, input{
+.show-container1 .leds select, .leds-input{
     background-color: #cacaca;
     color: #54265f;
 }
@@ -92,7 +92,7 @@
 
 .show-container1 .play-show{
     border: 1px solid #0a13e2;
-    margin-top: 5px;
+    margin-top: 3px;
 }
 .show-container1 .play-show .play-show-title{
     padding-left: 40%;
@@ -115,5 +115,20 @@
     border: 1px solid #0a13e2;
     margin-top: 1px;
     height: 26%;
+}
+.effect-name-label{
+    margin-top: 7px;
+}
 
+#createEffectsModal label{
+    color: #9818b7;
+}
+#createEffectsModal input[type="text"]{
+    color: #0a13e2;
+    background-color: #fffbfd;
+}
+#createEffectsModal input[type="button"]{
+    margin-top: 10px;
+    color: #fffbfd;
+    background-color: #0a13e2;
 }

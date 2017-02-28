@@ -17,23 +17,15 @@ import java.util.Map;
  * Световое шоу
  */
 @Entity
-@Table(name = "lightShows")
+@Table(name = "lightshows")
 public class LightShow  extends  NamedEntity {
-
-    /**
-     * key - объект эффект
-     * value - позиция начала эффекта в милисекундах
-     */
-    @JsonIgnore
-    @ElementCollection
-    @CollectionTable(name="lightShow_effect_time_start",joinColumns = @JoinColumn(name = "lightShow_id"))
-    @MapKeyJoinColumn(name="effect_id")
-    @Column(name="time")
-    private Map<Effect, Integer> effects;
+    // кол-во эффектов шоу
+    @Column(name="counteffect")
+    private int countEffect = 0;
 
     @JsonIgnore
     @ElementCollection
-    @CollectionTable(name="lightShow_devices",joinColumns = @JoinColumn(name = "lightShow_id"))
+    @CollectionTable(name="lightshow_devices",joinColumns = @JoinColumn(name = "lightshow_id"))
     @JoinColumn(name="devices_id")
     private List<Device> devices;
 
@@ -53,7 +45,7 @@ public class LightShow  extends  NamedEntity {
      */
     @JsonIgnore
     @ElementCollection
-    @CollectionTable(name="lightShow_remixes",joinColumns = @JoinColumn(name = "lightShow_id"))
+    @CollectionTable(name="lightshow_remixes",joinColumns = @JoinColumn(name = "lightshow_id"))
     @Column(name = "remixid", nullable = false)
     private List<Long> lightShowRemixes;
 
@@ -76,20 +68,15 @@ public class LightShow  extends  NamedEntity {
         this.user = user;
     }
 
-    public Map<Effect, Integer> getEffects() {
-        return effects;
+    public int getCountEffect() {
+        return countEffect;
     }
 
-    public void setEffects(Map<Effect, Integer> effects) {
-        this.effects = effects;
+    public int  addCountEffect() {
+       return countEffect++;
     }
-
-    public void sddEffect(Effect effect, int position){
-        effects.put(effect, position);
-    }
-
-    public void removeEffect(Effect effect, int position){
-        effects.remove(effect);
+    public int removeCountEffect() {
+        return  (countEffect >0) ? countEffect-- : 0;
     }
 
     public List<Device> getDevices() {

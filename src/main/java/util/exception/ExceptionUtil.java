@@ -54,9 +54,7 @@ public class ExceptionUtil {
         if (!Objects.equals(authorizedUser.getId(), user.getId()) &&
                 !Objects.equals(authorizedUser.getName(), user.getName()) &&
                 !Objects.equals(authorizedUser.getPassword(), user.getPassword())){
-            if (!authorizedUser.getRoles().contains(Role.ROLE_ADMIN)){
                 throw new AccessException("У вас нет прав на это действие");
-            }
         }
     }
 
