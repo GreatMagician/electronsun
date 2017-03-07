@@ -43,9 +43,7 @@ public class EffectServiceImpl implements EffectService {
     @Override
     public Effect get(Long id) throws NotFoundException {
         log.info("get - " + id);
-        Effect effect = ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
-        Hibernate.initialize(effect.getUser());
-        return effect;
+        return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 
     @Override

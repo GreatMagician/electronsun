@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 /**
  * Created by Alexander on 22.02.2017.
@@ -13,12 +12,16 @@ import java.util.List;
 @Entity
 @Table(name = "eventeffect")
 public class EventEffect extends BaseEntity {
+   // номер события в эффекте
+    @Column(name="numberofeffect")
+    private int numberOfEffect;
 
     // кол-во светодиодов в событии
     @Column(name="countLed")
     private int countLed = 0;
 
-
+    @Column(name="color", nullable = false)
+    private String color;
     /**
      * Появление
      */
@@ -35,7 +38,6 @@ public class EventEffect extends BaseEntity {
      * яркость
      */
     @Column(name = "brightness")
-    @Size(min = 0, max = 100, message = "Яркость должна быть от 0 до 100")
     private int brightness = 100;
 
     @Column(name = "newcolor")
@@ -68,14 +70,19 @@ public class EventEffect extends BaseEntity {
     public EventEffect() {
     }
 
-    public EventEffect(Long id, int glow, Effect effect) {
+    public EventEffect(Long id, int numberOfEffect, String color, int glow, Effect effect) {
         super(id);
+        this.numberOfEffect = numberOfEffect;
+        this.color = color;
         this.glow = glow;
         this.effect = effect;
     }
 
-    public EventEffect(Long id,  int appearance, int glow, int brightness, boolean newColor, String newColorLed, int transition, int attenuation, int pause, Effect effect) {
+    public EventEffect(Long id, int numberOfEffect, int countLed, String color, int appearance, int glow, int brightness, boolean newColor, String newColorLed, int transition, int attenuation, int pause, Effect effect) {
         super(id);
+        this.numberOfEffect = numberOfEffect;
+        this.countLed = countLed;
+        this.color = color;
         this.appearance = appearance;
         this.glow = glow;
         this.brightness = brightness;
@@ -87,15 +94,31 @@ public class EventEffect extends BaseEntity {
         this.effect = effect;
     }
 
+    public int getNumberOfEffect() {
+        return numberOfEffect;
+    }
+
+    public void setNumberOfEffect(int numberOfEffect) {
+        this.numberOfEffect = numberOfEffect;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     public int getCountLed() {
         return countLed;
     }
     public int addCountLed() {
-        return countLed++;
+        return ++countLed;
     }
 
     public int removeCountLed() {
-        return  (countLed >0) ? countLed-- : 0;
+        return  (countLed > 0) ? --countLed : 0;
     }
 
     public void setCountLed(int countLed) {

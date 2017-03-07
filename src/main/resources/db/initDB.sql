@@ -111,6 +111,7 @@ CREATE TABLE effects(
   id                  int8 PRIMARY KEY DEFAULT nextval('global_seq'),
   name                VARCHAR NOT NULL,
   counteventeffect    INT DEFAULT 0,
+  timestart           INT DEFAULT 0,
   lightshow_id        int8 NOT NULL,
   user_id             int8 NOT NULL,
   FOREIGN KEY (lightshow_id) REFERENCES lightshows (id) ON DELETE CASCADE,
@@ -120,10 +121,12 @@ CREATE TABLE effects(
 
 CREATE TABLE eventeffect(
   id                  int8 PRIMARY KEY DEFAULT nextval('global_seq'),
+  numberofeffect      INT NOT NULL,
+  color               VARCHAR NOT NULL,
   countLed            INT DEFAULT 0,
   appearance          INT DEFAULT 0,
   glow                INT,
-  brightness          INT CHECK (brightness >= 0) CHECK (brightness <= 100),
+  brightness          INT DEFAULT 100,
   newcolor            BOOL DEFAULT FALSE,
   newcolorled         VARCHAR,
   transition          INT DEFAULT 0,

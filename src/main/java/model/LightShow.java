@@ -73,10 +73,10 @@ public class LightShow  extends  NamedEntity {
     }
 
     public int  addCountEffect() {
-       return countEffect++;
+       return ++countEffect;
     }
     public int removeCountEffect() {
-        return  (countEffect >0) ? countEffect-- : 0;
+        return  (countEffect > 0) ? --countEffect : 0;
     }
 
     public List<Device> getDevices() {
@@ -135,4 +135,37 @@ public class LightShow  extends  NamedEntity {
         this.publicShow = publicShow;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        LightShow lightShow = (LightShow) o;
+
+        if (countEffect != lightShow.countEffect) return false;
+        if (time != lightShow.time) return false;
+        if (publicShow != lightShow.publicShow) return false;
+        if (devices != null ? !devices.equals(lightShow.devices) : lightShow.devices != null) return false;
+        if (user != null ? !user.equals(lightShow.user) : lightShow.user != null) return false;
+        if (lightShowRemixId != null ? !lightShowRemixId.equals(lightShow.lightShowRemixId) : lightShow.lightShowRemixId != null)
+            return false;
+        if (lightShowRemixes != null ? !lightShowRemixes.equals(lightShow.lightShowRemixes) : lightShow.lightShowRemixes != null)
+            return false;
+        return audio != null ? audio.equals(lightShow.audio) : lightShow.audio == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + countEffect;
+        result = 31 * result + (devices != null ? devices.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (lightShowRemixId != null ? lightShowRemixId.hashCode() : 0);
+        result = 31 * result + (lightShowRemixes != null ? lightShowRemixes.hashCode() : 0);
+        result = 31 * result + time;
+        result = 31 * result + (audio != null ? audio.hashCode() : 0);
+        result = 31 * result + (publicShow ? 1 : 0);
+        return result;
+    }
 }

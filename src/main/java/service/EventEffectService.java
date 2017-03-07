@@ -15,17 +15,24 @@ import java.util.List;
 @Secured("ROLE_USER")
 public interface EventEffectService {
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     EventEffect save(EventEffect eventEffect);
 
-    @Transactional(propagation = Propagation.SUPPORTS)
     EventEffect get(Long id) throws NotFoundException;
 
     /**
      * Получить все события эффекта
-     * @param effect
+     * @param effectId
      * @return
      */
-    List<EventEffect> getEventEffectToEffect(Effect effect);
+    @Transactional(propagation = Propagation.SUPPORTS)
+    List<EventEffect> getEventEffectToEffect(Long effectId);
 
-    void delete(Long id);
+    @Transactional
+    void delete(int eventNumber, Long effectId);
+
+    @Transactional
+    EventEffect createEventEffect(Long effectId);
+
+    EventEffect save(EventEffect eventEffect, Long effectId);
 }

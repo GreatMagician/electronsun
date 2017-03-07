@@ -14,14 +14,14 @@
     <div class="leds">
         <label class="title">Светодиоды</label> <br/>
         <label class="leds-label">Событие: </label>
-        <select id="leds-select-event"></select>
+        <select onchange="selectEvent()" id="leds-select-event"></select>
         <label style="padding-left: 5px" class="leds-label">Выбрано светодиодов: </label> <label class="leds-value" id="selected-leds">0</label>
         <br/>
         <table>
             <tr>
                 <td><label class="leds-label">Цвет: </label></td>
                 <td></td>
-                <td><input class="leds-input" type="color" id="leds-color1" value="#fffbfd"></td>
+                <td><input class="leds-input" type="color" id="leds-color1" value="#fffbfd" onchange="changeColor()"></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Появление: </label></td>
@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td><label class="leds-label">Переход в цвет: </label></td>
-                <td><input type="checkbox" id="leds-transition"/></td>
+                <td><input type="checkbox" onchange="checkboxColor()" id="leds-transition"/></td>
                 <td><input class="leds-input" type="color" id="leds-color2" value="#fffbfd"></td>
             </tr>
             <tr>
@@ -59,7 +59,13 @@
                 <td><input class="leds-input" type="number" min="0" value="0" id="leds-number-pause"/> <label class="leds-label">мс</label></td>
             </tr>
         </table>
-        <input class="leds-input" type="button" onclick="addEvent()" value="Добавить событие" />
+        <table>
+            <tr>
+                <td><input class="leds-input" type="button" onclick="addEvent()" value="Добавить событие" /></td>
+                <td><input class="leds-input" type="button" onclick="saveEvent()" value="Сохранить" /></td>
+                <td><input class="leds-input" type="button" onclick="deleteEvent()" value="Удалить" /></td>
+            </tr>
+        </table>
         <div class="effect-name-label">
             <label class="leds-label">Эффект: </label>
             <label class="value" id="nameEffectLabel"></label>

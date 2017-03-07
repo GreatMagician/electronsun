@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import service.EffectService;
+import to.EffectTo;
 import to.LightShowTo;
+import util.modelUtil.EffectUtil;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/effect")
-@SessionAttributes("lightshowto")
+@SessionAttributes( names = {"lightshowto", "effectto"})
 public class EffectController {
 
     @Autowired
@@ -47,11 +49,12 @@ public class EffectController {
         return effectService.createEffect(nameEffect, lightShowTo.getId());
     }
 
-    @Transactional
     @RequestMapping(value = "/geteffect", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody
-    Effect getEffect (@RequestParam Long id, ModelMap model){
-        return effectService.get(id);
+    EffectTo getEffect (@RequestParam Long id, ModelMap model){
+        EffectTo effectTo = EffectUtil.createEffectTo(effectService.get(id));
+        model.addAttribute("effectto", effectTo);
+        return effectTo;
     }
 
 }

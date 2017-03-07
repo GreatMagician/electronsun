@@ -25,7 +25,7 @@ public class DataJpaEffectRepositoryImpl implements EffectRepository{
 
     @Override
     public Effect get(Long id) {
-        return proxy.getOne(id);
+        return proxy.findOne(id);
     }
 
     @Override

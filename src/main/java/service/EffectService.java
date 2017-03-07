@@ -4,6 +4,7 @@ import model.Effect;
 import model.LightShow;
 import model.User;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import util.exception.NotFoundException;
 
@@ -14,6 +15,8 @@ import java.util.List;
  */
 @Secured("ROLE_USER")
 public interface EffectService {
+
+    @Transactional(propagation = Propagation.SUPPORTS)
     Effect save(Effect effect) throws NotFoundException;
 
     @Transactional
