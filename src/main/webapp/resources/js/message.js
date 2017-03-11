@@ -39,3 +39,12 @@ function warningMessageBotton(message) {
     });
 }
 
+function infoMessageBotton(message) {
+    noty({
+        text: message,
+        type: 'information',
+        layout: 'bottomRight',
+        timeout: 5000
+    });
+}
+

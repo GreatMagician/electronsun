@@ -3,6 +3,8 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Александр on 07.11.2016.
@@ -16,8 +18,20 @@ public class Effect extends NamedEntity {
     private int countEventEffect = 0;
 
     // время начала эффекта в шоу
+    @JsonIgnore
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "effects_timestart", joinColumns = @JoinColumn(name = "effect_id"))
     @Column(name="timestart")
-    private int timeStart = 0;
+    private List<Integer> timeStart = new LinkedList<>();
+
+    @Column(name="colortext")
+    private String colorText;
+
+    @Column(name="colorbackground")
+    private String colorBackground;
+
+    @Column(name="track") // дорожка
+    private int track;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,11 +52,11 @@ public class Effect extends NamedEntity {
         this.user = user;
     }
 
-    public int getTimeStart() {
+    public List<Integer> getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(int timeStart) {
+    public void setTimeStart(List<Integer> timeStart) {
         this.timeStart = timeStart;
     }
 

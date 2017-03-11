@@ -16,6 +16,7 @@ public interface ProxyLedRepository extends JpaRepository<Led, Long> {
     @Override
     Led save(Led led);
 
+
     @Override
     Led findOne(Long id);
 

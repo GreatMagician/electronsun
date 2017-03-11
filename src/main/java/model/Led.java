@@ -2,7 +2,6 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import util.exception.ExceptionUtil;
-import util.exception.ExcessValueException;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -16,15 +15,12 @@ import javax.validation.constraints.Size;
 public class Led extends BaseEntity {
 
     @Column(name="r")
-    @Size(min=0, max=255, message = "Значение должно быть от 0 до 255")
     private int r;
 
     @Column(name="g")
-    @Size(min=0, max=255, message = "Значение должно быть от 0 до 255")
     private int g;
 
     @Column(name="b")
-    @Size(min=0, max=255, message = "Значение должно быть от 0 до 255")
     private int b;
 
     @Column(name="enabled")
@@ -41,6 +37,11 @@ public class Led extends BaseEntity {
     public Led() {
     }
 
+    public Led(Long id, int number, EventEffect eventEffect) {
+        super(id);
+        this.number = number;
+        this.eventEffect = eventEffect;
+    }
 
     public Led(Long id, int r, int g, int b, int number, EventEffect eventEffect) {
         super(id);
@@ -99,5 +100,31 @@ public class Led extends BaseEntity {
         this.eventEffect = eventEffect;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
+        Led led = (Led) o;
+
+        if (r != led.r) return false;
+        if (g != led.g) return false;
+        if (b != led.b) return false;
+        if (enabled != led.enabled) return false;
+        if (number != led.number) return false;
+        return eventEffect != null ? eventEffect.equals(led.eventEffect) : led.eventEffect == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + r;
+        result = 31 * result + g;
+        result = 31 * result + b;
+        result = 31 * result + (enabled ? 1 : 0);
+        result = 31 * result + number;
+        result = 31 * result + (eventEffect != null ? eventEffect.hashCode() : 0);
+        return result;
+    }
 }

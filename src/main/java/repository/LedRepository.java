@@ -14,6 +14,7 @@ public interface LedRepository {
 
     Led get(Long id);
 
+
     /**
      * Получить все светодиоды события
      * @param eventEffect

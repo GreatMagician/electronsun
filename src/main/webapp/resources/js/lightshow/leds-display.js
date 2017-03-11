@@ -32,33 +32,34 @@ function createCircle32() {
 }
 
 function circleClick(numberCircle) {
-    var numberEvent = $('#leds-select-event').val();
-    if (numberEvent == undefined || eventEffects[numberEvent - 1] == undefined) return;
-    var eventEffectId = eventEffects[numberEvent - 1].id;
-    if (eventLeds[numberEvent] == undefined){
-        eventLeds[numberEvent] = {
+    if (eventNumber == undefined || eventEffects[eventNumber - 1] == undefined) return;
+    var eventEffectId = eventEffects[eventNumber - 1].id;
+    if (eventLeds[eventNumber] == undefined){
+        eventLeds[eventNumber] = {
             leds : []
         };
-        eventLeds[numberEvent].leds[numberCircle] = {
+        eventLeds[eventNumber].leds[numberCircle] = {
+            id                  : null,
             number              : numberCircle,
             eventEffectId       : eventEffectId
         };
-        $('#selected-leds').html(++eventEffects[numberEvent - 1].countLed);
+        $('#selected-leds').html(++eventEffects[eventNumber - 1].countLed);
         ledColorTrue(numberCircle);
-    }else if (eventLeds[numberEvent].leds[numberCircle] == undefined){
-        eventLeds[numberEvent].leds[numberCircle] = {
+    }else if (eventLeds[eventNumber].leds[numberCircle] == undefined){
+        eventLeds[eventNumber].leds[numberCircle] = {
+            id                  : null,
             number              : numberCircle,
             eventEffectId       : eventEffectId
         };
-        $('#selected-leds').html(++eventEffects[numberEvent - 1].countLed);
+        $('#selected-leds').html(++eventEffects[eventNumber - 1].countLed);
         ledColorTrue(numberCircle);
     }else{
-        delete eventLeds[numberEvent].leds[numberCircle];
+        delete eventLeds[eventNumber].leds[numberCircle];
         ledColorFalse(numberCircle);
-        if (eventEffects[numberEvent - 1].countLed > 0){
-            eventEffects[numberEvent - 1].countLed--;
+        if (eventEffects[eventNumber - 1].countLed > 0){
+            eventEffects[eventNumber - 1].countLed--;
         }
-        $('#selected-leds').html(eventEffects[numberEvent - 1].countLed);
+        $('#selected-leds').html(eventEffects[eventNumber - 1].countLed);
     }
 }
 

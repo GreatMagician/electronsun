@@ -25,7 +25,7 @@ public class DataJpaLedRepositoryImpl implements LedRepository{
 
     @Override
     public Led get(Long id) {
-        return proxy.getOne(id);
+        return proxy.findOne(id);
     }
 
     @Override

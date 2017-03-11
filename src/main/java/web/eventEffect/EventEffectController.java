@@ -24,23 +24,15 @@ public class EventEffectController {
 
     @RequestMapping(value = "/addeventeffect", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody
-    EventEffect addEventEffect (ModelMap model){
-        EffectTo effectTo = (EffectTo) model.get("effectto");
-        if (effectTo != null){
-            return eventEffectService.createEventEffect(effectTo.getId());
-        }
-        return new EventEffect();
+    EventEffect addEventEffect (@RequestParam Long effectId, ModelMap model){
+        return eventEffectService.createEventEffect(effectId);
     }
 
     @RequestMapping(value = "/deleteeventeffect", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody
-    Boolean deleteEventEffect (@RequestParam int eventNumber, ModelMap model){
-        EffectTo effectTo = (EffectTo) model.get("effectto");
-        if (effectTo != null){
-            eventEffectService.delete(eventNumber, effectTo.getId());
-            return true;
-        }
-        return false;
+    Boolean deleteEventEffect (@RequestParam int eventNumber, @RequestParam Long effectId, ModelMap model){
+        eventEffectService.delete(eventNumber, effectId);
+        return true;
     }
 
     @RequestMapping(value = "/loadeventeffects", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

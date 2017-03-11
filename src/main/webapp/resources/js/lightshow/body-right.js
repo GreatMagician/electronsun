@@ -1,6 +1,6 @@
 var effect;
 var eventEffects = [];
-
+var eventNumber;
 // добавить эффекты этого шоу в список
 function addListEffectMy() {
     if (lightShow == undefined) return;
@@ -84,7 +84,7 @@ function addEvent() {
         dataType: "json",
         type: "POST",
         data:{
-            id: effect.id
+            effectId: effect.id
         },
         success: function (json) {
             eventEffects.push(json);
@@ -125,12 +125,45 @@ function selectMyEffect() {
     clearEventEffectOption();
     loadEventEffectList();
     var myEffectName = $('#select-my-effects-' + effect.id).val();
+    if (myEffectName.length > 20){
+        myEffectName = myEffectName.substring(0,22) + '..';
+    }
+    defaultColorNameEffectLabel();
     $('#nameEffectLabel').html(myEffectName);
     var i;
     for (i=1; i<=effect.countEventEffect; i++){
         $('#leds-select-event').append('<option class="leds-select-event-remove" id="leds-select-event-' + i + '"> ' + i + '</option>');
     }
-    loadEventEffectList();
+}
+var defaultColorNumber;
+function defaultColorNameEffectLabel() {
+    var color1 = $('#nameEffect-color-text').val();
+    var color2 = $('#nameEffect-color-background').val();
+    if (color1 == '#ffffff' && color2 == '#ffffff') {
+        if  (defaultColorNumber == undefined) {
+            color1 = '#2aff12';
+            color2 = '#FF1F31';
+            defaultColorNumber = 1;
+        } else if (defaultColorNumber == 1) {
+            color1 = '#9C09FA';
+            color2 = '#FFCD1E';
+            defaultColorNumber++;
+        } else if (defaultColorNumber == 2) {
+            color1 = '#0A13E2';
+            color2 = '#FFFC16';
+            defaultColorNumber++;
+        } else if (defaultColorNumber == 3) {
+            color1 = '#FF1ACB';
+            color2 = '#21FF13';
+            defaultColorNumber++;
+        }  else if (defaultColorNumber == 4) {
+            color1 = '#ff267b';
+            color2 = '#19fdff';
+            defaultColorNumber = undefined;
+        }
+    }
+    $('#nameEffectLabel').css('color', color1);
+    $('#nameEffectLabel').css('background-color', color2);
 }
 
 function loadEventEffectList() {
@@ -167,7 +200,6 @@ function clearEventEffectOption() {
 
 function deleteEvent() {
     if (lightShow == undefined || effect == undefined) return;
-    var eventNumber = $('#leds-select-event').val();
     if (eventNumber == undefined) return;
     noty({
         text: 'Удалить событие №' + eventNumber,
@@ -183,11 +215,11 @@ function deleteEvent() {
                     dataType: 'JSON',
                     data: {
                         eventNumber: eventNumber,
-                        effect:effect
+                        effectId: effect.id
                     }
                 }).done(function (json) {
                     if (json == true){
-                        removeEventEffect(eventNumber);
+                        removeEventEffect();
                         $('#leds-select-event-' + effect.countEventEffect).remove();
                         effect.countEventEffect--;
                         if (effect.countEventEffect > 0) {
@@ -209,11 +241,14 @@ function deleteEvent() {
         ]
     });
 }
-function selectEvent(eventNumber) {
+function selectEvent(number) {
     if (eventEffects == undefined || eventEffects.length == 0) return;
-    if (eventNumber == undefined){
-        eventNumber = $('#leds-select-event').val();
+    if (number != undefined){
+        eventNumber = number;
+    }else{
+        eventNumber = parseInt($('#leds-select-event').val());
     }
+    if (eventNumber == undefined || eventEffects[eventNumber - 1] == undefined || eventEffects[eventNumber - 1].color == null) return;
     ($('#leds-color1'))[0].value = eventEffects[eventNumber - 1].color;
     $('#leds-number-appearance').val(eventEffects[eventNumber - 1].appearance);
     $('#leds-number-emission').val(eventEffects[eventNumber - 1].glow);
@@ -231,19 +266,18 @@ function selectEvent(eventNumber) {
     $('#leds-number-lentransition').val(eventEffects[eventNumber - 1].transition);
     $('#leds-number-attenuation').val(eventEffects[eventNumber - 1].attenuation);
     $('#leds-number-pause').val(eventEffects[eventNumber - 1].pause);
-    changeColor(eventNumber);
+    loadLeds();
 }
 
 
 function checkboxColor() {
     if (eventEffects == undefined) return;
-    var eventNumber = $('#leds-select-event').val();
     if (eventNumber != null){
         eventEffects[eventNumber - 1].newColor = ($('#leds-transition'))[0].checked;
     }
 }
 
-function getEvent(eventNumber) {
+function getEvent() {
     eventEffects[eventNumber - 1].color = ($('#leds-color1'))[0].value;
     eventEffects[eventNumber - 1].appearance = $('#leds-number-appearance').val();
     eventEffects[eventNumber - 1].glow = $('#leds-number-emission').val();
@@ -256,9 +290,8 @@ function getEvent(eventNumber) {
 
 function saveEvent() {
     if (eventEffects == undefined) return;
-    var eventNumber = $('#leds-select-event').val();
     if (eventNumber == undefined) return;
-    getEvent(eventNumber);
+    getEvent();
     $.ajax({
         url: '/electronsun/eventeffect/saveeventeffect',
         dataType: "json",
@@ -286,26 +319,37 @@ function saveEvent() {
             errorConsole(xhr, status, errorThrown);
         }
     });
-    saveLeds(eventNumber);
+    saveLeds();
 }
 
-function removeEventEffect(eventNumber) {
+function removeEventEffect() {
     if (eventNumber != undefined) {
         delete eventLeds[eventNumber];
         delete eventEffects[eventNumber - 1];
+        var arr = eventLeds;
+        arr.forEach(function (item, i, arr) {
+            if (i > eventNumber) {
+                eventLeds[i-1] = item;
+            }
+        });
+        delete eventLeds[eventLeds.length - 1];
+        arr = eventEffects;
+        arr.forEach(function (item, i, arr) {
+            if (i > (eventNumber - 1)) {
+                eventEffects[i-1] = item;
+            }
+        });
+        delete eventLeds[eventLeds.length - 1];
     }
 }
 
 // отобразить светодиоды события
-function changeColor(eventNumber) {
+function changeColor() {
     ledColorFalseAll();
     if (eventEffects[eventNumber - 1] != undefined){
         $('#selected-leds').html(eventEffects[eventNumber - 1].countLed);
     }else{
         $('#selected-leds').html(0);
-    }
-    if (eventNumber == undefined){
-        eventNumber = $('#leds-select-event').val();
     }
     if (eventLeds[eventNumber] == undefined) return;
     var eventEffectId = eventEffects[eventNumber - 1].id;
@@ -316,18 +360,52 @@ function changeColor(eventNumber) {
     });
 }
 
-function saveLeds(eventNumber) {
+function loadLeds() {
+    if (eventLeds.length == 0 || eventLeds[eventNumber] == undefined || eventLeds[eventNumber].leds == undefined) {
+        $.ajax({
+            url: '/electronsun/leds/loadleds',
+            dataType: "json",
+            type: "POST",
+            data: {
+                eventEffectId: eventEffects[eventNumber - 1].id
+            },
+            success: function (json) {
+                var arr = json;
+                var jsonLeds = [];
+                arr.forEach(function (item, i, arr) {
+                    jsonLeds[item.number] = item;
+                });
+                eventLeds[eventNumber] = {
+                    leds : []
+                };
+                eventLeds[eventNumber].leds = jsonLeds;
+                changeColor();
+            }
+        });
+    }else{
+        changeColor();
+    }
+}
 
+function saveLeds() {
+    var json_text = JSON.stringify(eventLeds[eventNumber].leds, null, eventLeds[eventNumber].leds.length);
     $.ajax({
         url: '/electronsun/leds/saveleds',
         dataType: "json",
         type: "POST",
-        data: eventLeds[eventNumber].leds.serialize(),
+        data: {
+            json_text : json_text
+        },
         success: function (json) {
-            sussesMessageBottom('Событие сохранено')
+            var jsonLeds = [];
+            json.forEach(function (item, i, json) {
+                jsonLeds[item.number] = item;
+            });
+            eventLeds[eventNumber].leds = jsonLeds;
+            sussesMessageBottom('Светодиоды сохранены')
         },
         error: function (xhr, status, errorThrown) {
-            errorMessageBottom('Возникла ошибка при сохранении события');
+            errorMessageBottom('Возникла ошибка при сохранении светодиодов');
             errorConsole(xhr, status, errorThrown);
         }
     });

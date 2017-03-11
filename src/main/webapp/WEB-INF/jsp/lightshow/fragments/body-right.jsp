@@ -21,7 +21,7 @@
             <tr>
                 <td><label class="leds-label">Цвет: </label></td>
                 <td></td>
-                <td><input class="leds-input" type="color" id="leds-color1" value="#fffbfd" onchange="changeColor()"></td>
+                <td><input class="leds-input, led-color" type="color" id="leds-color1" value="#fffbfd" onchange="changeColor()"></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Появление: </label></td>
@@ -41,7 +41,7 @@
             <tr>
                 <td><label class="leds-label">Переход в цвет: </label></td>
                 <td><input type="checkbox" onchange="checkboxColor()" id="leds-transition"/></td>
-                <td><input class="leds-input" type="color" id="leds-color2" value="#fffbfd"></td>
+                <td><input class="leds-input, led-color" type="color" id="leds-color2" value="#fffbfd"></td>
             </tr>
             <tr>
                 <td><label class="leds-label">Длительность перехода: </label></td>
@@ -68,7 +68,11 @@
         </table>
         <div class="effect-name-label">
             <label class="leds-label">Эффект: </label>
-            <label class="value" id="nameEffectLabel"></label>
+            <label class="dragAndDrop" id="nameEffectLabel"></label>
+            <input class="nameEffect-color" type="color" id="nameEffect-color-text" value="#ffffff"
+                    onchange="defaultColorNameEffectLabel()" title="Изменить цвет текста эффекта">
+            <input class="nameEffect-color" type="color" id="nameEffect-color-background" value="#ffffff"
+                   onchange="defaultColorNameEffectLabel()" title="Изменить цвет фона эффекта">
         </div>
         <div class="play-show">
             <label class="play-show-title">Воспроизвести</label> <br/>
@@ -122,7 +126,7 @@
 
         <input type="button" onclick="openCreateEffectsModal()" value="Создать эффект" />
         <div id="createEffectsModal" style="display:none;">
-            <label >Название эффекта</label> <input type="text" id="createEffectsModalName" /><br/>
+            <label >Название эффекта</label> <input maxlength="40" type="text" id="createEffectsModalName" /><br/>
             <input type="button" onclick="createEffect()" value="Создать" />
         </div>
     </div>
