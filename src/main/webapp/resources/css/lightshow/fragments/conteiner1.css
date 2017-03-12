@@ -87,15 +87,15 @@
     color: #54265f;
 }
 
-.show-container1 .effects input[type="button"], #saveshow{
+.effects input[type="button"], #saveshow{
     margin-top: 2px;
+    width: 95%;
     height: 35px;
     background-color: #c0abd6;
     color: rgb(101, 5, 140);
     font-size: 18px;
     margin-bottom: 3px;
 }
-
 .show-container1 .play-show{
     border: 1px solid #0a13e2;
     margin-top: 2px;

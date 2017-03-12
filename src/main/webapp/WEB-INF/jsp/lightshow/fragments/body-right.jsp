@@ -5,6 +5,7 @@
 <head>
     <link rel="stylesheet" href=<c:url value="/resources/css/lightshow/fragments/conteiner1.css"/>>
     <script src="/electronsun/resources/js/lightshow/body-right.js" type="text/javascript" charset="utf-8" ></script>
+
 </head>
 <div class="show-container1">
     <div class="show-name">
@@ -68,7 +69,8 @@
         </table>
         <div class="effect-name-label">
             <label class="leds-label">Эффект: </label>
-            <label class="dragAndDrop" id="nameEffectLabel"></label>
+            <label class="ui-widget ui-corner-all ui-state-error" id="nameEffectLabel"
+                    title="Перетащите вниз на дорожку, чтобы использовать эффект в шоу"></label>
             <input class="nameEffect-color" type="color" id="nameEffect-color-text" value="#ffffff"
                     onchange="defaultColorNameEffectLabel()" title="Изменить цвет текста эффекта">
             <input class="nameEffect-color" type="color" id="nameEffect-color-background" value="#ffffff"
@@ -125,6 +127,7 @@
         <select size="3"  id="select-remix-effects"> </select>
 
         <input type="button" onclick="openCreateEffectsModal()" value="Создать эффект" />
+
         <div id="createEffectsModal" style="display:none;">
             <label >Название эффекта</label> <input maxlength="40" type="text" id="createEffectsModalName" /><br/>
             <input type="button" onclick="createEffect()" value="Создать" />

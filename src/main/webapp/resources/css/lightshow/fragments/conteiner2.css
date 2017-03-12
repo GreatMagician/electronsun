@@ -33,5 +33,17 @@
     width: 99.8%;
     height: 35%;
     border: 1px solid #0a13e2;
-
+}
+#show-track-1{
+    width: 99.8%;
+    height: 20px;
+    display: block;
+    border: 1px solid #fffc16;
+}
+.show-track-number{
+    width: 20px;
+    height: 19px;
+    display: block;
+    border: 1px solid #fffc16;
+    padding-left: 2px;
 }

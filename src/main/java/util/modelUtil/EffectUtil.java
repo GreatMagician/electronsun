@@ -8,6 +8,7 @@ import to.EffectTo;
  */
 public class EffectUtil {
     public static EffectTo createEffectTo(Effect effect){
-        return new EffectTo(effect.getId(), effect.getName(), effect.getCountEventEffect(), effect.getTimeStart());
+        return new EffectTo(effect.getId(), effect.getName(), effect.getCountEventEffect(), effect.getTimeStart(),
+                effect.getColorText(), effect.getColorBackground(), effect.getTrack());
     }
 }

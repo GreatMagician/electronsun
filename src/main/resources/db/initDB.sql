@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS lightshows CASCADE;
 DROP TABLE IF EXISTS lightshow_remixes CASCADE;
 DROP TABLE IF EXISTS lightshow_devices CASCADE;
 DROP TABLE IF EXISTS effects CASCADE;
+DROP TABLE IF EXISTS effects_timestart CASCADE;
 DROP TABLE IF EXISTS devices CASCADE;
 DROP TABLE IF EXISTS leds CASCADE;
 DROP TABLE IF EXISTS eventeffect CASCADE;
@@ -111,13 +112,20 @@ CREATE TABLE effects(
   id                  int8 PRIMARY KEY DEFAULT nextval('global_seq'),
   name                VARCHAR NOT NULL,
   counteventeffect    INT DEFAULT 0,
-  timestart           INT DEFAULT 0,
+  colortext           VARCHAR,
+  colorbackground     VARCHAR,
+  track               INT DEFAULT 0,
   lightshow_id        int8 NOT NULL,
   user_id             int8 NOT NULL,
   FOREIGN KEY (lightshow_id) REFERENCES lightshows (id) ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
+CREATE TABLE effects_timestart (
+  effect_id      int8 NOT NULL,
+  timestart      INT DEFAULT 0,
+  FOREIGN KEY (effect_id) REFERENCES effects (id) ON DELETE CASCADE
+);
 
 CREATE TABLE eventeffect(
   id                  int8 PRIMARY KEY DEFAULT nextval('global_seq'),

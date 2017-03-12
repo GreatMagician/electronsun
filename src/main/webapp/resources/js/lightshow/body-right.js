@@ -1,6 +1,7 @@
 var effect;
 var eventEffects = [];
 var eventNumber;
+
 // добавить эффекты этого шоу в список
 function addListEffectMy() {
     if (lightShow == undefined) return;
@@ -63,6 +64,7 @@ function createEffect() {
         success: function (json) {
             $('#select-my-effects').append('<option ondblclick="selectMyEffectDblClick(' + json.id + ')" id="select-my-effects-' + json.id + '">' + json.name + '</option>');
             effect = json;
+            countTrack = 1;
             selectMyEffect();
         },
         error: function (xhr, status, errorThrown) {
@@ -111,6 +113,7 @@ function selectMyEffectDblClick(id) {
         },
         success: function (json) {
             effect = json;
+
             selectMyEffect();
         },
         error: function (xhr, status, errorThrown) {
@@ -128,6 +131,13 @@ function selectMyEffect() {
     if (myEffectName.length > 20){
         myEffectName = myEffectName.substring(0,22) + '..';
     }
+    if (effect.colorText != null){
+        $('#nameEffect-color-text').val(effect.colorText);
+    }
+    if (effect.colorBackground != null){
+        $('#nameEffect-color-background').val(effect.colorBackground);
+    }
+
     defaultColorNameEffectLabel();
     $('#nameEffectLabel').html(myEffectName);
     var i;

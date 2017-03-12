@@ -9,6 +9,7 @@ DELETE FROM lightshow_devices;
 DELETE FROM devices;
 DELETE FROM leds;
 DELETE FROM effects;
+DELETE FROM effects_timestart;
 DELETE FROM eventeffect;
 DELETE FROM audios;
 

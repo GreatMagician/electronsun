@@ -52,12 +52,51 @@ public class Effect extends NamedEntity {
         this.user = user;
     }
 
+    public Effect(Long id, String name, int countEventEffect, List<Integer> timeStart, String colorText, String colorBackground, int track, LightShow lightShow, User user) {
+        super(id, name);
+        this.countEventEffect = countEventEffect;
+        this.timeStart = timeStart;
+        this.colorText = colorText;
+        this.colorBackground = colorBackground;
+        this.track = track;
+        this.lightShow = lightShow;
+        this.user = user;
+    }
+
     public List<Integer> getTimeStart() {
         return timeStart;
     }
 
     public void setTimeStart(List<Integer> timeStart) {
         this.timeStart = timeStart;
+    }
+
+    public void setCountEventEffect(int countEventEffect) {
+        this.countEventEffect = countEventEffect;
+    }
+
+    public String getColorText() {
+        return colorText;
+    }
+
+    public void setColorText(String colorText) {
+        this.colorText = colorText;
+    }
+
+    public String getColorBackground() {
+        return colorBackground;
+    }
+
+    public void setColorBackground(String colorBackground) {
+        this.colorBackground = colorBackground;
+    }
+
+    public int getTrack() {
+        return track;
+    }
+
+    public void setTrack(int track) {
+        this.track = track;
     }
 
     public int getCountEventEffect() {

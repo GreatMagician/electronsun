@@ -32,7 +32,11 @@ function createCircle32() {
 }
 
 function circleClick(numberCircle) {
-    if (eventNumber == undefined || eventEffects[eventNumber - 1] == undefined) return;
+    if (eventNumber == undefined || eventEffects[eventNumber - 1] == undefined) {
+        warningMessageBotton('Сначала добавтье событие');
+        return;
+    }
+
     var eventEffectId = eventEffects[eventNumber - 1].id;
     if (eventLeds[eventNumber] == undefined){
         eventLeds[eventNumber] = {
