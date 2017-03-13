@@ -6,6 +6,7 @@ import model.User;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import to.EffectTo;
 import util.exception.NotFoundException;
 
 import java.util.List;
@@ -38,4 +39,7 @@ public interface EffectService {
 
     @Transactional
     Effect createEffect(String nameEffect, Long LightShowId);
+
+    @Transactional
+    Effect save(Effect effect, Long lightShowId);
 }

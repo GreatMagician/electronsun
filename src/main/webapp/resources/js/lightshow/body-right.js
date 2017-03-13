@@ -40,38 +40,51 @@ function addListEffectRemix() {
     if (lightShow == undefined) return;
 }
 
-// модальное окно создать эффект
-function openCreateEffectsModal() {
-   if (lightShow == undefined){
-       warningMessageBotton('сначала откройте световое шоу');
-   }else{
-       $('#createEffectsModal').css({'max-width': '250px'});
-       $('#createEffectsModal').modal();
-   }
-}
-
 // создать эффект
 function createEffect() {
-    $.modal.close();
-    var nameEffect = $('#createEffectsModalName').val();
-    $.ajax({
-        url: '/electronsun/effect/createeffect',
-        dataType: "json",
-        type: "POST",
-        data:{
-            nameEffect: nameEffect
-        },
-        success: function (json) {
-            $('#select-my-effects').append('<option ondblclick="selectMyEffectDblClick(' + json.id + ')" id="select-my-effects-' + json.id + '">' + json.name + '</option>');
-            effect = json;
-            countTrack = 1;
-            selectMyEffect();
-        },
-        error: function (xhr, status, errorThrown) {
-            errorMessageBottom('Возникла ошибка при создании эффекта');
-            errorConsole(xhr, status, errorThrown);
-        }
-    });
+    if (lightShow == undefined) {
+        warningMessageBotton('Сначала откройте световое шоу');
+        return;
+    }
+    // создаём диалог
+    $('<div id="dialog-createEffect" title="Создать эффект"/>')
+        .css({
+            'background-color': '#c0abd6'
+        })
+        .appendTo('body') // Присоединяем  к body документа:
+        .append('</br>')
+        .append('<input maxlength="40" type="text" id="dialog-Effect-input" />')
+        .append('</br>') .append('</br>')
+        .append('<input type="button" style="margin-right: 10px" value="Создать" onclick="createEffectTrue()" />')
+        .append('<input type="button" value="Отмена" onclick="createEffectFalse()" />')
+        .dialog();
+}
+function createEffectTrue() {
+    var nameEffect = $('#dialog-Effect-input').val();
+    if (nameEffect.length > 0) {
+        $.ajax({
+            url: '/electronsun/effect/createeffect',
+            dataType: "json",
+            type: "POST",
+            data: {
+                nameEffect: nameEffect
+            },
+            success: function (json) {
+                $('#select-my-effects').append('<option ondblclick="selectMyEffectDblClick(' + json.id + ')" id="select-my-effects-' + json.id + '">' + json.name + '</option>');
+                effect = json;
+                countTrack = 1;
+                selectMyEffect();
+            },
+            error: function (xhr, status, errorThrown) {
+                errorMessageBottom('Возникла ошибка при создании эффекта');
+                errorConsole(xhr, status, errorThrown);
+            }
+        });
+    }
+    createEffectFalse();
+}
+function createEffectFalse() {
+    $('#dialog-createEffect').remove();
 }
 
 // добавить событие
@@ -420,4 +433,101 @@ function saveLeds() {
         }
     });
 
+}
+
+function deleteEffect() {
+    if (effect == undefined) return;
+    noty({
+        text: 'Удалить эффект ' + effect.name,
+        modal: true,
+        type: 'alert',
+        layout: 'center',
+        buttons: [
+            {addClass: 'btn btn-primary', text: 'Да', onClick: function($noty) {
+                $noty.close();
+                $.ajax({
+                    url: '/electronsun/effect/deleteeffect',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {
+                        id: effect.id
+                    }
+                }).done(function (json) {
+                    if (json == true){
+                        eventEffects = undefined;
+                        eventNumber = undefined;
+                        eventLeds = undefined;
+                        $('#select-my-effects-' + effect.id).remove();
+                        $('#select-all-effects-' + effect.id).remove();
+                        effect = undefined;
+                        $('#nameEffectLabel').html("");
+                        clearEventEffectOption();
+                        ledColorFalseAll();
+                        sussesMessageBottom('Эффект удален');
+                    }
+                }).fail(function (xhr, status, errorThrown) {
+                    errorMessageBottom('Ошибка при удалении');
+                    errorConsole(xhr, status, errorThrown);
+                });
+            }
+            },
+            {addClass: 'btn btn-danger', text: 'Отмена', onClick: function($noty) {
+                $noty.close();
+            }
+            }
+        ]
+    });
+}
+function renameEffect() {
+    if (effect == undefined) return;
+    // создаём диалог
+    $('<div id="dialog-renameEffect" title="Переименовать эффект"/>')
+        .css({
+            'background-color': '#c0abd6'
+        })
+        .appendTo('body') // Присоединяем  к body документа:
+        .append('</br>')
+        .append('<input maxlength="40" type="text" id="dialog-renameEffect-input" />')
+        .append('</br>') .append('</br>')
+        .append('<input type="button" style="margin-right: 10px" value="Переименовать" onclick="renameEffectTrue()" />')
+        .append('<input type="button" value="Отмена" onclick="renameEffectFalse()" />')
+        .dialog();
+}
+function renameEffectTrue() {
+    var name = $('#dialog-renameEffect-input').val();
+    if (name.length > 0) {
+        effect.name = name;
+        saveEffect();
+        $('#nameEffectLabel').html(name);
+        $('#select-my-effects-' + effect.id).html(name);
+        $('#select-all-effects-' + effect.id).html(name);
+    }
+    renameEffectFalse();
+}
+function renameEffectFalse() {
+    $('#dialog-renameEffect').remove();
+}
+
+function saveEffect() {
+    if (lightShow != undefined && effect != undefined){
+        var json_text = JSON.stringify(effect, null, effect.length);
+        $.ajax({
+            url: '/electronsun/effect/saveeffect',
+            dataType: "json",
+            type: "POST",
+            data: {
+                json_text : json_text,
+                lightShowId: lightShow.id
+            },
+            success: function (json) {
+                effect = json;
+                sussesMessageBottom('Эффект сохранён')
+            },
+            error: function (xhr, status, errorThrown) {
+                errorMessageBottom('Возникла ошибка при сохранении эффекта');
+                errorConsole(xhr, status, errorThrown);
+            }
+        });
+
+    }
 }

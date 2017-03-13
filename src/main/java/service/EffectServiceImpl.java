@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import repository.EffectRepository;
+import to.EffectTo;
 import util.AuthorizedUser;
 import util.exception.ExceptionUtil;
 import util.exception.NotFoundException;
@@ -75,5 +76,16 @@ public class EffectServiceImpl implements EffectService {
         Effect newEffect = new Effect(null, nameEffect,  lightShow, user);
         lightShowService.save(lightShow);
         return save(newEffect);
+    }
+
+    @Override
+    public Effect save(Effect effect, Long lightShowId) {
+        LightShow lightShow = lightShowService.get(lightShowId);
+        ExceptionUtil.checkAccessUser(lightShow.getUser());
+        if (effect.getLightShow() == null)
+            effect.setLightShow(lightShow);
+        if (effect.getUser() == null)
+            effect.setUser(AuthorizedUser.get().getUser());
+        return save(effect);
     }
 }

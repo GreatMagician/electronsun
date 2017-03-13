@@ -68,7 +68,7 @@
             </tr>
         </table>
         <div class="effect-name-label">
-            <label class="leds-label">Эффект: </label>
+            <label class="leds-label" >Эффект: </label>
             <label class="ui-widget ui-corner-all ui-state-error" id="nameEffectLabel"
                     title="Перетащите вниз на дорожку, чтобы использовать эффект в шоу"></label>
             <input class="nameEffect-color" type="color" id="nameEffect-color-text" value="#ffffff"
@@ -126,11 +126,7 @@
         <label class="effects-label">Эффекты ремикса</label>
         <select size="3"  id="select-remix-effects"> </select>
 
-        <input type="button" onclick="openCreateEffectsModal()" value="Создать эффект" />
+        <input type="button" onclick="createEffect()" value="Создать эффект" />
 
-        <div id="createEffectsModal" style="display:none;">
-            <label >Название эффекта</label> <input maxlength="40" type="text" id="createEffectsModalName" /><br/>
-            <input type="button" onclick="createEffect()" value="Создать" />
-        </div>
     </div>
 </div>

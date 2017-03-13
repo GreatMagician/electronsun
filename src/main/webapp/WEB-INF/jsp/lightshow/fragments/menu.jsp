@@ -14,6 +14,8 @@
     <link rel="stylesheet" href=<c:url value="/resources/css/lightshow/fragments/menu.css"/>>
     <script src="/electronsun/resources/js/lightshow/menu.js" type="text/javascript" charset="utf-8" ></script>
     <script src="/electronsun/resources/js/product.js" type="text/javascript" charset="utf-8" ></script>
+    <link rel="stylesheet" href=<c:url value="/resources/css/lightshow/contextMenu.css"/>>
+    <script src="/electronsun/resources/js/lightshow/contextMenu.js" type="text/javascript" charset="utf-8" ></script>
 
 </head>
 

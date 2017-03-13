@@ -33,7 +33,7 @@ function createCircle32() {
 
 function circleClick(numberCircle) {
     if (eventNumber == undefined || eventEffects[eventNumber - 1] == undefined) {
-        warningMessageBotton('Сначала добавтье событие');
+        warningMessageBotton('Сначала добавьте событие');
         return;
     }
 

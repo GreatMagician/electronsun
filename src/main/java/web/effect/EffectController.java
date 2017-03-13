@@ -1,16 +1,15 @@
 package web.effect;
 
 import model.Effect;
-import model.LightShow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import service.EffectService;
 import to.EffectTo;
 import to.LightShowTo;
+import util.JsonUtil;
 import util.modelUtil.EffectUtil;
 
 import java.util.List;
@@ -53,6 +52,24 @@ public class EffectController {
     public @ResponseBody
     EffectTo getEffect (@RequestParam Long id, ModelMap model){
         EffectTo effectTo = EffectUtil.createEffectTo(effectService.get(id));
+        model.addAttribute("effectto", effectTo);
+        return effectTo;
+    }
+
+    @RequestMapping(value = "/deleteeffect", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody
+    boolean deleteEffect (@RequestParam Long id, ModelMap model){
+        effectService.delete(id);
+        model.addAttribute("effectto", "");
+        return true;
+    }
+
+    @RequestMapping(value = "/saveeffect", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody
+    EffectTo saveEffect (@RequestParam String json_text, @RequestParam Long lightShowId, ModelMap model){
+        Effect effect = JsonUtil.parseEffect(json_text);
+        Effect saveEffect = effectService.save(effect, lightShowId);
+        EffectTo effectTo = EffectUtil.createEffectTo(saveEffect);
         model.addAttribute("effectto", effectTo);
         return effectTo;
     }
