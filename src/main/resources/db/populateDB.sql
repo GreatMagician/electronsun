@@ -57,9 +57,8 @@ INSERT INTO lightshows (name, user_id, lightshow_remix_id, time) VALUES
   ('test',10, 23, 1000),
   ('testDelete',10, NULL, 1002); -- id 23
 
--- INSERT INTO effects (name, commonTime, lightShow_id) VALUES
---   ('test', 200, 22),
---   ('testDelete', 210, 23); -- id 25
+INSERT INTO effects (name,lightShow_id, user_id) VALUES
+  ('тестовый эффективный эффект', 22, 10);
 
 -- INSERT INTO leds (r, g, b, number, effect_id) VALUES
 --   (200, 0, 22, 1,24),

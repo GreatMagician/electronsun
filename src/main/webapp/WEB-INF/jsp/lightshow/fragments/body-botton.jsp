@@ -19,9 +19,6 @@
         </div>
     </div>
     <div class="show-content">
-        <div id="show-track-1">
-            <label class="show-track-number" title="Номер дорожки">1</label>
-        </div>
     </div>
     <div class="show-audio">
 

@@ -1,6 +1,7 @@
 var effect;
 var eventEffects = [];
 var eventNumber;
+var effectList = [];
 
 // добавить эффекты этого шоу в список
 function addListEffectMy() {
@@ -13,7 +14,9 @@ function addListEffectMy() {
             var i;
             for (i=0; i<json.length; i++){
                 $('#select-my-effects').append('<option ondblclick="selectMyEffectDblClick(' + json[i].id + ')" id="select-my-effects-' + json[i].id + '">' + json[i].name + '</option>');
+                effectList[json[i].id] = json[i];
             }
+            loadTrack(json);
         }
     });
 
@@ -53,7 +56,7 @@ function createEffect() {
         })
         .appendTo('body') // Присоединяем  к body документа:
         .append('</br>')
-        .append('<input maxlength="40" type="text" id="dialog-Effect-input" />')
+        .append('<input  maxlength="40" type="text" id="dialog-Effect-input" />')
         .append('</br>') .append('</br>')
         .append('<input type="button" style="margin-right: 10px" value="Создать" onclick="createEffectTrue()" />')
         .append('<input type="button" value="Отмена" onclick="createEffectFalse()" />')
@@ -72,8 +75,9 @@ function createEffectTrue() {
             success: function (json) {
                 $('#select-my-effects').append('<option ondblclick="selectMyEffectDblClick(' + json.id + ')" id="select-my-effects-' + json.id + '">' + json.name + '</option>');
                 effect = json;
-                countTrack = 1;
+                effectList[json.id] = json;
                 selectMyEffect();
+                checkTrackEffect();
             },
             error: function (xhr, status, errorThrown) {
                 errorMessageBottom('Возникла ошибка при создании эффекта');
@@ -117,6 +121,16 @@ function addEvent() {
 
 // выбор эффекта этого шоу при двойном клике
 function selectMyEffectDblClick(id) {
+    if (effect != undefined) {
+        effect.timeStart = effectList[effect.id].timeStart;
+        effectList[effect.id] = effect;
+    }
+    effect = effectList[id];
+    if (effect != undefined) {
+        selectMyEffect();
+        checkTrackEffect();
+        return;
+    }
     $.ajax({
         url: '/electronsun/effect/geteffect',
         dataType: "json",
@@ -126,8 +140,9 @@ function selectMyEffectDblClick(id) {
         },
         success: function (json) {
             effect = json;
-
+            effectList[json.id] = json;
             selectMyEffect();
+            checkTrackEffect();
         },
         error: function (xhr, status, errorThrown) {
             errorMessageBottom('Возникла ошибка при загрузке данных');
@@ -185,8 +200,10 @@ function defaultColorNameEffectLabel() {
             defaultColorNumber = undefined;
         }
     }
-    $('#nameEffectLabel').css('color', color1);
-    $('#nameEffectLabel').css('background-color', color2);
+    effect.colorText = color1;
+    effect.colorBackground = color2;
+    $('#nameEffectLabel').css('color', color1).css('background-color', color2);
+    changeColorTrack();
 }
 
 function loadEventEffectList() {
@@ -459,6 +476,8 @@ function deleteEffect() {
                         eventLeds = undefined;
                         $('#select-my-effects-' + effect.id).remove();
                         $('#select-all-effects-' + effect.id).remove();
+                        deleteTrack(effect.id);
+                        effectList[effect.id] = undefined;
                         effect = undefined;
                         $('#nameEffectLabel').html("");
                         clearEventEffectOption();
@@ -510,6 +529,8 @@ function renameEffectFalse() {
 
 function saveEffect() {
     if (lightShow != undefined && effect != undefined){
+        var timeStart = effectList[effect.id];
+        if (timeStart != undefined) effect.timeStart = timeStart;
         var json_text = JSON.stringify(effect, null, effect.length);
         $.ajax({
             url: '/electronsun/effect/saveeffect',

@@ -27,18 +27,14 @@
     height: 60%;
     border: 1px solid #0a13e2;
     background-color: rgb(175, 175, 173);
+    overflow-y: auto;
+    overflow-x:hidden;
 }
 .show-audio{
     float: left;
     width: 99.8%;
     height: 35%;
     border: 1px solid #0a13e2;
-}
-#show-track-1{
-    width: 99.8%;
-    height: 20px;
-    display: block;
-    border: 1px solid #fffc16;
 }
 .show-track-number{
     width: 20px;
